@@ -51,7 +51,8 @@ terraform destroy
 
 cd terraform/
 export TERRAGOAT_ENV=$TF_VAR_environment
-for i in {1..5}
+export TERRAGOAT_STACKS_NUM=5
+for i in {1..$TERRAGOAT_STACKS_NUM}
 do
     export $TF_VAR_environment = $TERRAGOAT_ENV$i    
     terraform init \
@@ -68,7 +69,7 @@ done
 
 cd terraform/
 export TF_VAR_environment = $TERRAGOAT_ENV
-for i in {1..5}
+for i in {1..$TERRAGOAT_STACKS_NUM}
 do
     export $TF_VAR_environment = $TERRAGOAT_ENV$i    
     terraform init \
