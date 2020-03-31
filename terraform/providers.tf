@@ -11,8 +11,8 @@ provider "aws" {
   secret_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 }
 
-//terraform {
-//  backend "s3" {
-//    encrypt = true
-//  }
-//}
+terraform {
+  backend "s3" {
+    encrypt = true
+  }
+}
