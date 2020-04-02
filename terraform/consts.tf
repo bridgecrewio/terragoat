@@ -15,10 +15,22 @@ locals {
   }
 }
 
-variable "region" {
-  default = "us-west-2"
-}
+
 
 variable "profile" {
   default = "default"
+}
+
+variable "region" {
+  default = "us-east-1"
+}
+
+variable availability_zone {
+  type    = "string"
+  default = "us-east-1a"
+}
+
+variable ami {
+  type    = "string"
+  default = "ami-09a5b0b7edf08843d"
 }
