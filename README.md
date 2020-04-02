@@ -1,10 +1,10 @@
-# Terragoat
+# Terragoat - Vulnerable Terraform infrastructure 
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=checkov)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
 Bridgecrew solution to create vulnerable infrastructure.
 
-To prevent vulnrable infrastucture from arriving to production 
+To prevent vulnrable infrastructure from arriving to production 
 see: https://github.com/bridgecrewio/checkov/
 
 ## Getting started
