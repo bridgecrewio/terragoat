@@ -3,7 +3,9 @@
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
 Bridgecrew solution to create vulnerable infrastructure.
-To prevent vulnrable infrastucture from arriving to production see: https://github.com/bridgecrewio/checkov/
+
+To prevent vulnrable infrastucture from arriving to production 
+see: https://github.com/bridgecrewio/checkov/
 
 ## Getting started
 ### Installation
