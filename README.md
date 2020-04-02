@@ -1,4 +1,7 @@
 # Terragoat
+[![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=checkov)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
+
 Bridgecrew solution to create vulnerable infrastructure
 
 ## Getting started
@@ -7,10 +10,10 @@ You can deploy multiple terragoat stacks in a single AWS account using the param
  
 #### Create S3 bucket backend to keep Terraform state
 ```bash
-export TERRAGOAT_STATE_BUCKET=PUT_BUCKET_NAME_HERE
-export TF_VAR_company_name="acme"
-export TF_VAR_environment="dev"
-export TF_VAR_region="us-west-2"
+export TERRAGOAT_STATE_BUCKET="mydevsecops-bucket"
+export TF_VAR_company_name=acme
+export TF_VAR_environment=mydevsecops
+export TF_VAR_region="us-east-1"
 
 aws s3api create-bucket --bucket $TERRAGOAT_STATE_BUCKET \
     --region $TF_VAR_region --create-bucket-configuration LocationConstraint=$TF_VAR_region
