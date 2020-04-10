@@ -107,6 +107,58 @@ resource "aws_security_group_rule" "egress" {
 
 
 ### EC2 instance 
+resource "aws_iam_instance_profile" "ec2profile" {
+  name = "${local.resource_prefix.value}-profile"
+  role = "${aws_iam_role.ec2role.name}"
+}
+
+resource "aws_iam_role" "ec2role" {
+  name = "${local.resource_prefix.value}-role"
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+
+  tags = {      
+    Name        = "${local.resource_prefix.value}-role"
+    Environment = local.resource_prefix.value
+  }
+}
+
+resource "aws_iam_role_policy" "ec2policy" {
+  name = "${local.resource_prefix.value}-policy"
+  role = aws_iam_role.ec2role.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:*",
+        "ec2:*",
+        "rds:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
 
 data "aws_ami" "amazon-linux-2" {
   most_recent = true
@@ -127,8 +179,7 @@ resource "aws_instance" "db_app" {
   # ec2 have plain text secrets in user data
   ami           = data.aws_ami.amazon-linux-2.id
   instance_type = "t2.nano"
-  ##  DELETE ME
-  key_name = "jozwiak"
+  iam_instance_profile = aws_iam_instance_profile.ec2profile.name
 
   vpc_security_group_ids = [
   "${aws_security_group.web-node.id}"]
