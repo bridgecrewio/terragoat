@@ -1,0 +1,14 @@
+name: test
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+    steps:
+      - name: Checkov Github Action
+        uses: bridgecrewio/checkov-action@v5
