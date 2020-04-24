@@ -36,6 +36,14 @@ resource "aws_iam_user_policy" "userpolicy" {
 EOF
 }
 
+data aws_iam_policy_document "bad_policy" {
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["*"]
+  }
+}
+
 output "username" {
   value = aws_iam_user.user.name
 }
