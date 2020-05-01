@@ -11,3 +11,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Checkov Github Action
         uses: bridgecrewio/checkov-action@v9
+        with:
+          directory: terraform/
