@@ -1,4 +1,4 @@
-name: checkov
+name: checkov infrastucture tests
 on: pull_request
 jobs:
   build:
@@ -7,12 +7,7 @@ jobs:
       matrix:
         python-version: [3.7]
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Test with Checkov
-        run: |
-          pip install checkov
-          checkov -d ./terraform
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Checkov Github Action
+        uses: bridgecrewio/checkov-action@v9
