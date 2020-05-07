@@ -5,7 +5,7 @@
 TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
 
 ## Important notes
-* **Where to get help** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
+* **Where to get help:** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
 
 Before you proceed please take a not of these warning:
 > :warning: TerraGoat creates intentionally vulnerable AWS resources into your account. **DO NOT deploy TerraGoat in a production environment or alongside any sensitive AWS resources.**
