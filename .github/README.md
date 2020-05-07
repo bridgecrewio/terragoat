@@ -1,15 +1,25 @@
-# Terragoat - Vulnerable Terraform infrastructure 
-[![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=checkov)
+# TerraGoat - Vulnerable Terraform Infrastructure 
+[![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridge.dev/2WBms5Q)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
-Bridgecrew solution to create vulnerable infrastructure.
+TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
 
-To prevent vulnrable infrastructure from arriving to production 
-see: https://github.com/bridgecrewio/checkov/
+## Important notes
+* **Where to get help** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
+
+Before you proceed please take a not of these warning:
+> :warning: TerraGoat creates intentionally vulnerable AWS resources into your account. **DO NOT deploy TerraGoat in a production environment or alongside any sensitive AWS resources.**
+
+## Requirements
+* Terraform 0.12 
+* aws cli
+
+To prevent vulnerable infrastructure from arriving to production 
+see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static analysis tool for infrastructure as code. 
 
 ## Getting started
 ### Installation
-You can deploy multiple terragoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
+You can deploy multiple TerraGoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
  
 #### Create S3 bucket backend to keep Terraform state
 ```bash
@@ -36,7 +46,7 @@ aws s3api put-bucket-encryption --bucket $TERRAGOAT_STATE_BUCKET --server-side-e
 }'
 ```
 
-#### Apply terragoat
+#### Apply TerraGoat
 ```bash
 cd terraform/
 terraform init \
@@ -47,12 +57,12 @@ terraform init \
 terraform apply
 ```
 
-#### Remove terragoat
+#### Remove TerraGoat
 ```bash
 terraform destroy
 ```
 
-#### Creating multiple terragoat stacks 
+#### Creating multiple TerraGoat stacks 
 ```bash
 
 cd terraform/
@@ -70,7 +80,7 @@ do
 done
 ```
 
-#### Deleting multiple terragoat stacks 
+#### Deleting multiple TerraGoat stacks 
 ```bash
 
 cd terraform/
@@ -86,3 +96,10 @@ do
     terraform destroy -auto-approve
 done
 ```
+
+
+## Bridgecrew's IaC heard of goats:
+* [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
+* [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
+
+# Existing vulnerabilities (Auto-Generated)
