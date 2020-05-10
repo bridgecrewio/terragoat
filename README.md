@@ -3,6 +3,21 @@
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
 TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
+TerraGoat is a learning and training project that demonstrates how common configuration errors can find their way into production cloud environments.
+
+
+## Table of Contents
+
+* [Introduction](#introduction)
+* [Getting Started](#getting-started)
+* [Contributing](#contributing)
+* [Support](#support)
+
+## Introduction
+
+TerraGoat was built to enable DevSecOps design and implement a sustainable misconfiguration prevention strategy. It can be used to test a policy-as-code framework like [Checkov](https://github.com/bridgecrewio/checkov/), inline-linters, pre-commit hooks or other code scanning methods.
+
+TerraGoat follows the tradition of existing *Goat projects that provide a baseline training ground to practice implementing secure development best practices for cloud infrastructure.
 
 ## Important notes
 * **Where to get help:** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
@@ -21,7 +36,7 @@ see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static
 ### Installation
 You can deploy multiple TerraGoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
  
-#### Create S3 bucket backend to keep Terraform state
+#### Create an S3 bucket backend to keep Terraform state
 ```bash
 export TERRAGOAT_STATE_BUCKET="mydevsecops-bucket"
 export TF_VAR_company_name=acme
@@ -101,6 +116,18 @@ done
 ## Bridgecrew's IaC heard of goats:
 * [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
 * [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
+
+## Contributing
+
+Contribution is welcomed!
+
+We would love to hear about more ideas on how to find vulnerable infrastructure-as-code design patterns.
+
+## Support
+
+[Bridgecrew](https://bridge.dev/2WBms5Q) builds and maintains TerraGoat to encourage the adoption of policy-as-code.
+
+If you need direct support you can contact us at [info@bridgecrew.io](mailto:info@bridgecrew.io).
 
 # Existing vulnerabilities (Auto-Generated)
 |    | check_id   | file          | resource                            | check_name                                                                                                                                                                                               |
