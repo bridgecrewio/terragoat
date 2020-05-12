@@ -1,17 +1,42 @@
-# Terragoat - Vulnerable Terraform infrastructure 
-[![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=checkov)
+# TerraGoat - Vulnerable Terraform Infrastructure 
+[![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridge.dev/2WBms5Q)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
-Bridgecrew solution to create vulnerable infrastructure.
+TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
+TerraGoat is a learning and training project that demonstrates how common configuration errors can find their way into production cloud environments.
 
-To prevent vulnrable infrastructure from arriving to production 
-see: https://github.com/bridgecrewio/checkov/
+
+## Table of Contents
+
+* [Introduction](#introduction)
+* [Getting Started](#getting-started)
+* [Contributing](#contributing)
+* [Support](#support)
+
+## Introduction
+
+TerraGoat was built to enable DevSecOps design and implement a sustainable misconfiguration prevention strategy. It can be used to test a policy-as-code framework like [Checkov](https://github.com/bridgecrewio/checkov/), inline-linters, pre-commit hooks or other code scanning methods.
+
+TerraGoat follows the tradition of existing *Goat projects that provide a baseline training ground to practice implementing secure development best practices for cloud infrastructure.
+
+## Important notes
+* **Where to get help:** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
+
+Before you proceed please take a not of these warning:
+> :warning: TerraGoat creates intentionally vulnerable AWS resources into your account. **DO NOT deploy TerraGoat in a production environment or alongside any sensitive AWS resources.**
+
+## Requirements
+* Terraform 0.12 
+* aws cli
+
+To prevent vulnerable infrastructure from arriving to production 
+see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static analysis tool for infrastructure as code. 
 
 ## Getting started
 ### Installation
-You can deploy multiple terragoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
+You can deploy multiple TerraGoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
  
-#### Create S3 bucket backend to keep Terraform state
+#### Create an S3 bucket backend to keep Terraform state
 ```bash
 export TERRAGOAT_STATE_BUCKET="mydevsecops-bucket"
 export TF_VAR_company_name=acme
@@ -36,7 +61,7 @@ aws s3api put-bucket-encryption --bucket $TERRAGOAT_STATE_BUCKET --server-side-e
 }'
 ```
 
-#### Apply terragoat
+#### Apply TerraGoat
 ```bash
 cd terraform/
 terraform init \
@@ -47,12 +72,12 @@ terraform init \
 terraform apply
 ```
 
-#### Remove terragoat
+#### Remove TerraGoat
 ```bash
 terraform destroy
 ```
 
-#### Creating multiple terragoat stacks 
+#### Creating multiple TerraGoat stacks 
 ```bash
 
 cd terraform/
@@ -70,7 +95,7 @@ do
 done
 ```
 
-#### Deleting multiple terragoat stacks 
+#### Deleting multiple TerraGoat stacks 
 ```bash
 
 cd terraform/
@@ -86,3 +111,65 @@ do
     terraform destroy -auto-approve
 done
 ```
+
+
+## Bridgecrew's IaC heard of goats:
+* [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
+* [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
+
+## Contributing
+
+Contribution is welcomed!
+
+We would love to hear about more ideas on how to find vulnerable infrastructure-as-code design patterns.
+
+## Support
+
+[Bridgecrew](https://bridge.dev/2WBms5Q) builds and maintains TerraGoat to encourage the adoption of policy-as-code.
+
+If you need direct support you can contact us at [info@bridgecrew.io](mailto:info@bridgecrew.io).
+
+# Existing vulnerabilities (Auto-Generated)
+|    | check_id   | file          | resource                            | check_name                                                                                                                                                                                               |
+|----|------------|---------------|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  0 | CKV_AWS_17 | /db-app.tf    | aws_db_instance.default             | Ensure all data stored in the RDS bucket is not public accessible                                                                                                                                        |
+|  1 | CKV_AWS_16 | /db-app.tf    | aws_db_instance.default             | Ensure all data stored in the RDS is securely encrypted at rest                                                                                                                                          |
+|  2 | CKV_AWS_23 | /db-app.tf    | aws_security_group.default          | Ensure every security groups rule has a description                                                                                                                                                      |
+|  3 | CKV_AWS_23 | /db-app.tf    | aws_security_group_rule.ingress     | Ensure every security groups rule has a description                                                                                                                                                      |
+|  4 | CKV_AWS_23 | /db-app.tf    | aws_security_group_rule.egress      | Ensure every security groups rule has a description                                                                                                                                                      |
+|  5 | CKV_AWS_8  | /db-app.tf    | aws_instance.db_app                 | Ensure all data stored in the Launch configuration EBS is securely encrypted                                                                                                                             |
+|  6 | CKV_AWS_40 | /iam.tf       | aws_iam_user_policy.userpolicy      | Ensure IAM policies are attached only to groups or roles (Reducing access management complexity may in-turn reduce opportunity for a principal to inadvertently receive or retain excessive privileges.) |
+|  7 | CKV_AWS_7  | /kms.tf       | aws_kms_key.logs_key                | Ensure rotation for customer created CMKs is enabled                                                                                                                                                     |
+|  8 | CKV_AWS_8  | /ec2.tf       | aws_instance.web_host               | Ensure all data stored in the Launch configuration EBS is securely encrypted                                                                                                                             |
+|  9 | CKV_AWS_46 | /ec2.tf       | aws_instance.web_host               | Ensure no hard coded AWS access key and and secret key exists in EC2 user data                                                                                                                           |
+| 10 | CKV_AWS_3  | /ec2.tf       | aws_ebs_volume.web_host_storage     | Ensure all data stored in the EBS is securely encrypted                                                                                                                                                  |
+| 11 | CKV_AWS_4  | /ec2.tf       | aws_ebs_snapshot.example_snapshot   | Ensure all data stored in the EBS Snapshot is securely encrypted                                                                                                                                         |
+| 12 | CKV_AWS_24 | /ec2.tf       | aws_security_group.web-node         | Ensure no security groups allow ingress from 0.0.0.0:0 to port 22                                                                                                                                        |
+| 13 | CKV_AWS_19 | /ec2.tf       | aws_s3_bucket.flowbucket            | Ensure all data stored in the S3 bucket is securely encrypted at rest                                                                                                                                    |
+| 14 | CKV_AWS_18 | /ec2.tf       | aws_s3_bucket.flowbucket            | Ensure the S3 bucket has access logging enabled                                                                                                                                                          |
+| 15 | CKV_AWS_21 | /ec2.tf       | aws_s3_bucket.flowbucket            | Ensure all data stored in the S3 bucket have versioning enabled                                                                                                                                          |
+| 16 | CKV_AWS_52 | /ec2.tf       | aws_s3_bucket.flowbucket            | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
+| 17 | CKV_AWS_41 | /providers.tf | aws                                 | Ensure no hard coded AWS access key and and secret key exists in provider                                                                                                                                |
+| 18 | CKV_AWS_50 | /lambda.tf    | aws_lambda_function.analysis_lambda | X-ray tracing is enabled for Lambda                                                                                                                                                                      |
+| 19 | CKV_AWS_45 | /lambda.tf    | aws_lambda_function.analysis_lambda | Ensure no hard coded AWS access key and and secret key exists in lambda environment                                                                                                                      |
+| 20 | CKV_AWS_19 | /s3.tf        | aws_s3_bucket.data                  | Ensure all data stored in the S3 bucket is securely encrypted at rest                                                                                                                                    |
+| 21 | CKV_AWS_18 | /s3.tf        | aws_s3_bucket.data                  | Ensure the S3 bucket has access logging enabled                                                                                                                                                          |
+| 22 | CKV_AWS_20 | /s3.tf        | aws_s3_bucket.data                  | S3 Bucket has an ACL defined which allows public READ access.                                                                                                                                            |
+| 23 | CKV_AWS_21 | /s3.tf        | aws_s3_bucket.data                  | Ensure all data stored in the S3 bucket have versioning enabled                                                                                                                                          |
+| 24 | CKV_AWS_52 | /s3.tf        | aws_s3_bucket.data                  | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
+| 25 | CKV_AWS_19 | /s3.tf        | aws_s3_bucket.financials            | Ensure all data stored in the S3 bucket is securely encrypted at rest                                                                                                                                    |
+| 26 | CKV_AWS_18 | /s3.tf        | aws_s3_bucket.financials            | Ensure the S3 bucket has access logging enabled                                                                                                                                                          |
+| 27 | CKV_AWS_21 | /s3.tf        | aws_s3_bucket.financials            | Ensure all data stored in the S3 bucket have versioning enabled                                                                                                                                          |
+| 28 | CKV_AWS_52 | /s3.tf        | aws_s3_bucket.financials            | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
+| 29 | CKV_AWS_19 | /s3.tf        | aws_s3_bucket.operations            | Ensure all data stored in the S3 bucket is securely encrypted at rest                                                                                                                                    |
+| 30 | CKV_AWS_18 | /s3.tf        | aws_s3_bucket.operations            | Ensure the S3 bucket has access logging enabled                                                                                                                                                          |
+| 31 | CKV_AWS_52 | /s3.tf        | aws_s3_bucket.operations            | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
+| 32 | CKV_AWS_19 | /s3.tf        | aws_s3_bucket.data_science          | Ensure all data stored in the S3 bucket is securely encrypted at rest                                                                                                                                    |
+| 33 | CKV_AWS_52 | /s3.tf        | aws_s3_bucket.data_science          | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
+| 34 | CKV_AWS_18 | /s3.tf        | aws_s3_bucket.logs                  | Ensure the S3 bucket has access logging enabled                                                                                                                                                          |
+| 35 | CKV_AWS_52 | /s3.tf        | aws_s3_bucket.logs                  | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
+
+
+---
+
+
