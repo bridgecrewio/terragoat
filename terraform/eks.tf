@@ -54,7 +54,7 @@ resource aws_subnet "eks_subnet2" {
 }
 
 resource aws_eks_cluster "eks_cluster" {
-  name     = "${local.resource_prefix.value}-${var.k8s_name}-eks"
+  name     = "${local.resource_prefix.value}-eks"
   role_arn = "${aws_iam_role.iam_for_eks.arn}"
 
   vpc_config {
