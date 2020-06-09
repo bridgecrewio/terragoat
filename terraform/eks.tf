@@ -1,3 +1,9 @@
+locals {
+  eks_name = {
+    value = "${local.resource_prefix.value}-eks"
+  }
+}
+
 data aws_iam_policy_document "iam_policy_eks" {
   statement {
     effect = "Allow"
@@ -40,6 +46,7 @@ resource aws_subnet "eks_subnet1" {
   map_public_ip_on_launch = true
   tags = {
     Name = "${local.resource_prefix.value}-eks-subnet"
+    "kubernetes.io/cluster/${local.eks_name.value}" = "shared"
   }
 }
 
@@ -50,14 +57,16 @@ resource aws_subnet "eks_subnet2" {
   map_public_ip_on_launch = true
   tags = {
     Name = "${local.resource_prefix.value}-eks-subnet2"
+    "kubernetes.io/cluster/${local.eks_name.value}" = "shared"
   }
 }
 
 resource aws_eks_cluster "eks_cluster" {
-  name     = "${local.resource_prefix.value}-eks"
+  name     = local.eks_name.value
   role_arn = "${aws_iam_role.iam_for_eks.arn}"
 
   vpc_config {
+    endpoint_private_access = true
     subnet_ids = ["${aws_subnet.eks_subnet1.id}", "${aws_subnet.eks_subnet2.id}"]
   }
 
@@ -115,7 +124,7 @@ resource aws_eks_node_group "eks_nodes" {
   node_role_arn   = aws_iam_role.iam_for_eks_nodes.arn
   subnet_ids      = ["${aws_subnet.eks_subnet1.id}", "${aws_subnet.eks_subnet2.id}"]
 
-  instance_types  = ["t3.nano"]
+  instance_types  = ["t2.medium"]
 
   scaling_config {
     desired_size = 1
