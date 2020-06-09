@@ -3,7 +3,7 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
   elasticsearch_version = "2.3"
 
   cluster_config {
-    instance_type            = "m4.large.elasticsearch"
+    instance_type            = "t2.small.elasticsearch"
     instance_count           = 1
     dedicated_master_enabled = false
     dedicated_master_type    = "m4.large.elasticsearch"
@@ -12,24 +12,22 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
 
   ebs_options {
     ebs_enabled = true
-    volume_size = 50
+    volume_size = 30
   }
+}
 
+data aws_iam_policy_document "policy" {
+  statement {
+    actions   = ["es:*"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    resources = ["*"]
+  }
 }
 
 resource "aws_elasticsearch_domain_policy" "monitoring-framework-policy" {
   domain_name = aws_elasticsearch_domain.monitoring-framework.domain_name
-  access_policies = <<POLICIES
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "es:*",
-            "Principal": "*",
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-    ]
-}
-POLICIES
+  access_policies = data.aws_iam_policy_document.policy.json
 }
