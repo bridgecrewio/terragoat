@@ -22,23 +22,23 @@ variable "profile" {
 }
 
 variable "region" {
-  default = "us-east-1"
+  default = "us-west-2"
 }
 
 variable "availability_zone" {
   type    = "string"
-  default = "us-east-1a"
+  default = "us-west-2a"
 }
 
 variable "availability_zone2" {
   type    = "string"
-  default = "us-east-1b"
+  default = "us-west-2b"
 }
 
 
 variable ami {
   type    = "string"
-  default = "ami-09a5b0b7edf08843d"
+  default = "ami-07a6716a7f1ee6d61"
 }
 
 variable "dbname" {
