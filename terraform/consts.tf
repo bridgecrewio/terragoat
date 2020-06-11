@@ -50,4 +50,5 @@ variable "dbname" {
 variable "password" {
   type        = "string"
   description = "Database password"
+  default     = "1234"
 }
