@@ -22,17 +22,17 @@ variable "profile" {
 }
 
 variable "region" {
-  default = "us-west-2"
+  default = "us-east-1"
 }
 
 variable "availability_zone" {
   type    = "string"
-  default = "us-west-2a"
+  default = "us-east-1a"
 }
 
 variable "availability_zone2" {
   type    = "string"
-  default = "us-west-2b"
+  default = "us-east-1b"
 }
 
 
