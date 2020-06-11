@@ -38,7 +38,7 @@ variable "availability_zone2" {
 
 variable ami {
   type    = "string"
-  default = "ami-07a6716a7f1ee6d61"
+  default = "ami-09a5b0b7edf08843d"
 }
 
 variable "dbname" {
