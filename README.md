@@ -44,7 +44,7 @@ You can deploy multiple TerraGoat stacks in a single AWS account using the param
 export TERRAGOAT_STATE_BUCKET="mydevsecops-bucket"
 export TF_VAR_company_name=acme
 export TF_VAR_environment=mydevsecops
-export TF_VAR_region="us-east-1"
+export TF_VAR_region="us-west-2"
 
 aws s3api create-bucket --bucket $TERRAGOAT_STATE_BUCKET \
     --region $TF_VAR_region --create-bucket-configuration LocationConstraint=$TF_VAR_region
