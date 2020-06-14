@@ -34,6 +34,9 @@ resource "aws_s3_bucket" "financials" {
     Environment = local.resource_prefix.value
   }
 
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket" "operations" {
