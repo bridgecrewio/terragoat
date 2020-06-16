@@ -49,10 +49,3 @@ resource "azurerm_policy_assignment" "example" {
 }
 PARAMETERS
 }
-
-resource "azuread_user" "example" {
-  user_principal_name = "jdo@hashicorp.com"
-  display_name        = "J. Doe"
-  mail_nickname       = "jdoe"
-  password            = "SecretP@sswd99!"
-}

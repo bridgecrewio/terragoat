@@ -1,7 +1,7 @@
 resource "azurerm_sql_firewall_rule" "example" {
   name                = "office"
   resource_group_name = azurerm_resource_group.example.name
-  server_name         = "first-sql"
+  server_name         = azurerm_sql_server.example.name
   start_ip_address    = "40.112.8.12"
   end_ip_address      = "40.112.8.12"
 }
