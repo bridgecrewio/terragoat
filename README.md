@@ -37,7 +37,7 @@ see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static
 
 ## Getting started
 ### Installation
-You can deploy multiple TerraGoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
+You can deploy multiple TerraGoat stacks in a single AWS account using the parameter `TF_VAR_environment`.
  
 #### Create an S3 bucket backend to keep Terraform state
 ```bash
@@ -66,7 +66,7 @@ aws s3api put-bucket-encryption --bucket $TERRAGOAT_STATE_BUCKET --server-side-e
 
 #### Apply TerraGoat
 ```bash
-cd terraform/
+cd terraform/aws/
 terraform init \
 -backend-config="bucket=$TERRAGOAT_STATE_BUCKET" \
 -backend-config="key=$TF_VAR_company_name-$TF_VAR_environment.tfstate" \
@@ -80,10 +80,10 @@ terraform apply
 terraform destroy
 ```
 
-#### Creating multiple TerraGoat stacks 
+#### Creating multiple TerraGoat AWS stacks 
 ```bash
 
-cd terraform/
+cd terraform/aws/
 export TERRAGOAT_ENV=$TF_VAR_environment
 export TERRAGOAT_STACKS_NUM=5
 for i in $(seq 1 $TERRAGOAT_STACKS_NUM)
@@ -101,7 +101,7 @@ done
 #### Deleting multiple TerraGoat stacks 
 ```bash
 
-cd terraform/
+cd terraform/aws/
 export TF_VAR_environment = $TERRAGOAT_ENV
 for i in $(seq 1 $TERRAGOAT_STACKS_NUM)
 do
@@ -116,7 +116,7 @@ done
 ```
 
 
-## Bridgecrew's IaC heard of goats:
+## Bridgecrew's IaC herd of goats:
 * [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
 * [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
 
