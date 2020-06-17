@@ -1,9 +1,9 @@
 resource "azurerm_sql_firewall_rule" "example" {
-  name                = "terragoat-internet-${var.environment}"
+  name                = "terragoat-firewall-rule-${var.environment}"
   resource_group_name = azurerm_resource_group.example.name
   server_name         = azurerm_sql_server.example.name
-  start_ip_address    = "0.0.0.0/0"
-  end_ip_address      = "0.0.0.0/0"
+  start_ip_address    = "10.0.17.62"
+  end_ip_address      = "10.0.17.62"
 }
 
 resource "azurerm_sql_server" "example" {
@@ -47,9 +47,8 @@ resource "azurerm_mysql_server" "example" {
   auto_grow_enabled                 = true
   backup_retention_days             = 7
   infrastructure_encryption_enabled = true
-  public_network_access_enabled     = false
+  public_network_access_enabled     = true
   ssl_enforcement_enabled           = false
-  ssl_minimal_tls_version_enforced  = "TLS1_1"
 }
 
 resource "azurerm_postgresql_server" "example" {

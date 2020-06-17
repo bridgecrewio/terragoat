@@ -12,8 +12,20 @@ resource "azurerm_subnet" "example" {
   address_prefixes     = ["10.0.0.0/24"]
 }
 
-resource "azurerm_network_interface" "example" {
-  name                = "terragoat-${var.environment}"
+resource "azurerm_network_interface" "ni_linux" {
+  name                = "terragoat-linux-${var.environment}"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.example.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_network_interface" "ni_win" {
+  name                = "terragoat-win-${var.environment}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -32,21 +44,25 @@ resource azurerm_network_security_group "bad_sg" {
   security_rule {
     access                 = "Allow"
     direction              = "Inbound"
-    name                   = "Allow SSH"
+    name                   = "AllowSSH"
     priority               = 200
     protocol               = "TCP"
     source_address_prefix  = "*"
+    source_port_range      = "*"
     destination_port_range = "22-22"
+    destination_address_prefix = "*"
   }
 
   security_rule {
     access                 = "Allow"
     direction              = "Inbound"
-    name                   = "Allow SSH"
+    name                   = "AllowRDP"
     priority               = 300
     protocol               = "TCP"
     source_address_prefix  = "*"
+    source_port_range      = "*"
     destination_port_range = "3389-3389"
+    destination_address_prefix = "*"
   }
 }
 

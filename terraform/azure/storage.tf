@@ -47,9 +47,3 @@ resource "azurerm_storage_account_network_rules" "test" {
   ip_rules       = ["127.0.0.1"]
   bypass         = ["Metrics"]
 }
-
-resource azurerm_storage_container "container" {
-  name                  = "terragoat-container-${var.environment}"
-  storage_account_name  = azurerm_storage_account.example.name
-  container_access_type = "blob"
-}
