@@ -10,6 +10,6 @@ variable "location" {
 }
 
 variable "environment" {
-  default = "dev"
+  default     = "dev"
   description = "Must be all lowercase letters or numbers"
 }

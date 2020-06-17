@@ -34,5 +34,10 @@ resource "azurerm_key_vault_key" "generated" {
     "verify",
     "wrapKey",
   ]
-  expiration_date = "2030-01-01T00:00:00Z"
+}
+
+resource azurerm_key_vault_secret "secret" {
+  key_vault_id = azurerm_key_vault.example.id
+  name = "terragoat-secret-${var.environment}"
+  value = random_string.password.result
 }

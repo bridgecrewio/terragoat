@@ -5,6 +5,9 @@ resource "azurerm_managed_disk" "example" {
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = 1
+  encryption_settings {
+    enabled = false
+  }
 }
 
 resource "azurerm_storage_account" "example" {
@@ -36,3 +39,17 @@ resource "azurerm_storage_account" "example" {
   }
 }
 
+resource "azurerm_storage_account_network_rules" "test" {
+  resource_group_name  = azurerm_resource_group.example.name
+  storage_account_name = azurerm_storage_account.example.name
+
+  default_action = "Deny"
+  ip_rules       = ["127.0.0.1"]
+  bypass         = ["Metrics"]
+}
+
+resource azurerm_storage_container "container" {
+  name                  = "terragoat-container-${var.environment}"
+  storage_account_name  = azurerm_storage_account.example.name
+  container_access_type = "blob"
+}
