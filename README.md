@@ -13,6 +13,8 @@ TerraGoat is a learning and training project that demonstrates how common config
 
 * [Introduction](#introduction)
 * [Getting Started](#getting-started)
+    * [AWS](#aws-setup)
+    * [Azure](#azure-setup)
 * [Contributing](#contributing)
 * [Support](#support)
 
@@ -36,7 +38,8 @@ To prevent vulnerable infrastructure from arriving to production
 see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static analysis tool for infrastructure as code. 
 
 ## Getting started
-### Installation
+### AWS Setup
+#### Installation
 You can deploy multiple TerraGoat stacks in a single AWS account using the parameter `TF_VAR_environment`.
  
 #### Create an S3 bucket backend to keep Terraform state
@@ -113,6 +116,36 @@ do
     
     terraform destroy -auto-approve
 done
+```
+
+### Azure Setup
+#### Installation
+You can deploy multiple TerraGoat stacks in a single Azure subscription using the parameter `TF_VAR_environment`.
+ 
+#### Create an ASA bucket backend to keep Terraform state
+Create a resource group and a storage account in your Azure portal.
+Then run (replace with your values):
+```shell script
+export TF_VAR_environment=acme
+terraform init -reconfigure -backend-config="resource_group_name=<YOUR_RESOURCE_GROUP>" \
+    -backend-config "storage_account_name=<YOUR_STORAGE_ACCOUNT>" \
+    -backend-config "key=$TF_VAR_environment.terraform.tfstate
+```
+
+#### Apply TerraGoat
+To run terragoat, first login to azure CLI using:
+```shell script
+az login
+```
+
+After being redirected to your login page and signing in, run:
+```shell script
+terraform apply
+```
+
+#### Remove TerraGoat
+```shell script
+terraform destroy
 ```
 
 
