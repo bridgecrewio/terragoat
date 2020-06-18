@@ -13,6 +13,8 @@ TerraGoat is a learning and training project that demonstrates how common config
 
 * [Introduction](#introduction)
 * [Getting Started](#getting-started)
+    * [AWS](#aws-setup)
+    * [Azure](#azure-setup)
 * [Contributing](#contributing)
 * [Support](#support)
 
@@ -36,8 +38,9 @@ To prevent vulnerable infrastructure from arriving to production
 see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static analysis tool for infrastructure as code. 
 
 ## Getting started
-### Installation
-You can deploy multiple TerraGoat stacks in a single AWS account using the parameters `TF_VAR_environment` and `TF_VAR_environment`.
+### AWS Setup
+#### Installation
+You can deploy multiple TerraGoat stacks in a single AWS account using the parameter `TF_VAR_environment`.
  
 #### Create an S3 bucket backend to keep Terraform state
 ```bash
@@ -66,7 +69,7 @@ aws s3api put-bucket-encryption --bucket $TERRAGOAT_STATE_BUCKET --server-side-e
 
 #### Apply TerraGoat
 ```bash
-cd terraform/
+cd terraform/aws/
 terraform init \
 -backend-config="bucket=$TERRAGOAT_STATE_BUCKET" \
 -backend-config="key=$TF_VAR_company_name-$TF_VAR_environment.tfstate" \
@@ -80,10 +83,10 @@ terraform apply
 terraform destroy
 ```
 
-#### Creating multiple TerraGoat stacks 
+#### Creating multiple TerraGoat AWS stacks 
 ```bash
 
-cd terraform/
+cd terraform/aws/
 export TERRAGOAT_ENV=$TF_VAR_environment
 export TERRAGOAT_STACKS_NUM=5
 for i in $(seq 1 $TERRAGOAT_STACKS_NUM)
@@ -101,7 +104,7 @@ done
 #### Deleting multiple TerraGoat stacks 
 ```bash
 
-cd terraform/
+cd terraform/aws/
 export TF_VAR_environment = $TERRAGOAT_ENV
 for i in $(seq 1 $TERRAGOAT_STACKS_NUM)
 do
@@ -115,8 +118,38 @@ do
 done
 ```
 
+### Azure Setup
+#### Installation
+You can deploy multiple TerraGoat stacks in a single Azure subscription using the parameter `TF_VAR_environment`.
+ 
+#### Create an ASA bucket backend to keep Terraform state
+Create a resource group and a storage account in your Azure portal.
+Then run (replace with your values):
+```shell script
+export TF_VAR_environment=acme
+terraform init -reconfigure -backend-config="resource_group_name=<YOUR_RESOURCE_GROUP>" \
+    -backend-config "storage_account_name=<YOUR_STORAGE_ACCOUNT>" \
+    -backend-config "key=$TF_VAR_environment.terraform.tfstate
+```
 
-## Bridgecrew's IaC heard of goats:
+#### Apply TerraGoat
+To run terragoat, first login to azure CLI using:
+```shell script
+az login
+```
+
+After being redirected to your login page and signing in, run:
+```shell script
+terraform apply
+```
+
+#### Remove TerraGoat
+```shell script
+terraform destroy
+```
+
+
+## Bridgecrew's IaC herd of goats:
 * [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
 * [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
 
