@@ -26,7 +26,7 @@ resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
   availability_zone = "${var.availability_zone}"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
-  size              = 1
+  size = 1
   tags = {
     Name = "${local.resource_prefix.value}-ebs"
   }
@@ -169,7 +169,7 @@ resource "aws_flow_log" "vpcflowlogs" {
 }
 
 resource "aws_s3_bucket" "flowbucket" {
-  bucket = "${local.resource_prefix.value}-flowlogs"
+  bucket        = "${local.resource_prefix.value}-flowlogs"
   force_destroy = true
 
   tags = {

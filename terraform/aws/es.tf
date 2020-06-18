@@ -18,7 +18,7 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
 
 data aws_iam_policy_document "policy" {
   statement {
-    actions   = ["es:*"]
+    actions = ["es:*"]
     principals {
       type        = "AWS"
       identifiers = ["*"]
@@ -28,6 +28,6 @@ data aws_iam_policy_document "policy" {
 }
 
 resource "aws_elasticsearch_domain_policy" "monitoring-framework-policy" {
-  domain_name = aws_elasticsearch_domain.monitoring-framework.domain_name
+  domain_name     = aws_elasticsearch_domain.monitoring-framework.domain_name
   access_policies = data.aws_iam_policy_document.policy.json
 }

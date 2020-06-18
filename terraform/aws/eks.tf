@@ -6,17 +6,17 @@ locals {
 
 data aws_iam_policy_document "iam_policy_eks" {
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
-        type        = "Service"
-        identifiers = ["eks.amazonaws.com"]
+      type        = "Service"
+      identifiers = ["eks.amazonaws.com"]
     }
   }
 }
 
 resource aws_iam_role "iam_for_eks" {
-  name = "${local.resource_prefix.value}-iam-for-eks"
+  name               = "${local.resource_prefix.value}-iam-for-eks"
   assume_role_policy = data.aws_iam_policy_document.iam_policy_eks.json
 }
 
@@ -45,7 +45,7 @@ resource aws_subnet "eks_subnet1" {
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
   tags = {
-    Name = "${local.resource_prefix.value}-eks-subnet"
+    Name                                            = "${local.resource_prefix.value}-eks-subnet"
     "kubernetes.io/cluster/${local.eks_name.value}" = "shared"
   }
 }
@@ -56,7 +56,7 @@ resource aws_subnet "eks_subnet2" {
   availability_zone       = var.availability_zone2
   map_public_ip_on_launch = true
   tags = {
-    Name = "${local.resource_prefix.value}-eks-subnet2"
+    Name                                            = "${local.resource_prefix.value}-eks-subnet2"
     "kubernetes.io/cluster/${local.eks_name.value}" = "shared"
   }
 }
@@ -67,7 +67,7 @@ resource aws_eks_cluster "eks_cluster" {
 
   vpc_config {
     endpoint_private_access = true
-    subnet_ids = ["${aws_subnet.eks_subnet1.id}", "${aws_subnet.eks_subnet2.id}"]
+    subnet_ids              = ["${aws_subnet.eks_subnet1.id}", "${aws_subnet.eks_subnet2.id}"]
   }
 
   depends_on = [

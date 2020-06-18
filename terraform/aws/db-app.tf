@@ -1,14 +1,14 @@
 resource "aws_db_instance" "default" {
-  name                    = var.dbname
-  engine                  = "mysql"
-  option_group_name       = aws_db_option_group.default.name
-  parameter_group_name    = aws_db_parameter_group.default.name
-  db_subnet_group_name    = aws_db_subnet_group.default.name
-  vpc_security_group_ids  = ["${aws_security_group.default.id}"]
+  name                   = var.dbname
+  engine                 = "mysql"
+  option_group_name      = aws_db_option_group.default.name
+  parameter_group_name   = aws_db_parameter_group.default.name
+  db_subnet_group_name   = aws_db_subnet_group.default.name
+  vpc_security_group_ids = ["${aws_security_group.default.id}"]
 
   identifier              = "rds-${local.resource_prefix.value}"
   engine_version          = "8.0" # Latest major version 
-  instance_class          = "db.t3.micro" 
+  instance_class          = "db.t3.micro"
   allocated_storage       = "20"
   username                = "admin"
   password                = var.password
@@ -21,8 +21,8 @@ resource "aws_db_instance" "default" {
   publicly_accessible     = true
 
   tags = {
-    Name           = "${local.resource_prefix.value}-rds"
-    Environment    = local.resource_prefix.value
+    Name        = "${local.resource_prefix.value}-rds"
+    Environment = local.resource_prefix.value
   }
 
   # Ignore password changes from tf plan diff
@@ -37,16 +37,16 @@ resource "aws_db_option_group" "default" {
   major_engine_version     = "8.0"
   option_group_description = "Terraform OG"
 
-  tags = { 
-    Name         = "${local.resource_prefix.value}-og"
-    Environment  = local.resource_prefix.value
+  tags = {
+    Name        = "${local.resource_prefix.value}-og"
+    Environment = local.resource_prefix.value
   }
 }
 
 resource "aws_db_parameter_group" "default" {
-  name           = "pg-${local.resource_prefix.value}"
-  family         = "mysql8.0"
-  description    = "Terraform PG"
+  name        = "pg-${local.resource_prefix.value}"
+  family      = "mysql8.0"
+  description = "Terraform PG"
 
   parameter {
     name         = "character_set_client"
@@ -59,17 +59,17 @@ resource "aws_db_parameter_group" "default" {
     value        = "utf8"
     apply_method = "immediate"
   }
- 
+
   tags = {
-    Name         = "${local.resource_prefix.value}-pg"
-    Environment  = local.resource_prefix.value
+    Name        = "${local.resource_prefix.value}-pg"
+    Environment = local.resource_prefix.value
   }
 }
 
 resource "aws_db_subnet_group" "default" {
-  name          = "sg-${local.resource_prefix.value}"
-  subnet_ids    = ["${aws_subnet.web_subnet.id}", "${aws_subnet.web_subnet2.id}"]
-  description   = "Terraform DB Subnet Group"
+  name        = "sg-${local.resource_prefix.value}"
+  subnet_ids  = ["${aws_subnet.web_subnet.id}", "${aws_subnet.web_subnet2.id}"]
+  description = "Terraform DB Subnet Group"
 
   tags = {
     Name        = "sg-${local.resource_prefix.value}"
@@ -78,10 +78,10 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_security_group" "default" {
-  name          = "${local.resource_prefix.value}-rds-sg"
-  vpc_id        = aws_vpc.web_vpc.id
+  name   = "${local.resource_prefix.value}-rds-sg"
+  vpc_id = aws_vpc.web_vpc.id
 
-  tags = { 
+  tags = {
     Name        = "${local.resource_prefix.value}-rds-sg"
     Environment = local.resource_prefix.value
   }
@@ -132,7 +132,7 @@ resource "aws_iam_role" "ec2role" {
 }
 EOF
 
-  tags = {      
+  tags = {
     Name        = "${local.resource_prefix.value}-role"
     Environment = local.resource_prefix.value
   }
@@ -162,7 +162,7 @@ EOF
 
 data "aws_ami" "amazon-linux-2" {
   most_recent = true
-  owners      = [ "amazon" ]
+  owners      = ["amazon"]
 
   filter {
     name   = "owner-alias"
@@ -177,8 +177,8 @@ data "aws_ami" "amazon-linux-2" {
 
 resource "aws_instance" "db_app" {
   # ec2 have plain text secrets in user data
-  ami           = data.aws_ami.amazon-linux-2.id
-  instance_type = "t2.nano"
+  ami                  = data.aws_ami.amazon-linux-2.id
+  instance_type        = "t2.nano"
   iam_instance_profile = aws_iam_instance_profile.ec2profile.name
 
   vpc_security_group_ids = [

@@ -1,6 +1,6 @@
 # Create a new load balancer
 resource "aws_elb" "weblb" {
-  name               = "weblb-terraform-elb"
+  name = "weblb-terraform-elb"
 
   listener {
     instance_port     = 8000
@@ -17,9 +17,9 @@ resource "aws_elb" "weblb" {
     interval            = 30
   }
 
-  subnets                     = ["${aws_subnet.web_subnet.id}"]
-  security_groups             = ["${aws_security_group.web-node.id}"]
-  instances                   = ["${aws_instance.web_host.id}"]
+  subnets                     = [aws_subnet.web_subnet.id]
+  security_groups             = [aws_security_group.web-node.id]
+  instances                   = [aws_instance.web_host.id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
@@ -28,3 +28,4 @@ resource "aws_elb" "weblb" {
   tags = {
     Name = "foobar-terraform-elb"
   }
+}
