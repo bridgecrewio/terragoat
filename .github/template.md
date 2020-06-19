@@ -134,27 +134,35 @@ You can deploy multiple TerraGoat stacks in a single Azure subscription using th
 
 #### Create an Azure Storage Account backend to keep Terraform state
 
-Create a resource group and a storage account in your Azure portal.
-Then run (replace with your values):
+```bash
+export TERRAGOAT_RESOURCE_GROUP="TerraGoatRG"
+export TERRAGOAT_STATE_STORAGE_ACCOUNT="mydevsecopssa"
+export TERRAGOAT_STATE_CONTAINER="mydevsecops"
+export TF_VAR_environment="dev"
+export TF_VAR_region="westus"
 
-```shell script
-export TF_VAR_environment=acme
-terraform init -reconfigure -backend-config="resource_group_name=<YOUR_RESOURCE_GROUP>" \
-    -backend-config "storage_account_name=<YOUR_STORAGE_ACCOUNT>" \
-    -backend-config "key=$TF_VAR_environment.terraform.tfstate
+# Create resource group
+az group create --location $TF_VAR_region --name $TERRAGOAT_RESOURCE_GROUP
+
+# Create storage account
+az storage account create --name $TERRAGOAT_STATE_STORAGE_ACCOUNT --resource-group $TERRAGOAT_RESOURCE_GROUP --location $TF_VAR_region --sku Standard_LRS --kind StorageV2 --https-only true --encryption-services blob
+
+# Get storage account key
+ACCOUNT_KEY=$(az storage account keys list --resource-group $TERRAGOAT_RESOURCE_GROUP --account-name $TERRAGOAT_STATE_STORAGE_ACCOUNT --query [0].value -o tsv)
+
+# Create blob container
+az storage container create --name $TERRAGOAT_STATE_CONTAINER --account-name $TERRAGOAT_STATE_STORAGE_ACCOUNT --account-key $ACCOUNT_KEY
 ```
 
 #### Apply TerraGoat (Azure)
 
-To run terragoat, first login to azure CLI using:
+```bash
+cd terraform/azure/
+terraform init -reconfigure -backend-config="resource_group_name=$TERRAGOAT_RESOURCE_GROUP" \
+    -backend-config "storage_account_name=$TERRAGOAT_STATE_STORAGE_ACCOUNT" \
+    -backend-config="container_name=$TERRAGOAT_STATE_CONTAINER" \
+    -backend-config "key=$TF_VAR_environment.terraform.tfstate"
 
-```shell script
-az login
-```
-
-After being redirected to your login page and signing in, run:
-
-```shell script
 terraform apply
 ```
 
