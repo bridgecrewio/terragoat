@@ -1,20 +1,20 @@
-# TerraGoat - Vulnerable Terraform Infrastructure 
+# TerraGoat - Vulnerable Terraform Infrastructure
+
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridge.dev/2WBms5Q)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
 TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
-[![Terragoat](terragoat-logo.png)](#)
+[![Terragoat](terragoat-logo.png)
 
 TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
 TerraGoat is a learning and training project that demonstrates how common configuration errors can find their way into production cloud environments.
-
 
 ## Table of Contents
 
 * [Introduction](#introduction)
 * [Getting Started](#getting-started)
-    * [AWS](#aws-setup)
-    * [Azure](#azure-setup)
+  * [AWS](#aws-setup)
+  * [Azure](#azure-setup)
 * [Contributing](#contributing)
 * [Support](#support)
 
@@ -25,24 +25,30 @@ TerraGoat was built to enable DevSecOps design and implement a sustainable misco
 TerraGoat follows the tradition of existing *Goat projects that provide a baseline training ground to practice implementing secure development best practices for cloud infrastructure.
 
 ## Important notes
+
 * **Where to get help:** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
 
 Before you proceed please take a not of these warning:
 > :warning: TerraGoat creates intentionally vulnerable AWS resources into your account. **DO NOT deploy TerraGoat in a production environment or alongside any sensitive AWS resources.**
 
 ## Requirements
-* Terraform 0.12 
-* aws cli
 
-To prevent vulnerable infrastructure from arriving to production 
-see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static analysis tool for infrastructure as code. 
+* Terraform 0.12
+* aws cli
+* azure cli
+
+To prevent vulnerable infrastructure from arriving to production see: [checkov](https://github.com/bridgecrewio/checkov/), the open source static analysis tool for infrastructure as code.
 
 ## Getting started
+
 ### AWS Setup
-#### Installation
+
+#### Installation (AWS)
+
 You can deploy multiple TerraGoat stacks in a single AWS account using the parameter `TF_VAR_environment`.
- 
-#### Create an S3 bucket backend to keep Terraform state
+
+#### Create an S3 Bucket backend to keep Terraform state
+
 ```bash
 export TERRAGOAT_STATE_BUCKET="mydevsecops-bucket"
 export TF_VAR_company_name=acme
@@ -52,7 +58,7 @@ export TF_VAR_region="us-west-2"
 aws s3api create-bucket --bucket $TERRAGOAT_STATE_BUCKET \
     --region $TF_VAR_region --create-bucket-configuration LocationConstraint=$TF_VAR_region
 
-# Enable versioning    
+# Enable versioning
 aws s3api put-bucket-versioning --bucket $TERRAGOAT_STATE_BUCKET --versioning-configuration Status=Enabled
 
 # Enable encryption
@@ -67,7 +73,8 @@ aws s3api put-bucket-encryption --bucket $TERRAGOAT_STATE_BUCKET --server-side-e
 }'
 ```
 
-#### Apply TerraGoat
+#### Apply TerraGoat (AWS)
+
 ```bash
 cd terraform/aws/
 terraform init \
@@ -78,53 +85,58 @@ terraform init \
 terraform apply
 ```
 
-#### Remove TerraGoat
+#### Remove TerraGoat (AWS)
+
 ```bash
 terraform destroy
 ```
 
-#### Creating multiple TerraGoat AWS stacks 
-```bash
+#### Creating multiple TerraGoat AWS stacks
 
+```bash
 cd terraform/aws/
 export TERRAGOAT_ENV=$TF_VAR_environment
 export TERRAGOAT_STACKS_NUM=5
 for i in $(seq 1 $TERRAGOAT_STACKS_NUM)
 do
-    export TF_VAR_environment=$TERRAGOAT_ENV$i   
+    export TF_VAR_environment=$TERRAGOAT_ENV$i
     terraform init \
     -backend-config="bucket=$TERRAGOAT_STATE_BUCKET" \
     -backend-config="key=$TF_VAR_company_name-$TF_VAR_environment.tfstate" \
-    -backend-config="region=$TF_VAR_region" 
-    
+    -backend-config="region=$TF_VAR_region"
+
     terraform apply -auto-approve
 done
 ```
 
-#### Deleting multiple TerraGoat stacks 
-```bash
+#### Deleting multiple TerraGoat stacks (AWS)
 
+```bash
 cd terraform/aws/
 export TF_VAR_environment = $TERRAGOAT_ENV
 for i in $(seq 1 $TERRAGOAT_STACKS_NUM)
 do
-    export TF_VAR_environment=$TERRAGOAT_ENV$i   
+    export TF_VAR_environment=$TERRAGOAT_ENV$i
     terraform init \
     -backend-config="bucket=$TERRAGOAT_STATE_BUCKET" \
     -backend-config="key=$TF_VAR_company_name-$TF_VAR_environment.tfstate" \
-    -backend-config="region=$TF_VAR_region" 
-    
+    -backend-config="region=$TF_VAR_region"
+
     terraform destroy -auto-approve
 done
 ```
 
 ### Azure Setup
-#### Installation
+
+#### Installation (Azure)
+
 You can deploy multiple TerraGoat stacks in a single Azure subscription using the parameter `TF_VAR_environment`.
- 
-#### Create an ASA bucket backend to keep Terraform state
+
+#### Create an Azure Storage Account backend to keep Terraform state
+
 Create a resource group and a storage account in your Azure portal.
 Then run (replace with your values):
+
 ```shell script
 export TF_VAR_environment=acme
 terraform init -reconfigure -backend-config="resource_group_name=<YOUR_RESOURCE_GROUP>" \
@@ -132,24 +144,28 @@ terraform init -reconfigure -backend-config="resource_group_name=<YOUR_RESOURCE_
     -backend-config "key=$TF_VAR_environment.terraform.tfstate
 ```
 
-#### Apply TerraGoat
+#### Apply TerraGoat (Azure)
+
 To run terragoat, first login to azure CLI using:
+
 ```shell script
 az login
 ```
 
 After being redirected to your login page and signing in, run:
+
 ```shell script
 terraform apply
 ```
 
-#### Remove TerraGoat
+#### Remove TerraGoat (Azure)
+
 ```shell script
 terraform destroy
 ```
 
+## Bridgecrew's IaC herd of goats
 
-## Bridgecrew's IaC herd of goats:
 * [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
 * [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
 
@@ -165,7 +181,8 @@ We would love to hear about more ideas on how to find vulnerable infrastructure-
 
 If you need direct support you can contact us at [info@bridgecrew.io](mailto:info@bridgecrew.io).
 
-# Existing vulnerabilities (Auto-Generated)
+## Existing vulnerabilities (Auto-Generated)
+
 |    | check_id     | file                      | resource                                             | check_name                                                                                                                                                                                               |
 |----|--------------|---------------------------|------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |  0 | CKV_AZURE_2  | /azure/storage.tf         | azurerm_managed_disk.example                         | Ensure Azure managed disk have encryption enabled                                                                                                                                                        |
@@ -255,7 +272,4 @@ If you need direct support you can contact us at [info@bridgecrew.io](mailto:inf
 | 84 | CKV_AWS_52   | /aws/s3.tf                | aws_s3_bucket.logs                                   | Ensure S3 bucket has MFA delete enabled                                                                                                                                                                  |
 | 85 | CKV_AWS_18   | /aws/s3.tf                | aws_s3_bucket.logs                                   | Ensure the S3 bucket has access logging enabled                                                                                                                                                          |
 
-
 ---
-
-
