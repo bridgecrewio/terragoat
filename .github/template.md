@@ -168,7 +168,7 @@ terraform apply
 
 #### Remove TerraGoat (Azure)
 
-```shell script
+```bash
 terraform destroy
 ```
 
