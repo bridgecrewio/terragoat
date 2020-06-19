@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "example" {
-  name                = "terragoat-key-${var.environment}"
+  name                = "terragoat-key-${var.environment}${random_integer.rnd_int.result}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
