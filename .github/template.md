@@ -189,7 +189,7 @@ We would love to hear about more ideas on how to find vulnerable infrastructure-
 
 If you need direct support you can contact us at [info@bridgecrew.io](mailto:info@bridgecrew.io).
 
-## Existing vulnerabilities (Auto-Generated)
+# Existing vulnerabilities (Auto-Generated)
 
 |    | check_id     | file                      | resource                                             | check_name                                                                                                                                                                                               |
 |----|--------------|---------------------------|------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
