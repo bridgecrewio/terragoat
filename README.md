@@ -189,7 +189,8 @@ We would love to hear about more ideas on how to find vulnerable infrastructure-
 
 If you need direct support you can contact us at [info@bridgecrew.io](mailto:info@bridgecrew.io).
 
-## Existing vulnerabilities (Auto-Generated)|    | check_id     | file                      | resource                                             | check_name                                                                                                                                                                                               |
+## Existing vulnerabilities (Auto-Generated)
+|    | check_id     | file                      | resource                                             | check_name                                                                                                                                                                                               |
 |----|--------------|---------------------------|------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |  0 | CKV_AZURE_2  | /azure/storage.tf         | azurerm_managed_disk.example                         | Ensure Azure managed disk have encryption enabled                                                                                                                                                        |
 |  1 | CKV_AZURE_3  | /azure/storage.tf         | azurerm_storage_account.example                      | Ensure that 'Secure transfer required' is set to 'Enabled'                                                                                                                                               |
