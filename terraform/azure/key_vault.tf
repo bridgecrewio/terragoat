@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "example" {
-  name                = "terragoat-key-${var.environment}"
+  name                = "terragoat-key-${var.environment}${random_integer.rnd_int.result}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
@@ -36,7 +36,7 @@ resource "azurerm_key_vault_key" "generated" {
   ]
 }
 
-resource azurerm_key_vault_secret "secret" {
+resource "azurerm_key_vault_secret" "secret" {
   key_vault_id = azurerm_key_vault.example.id
   name         = "terragoat-secret-${var.environment}"
   value        = random_string.password.result

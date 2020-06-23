@@ -11,7 +11,7 @@ resource "azurerm_managed_disk" "example" {
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "tgsa${var.environment}"
+  name                     = "tgsa${var.environment}${random_integer.rnd_int.result}"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"

@@ -7,7 +7,7 @@ resource "azurerm_sql_firewall_rule" "example" {
 }
 
 resource "azurerm_sql_server" "example" {
-  name                         = "terragoat-sqlserver-${var.environment}"
+  name                         = "terragoat-sqlserver-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -33,7 +33,7 @@ resource "azurerm_mssql_server_security_alert_policy" "example" {
 }
 
 resource "azurerm_mysql_server" "example" {
-  name                = "terragoat-mysql-${var.environment}"
+  name                = "terragoat-mysql-${var.environment}${random_integer.rnd_int.result}"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -52,7 +52,7 @@ resource "azurerm_mysql_server" "example" {
 }
 
 resource "azurerm_postgresql_server" "example" {
-  name                         = "terragoat-postgresql-server-1-${var.environment}"
+  name                         = "terragoat-postgresql-${var.environment}${random_integer.rnd_int.result}"
   location                     = azurerm_resource_group.example.location
   resource_group_name          = azurerm_resource_group.example.name
   sku_name                     = "B_Gen5_2"
