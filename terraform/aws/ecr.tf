@@ -1,14 +1,14 @@
 resource aws_ecr_repository "repository" {
-  name          = "${local.resource_prefix.value}-repository"
+  name                 = "${local.resource_prefix.value}-repository"
   image_tag_mutability = "MUTABLE"
 
   tags = {
-    Name        = "${local.resource_prefix.value}-repository"
+    Name = "${local.resource_prefix.value}-repository"
   }
 }
 
 locals {
-  docker_image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com/${aws_ecr_repository.repository.name}"
+  docker_image = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com/${aws_ecr_repository.repository.name}"
 }
 
 
