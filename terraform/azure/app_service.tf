@@ -18,6 +18,9 @@ resource azurerm_app_service "app-service1" {
   site_config {
     min_tls_version = "1.1"
   }
+  auth_settings {
+    enabled = true
+  }
 }
 
 resource azurerm_app_service "app-service2" {
