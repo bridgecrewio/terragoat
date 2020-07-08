@@ -1,12 +1,12 @@
-data "google_compute_zones" "available" {
+data "google_compute_zones" "available_zones" {
   project = var.project
   region  = var.region
 }
 
-resource "google_container_cluster" "gke" {
+resource "google_container_cluster" "workload_cluster" {
   name               = "terragoat-${var.environment}-cluster"
   logging_service    = "none"
-  location           = data.google_compute_zones.available.names[0]
+  location           = data.google_compute_zones.available_zones.names[0]
   initial_node_count = 1
 
   enable_legacy_abac = true
