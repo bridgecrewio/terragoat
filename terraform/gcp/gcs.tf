@@ -3,7 +3,7 @@ resource "google_storage_bucket" "bad_bucket" {
 }
 
 resource "google_storage_bucket_iam_binding" "allow_public_read" {
-  bucket = google_storage_bucket.bad_bucket.id
+  bucket  = google_storage_bucket.bad_bucket.id
   members = ["allUsers"]
-  role = "roles/storage.objectViewer"
+  role    = "roles/storage.objectViewer"
 }
