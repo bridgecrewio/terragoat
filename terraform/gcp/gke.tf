@@ -11,6 +11,7 @@ resource "google_container_cluster" "gke" {
 
   enable_legacy_abac = true
   monitoring_service = "none"
+  remove_default_node_pool = true
 
   master_authorized_networks_config {
     cidr_blocks {
