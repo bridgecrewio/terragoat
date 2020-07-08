@@ -21,6 +21,9 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+credentials.json
+*.tfbackend
+*.tfvars
 
 # Include override files you do wish to add to version control using negated pattern
 #
