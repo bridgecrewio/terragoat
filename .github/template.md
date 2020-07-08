@@ -15,6 +15,7 @@ TerraGoat is a learning and training project that demonstrates how common config
 * [Getting Started](#getting-started)
   * [AWS](#aws-setup)
   * [Azure](#azure-setup)
+  * [GCP](#gcp-setup)
 * [Contributing](#contributing)
 * [Support](#support)
 
@@ -167,6 +168,41 @@ terraform apply
 ```
 
 #### Remove TerraGoat (Azure)
+
+```bash
+terraform destroy
+```
+
+### GCP Setup
+
+#### Installation (GCP)
+
+You can deploy multiple TerraGoat stacks in a single GCP project using the parameter `TF_VAR_environment`.
+
+#### Create a GCS backend to keep Terraform state
+
+```bash
+export TF_VAR_environment="dev"
+export TF_TERRAGOAT_STATE_BUCKET=remote-state-bucket-terragoat
+export TF_VAR_credentials_path=credentials.json
+export TF_VAR_project=<YOUR_PROJECT_NAME_HERE>
+
+# Create storage bucket
+gsutil mb gs://${TF_TERRAGOAT_STATE_BUCKET}
+```
+
+#### Apply TerraGoat (GCP)
+
+```bash
+cd terraform/gcp/
+terraform init -reconfigure -backend-config="bucket=$TF_TERRAGOAT_STATE_BUCKET" \
+    -backend-config "credentials=$TF_VAR_credentials_path" \
+    -backend-config "prefix=terragoat/${TF_VAR_environment}"
+
+terraform apply
+```
+
+#### Remove TerraGoat (GCP)
 
 ```bash
 terraform destroy
