@@ -15,6 +15,7 @@ TerraGoat is a learning and training project that demonstrates how common config
 * [Getting Started](#getting-started)
   * [AWS](#aws-setup)
   * [Azure](#azure-setup)
+  * [GCP](#gcp-setup)
 * [Contributing](#contributing)
 * [Support](#support)
 
@@ -167,6 +168,57 @@ terraform apply
 ```
 
 #### Remove TerraGoat (Azure)
+
+```bash
+terraform destroy
+```
+
+### GCP Setup
+
+#### Installation (GCP)
+
+You can deploy multiple TerraGoat stacks in a single GCP project using the parameter `TF_VAR_environment`.
+
+#### Create a GCS backend to keep Terraform state
+
+To use terraform, a Service Account and matching set of credentials are required.
+If they do not exist, they must be manually created for the relevant project.
+To create the Service Account:
+1. Sign into your GCP project, go to `IAM` > `Service Accounts`.
+2. Click the `CREATE SERVICE ACCOUNT`.
+3. Give a name to your service account (for example - `terragoat`) and click `CREATE`.
+4. Grant the Service Account the `Project` > `Editor` role and click `CONTINUE`.
+5. Click `DONE`.
+
+To create the credentials:
+1. Sign into your GCP project, go to `IAM` > `Service Accounts` and click on the relevant Service Account.
+2. Click `ADD KEY` > `Create new key` > `JSON` and click `CREATE`. This will create a `.json` file and download it to your computer.
+
+We recommend saving the key with a nicer name than the auto-generated one (i.e. `terragoat_credentials.json`), and storing the resulting JSON file inside `terraform/gcp` directory of terragoat.
+Once the credentials are set up, create the BE configuration as follows:
+
+```bash
+export TF_VAR_environment="dev"
+export TF_TERRAGOAT_STATE_BUCKET=remote-state-bucket-terragoat
+export TF_VAR_credentials_path=<PATH_TO_CREDNETIALS_FILE> # example: export TF_VAR_credentials_path=terragoat_credentials.json
+export TF_VAR_project=<YOUR_PROJECT_NAME_HERE>
+
+# Create storage bucket
+gsutil mb gs://${TF_TERRAGOAT_STATE_BUCKET}
+```
+
+#### Apply TerraGoat (GCP)
+
+```bash
+cd terraform/gcp/
+terraform init -reconfigure -backend-config="bucket=$TF_TERRAGOAT_STATE_BUCKET" \
+    -backend-config "credentials=$TF_VAR_credentials_path" \
+    -backend-config "prefix=terragoat/${TF_VAR_environment}"
+
+terraform apply
+```
+
+#### Remove TerraGoat (GCP)
 
 ```bash
 terraform destroy
