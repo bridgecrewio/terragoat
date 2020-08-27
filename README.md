@@ -1,7 +1,9 @@
 # TerraGoat - Vulnerable Terraform Infrastructure
 
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridge.dev/2WBms5Q)
-![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg) 
+[![slack-community](https://slack.bridgecrew.io/badge.svg)](https://slack.bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terragoat)
+
 
 TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
 ![Terragoat](terragoat-logo.png)
@@ -27,7 +29,7 @@ TerraGoat follows the tradition of existing *Goat projects that provide a baseli
 
 ## Important notes
 
-* **Where to get help:** the [Bridgecrew Community Slack](https://codified-security.herokuapp.com/)
+* **Where to get help:** the [Bridgecrew Community Slack](https://slack.bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terragoat)
 
 Before you proceed please take a not of these warning:
 > :warning: TerraGoat creates intentionally vulnerable AWS resources into your account. **DO NOT deploy TerraGoat in a production environment or alongside any sensitive AWS resources.**
