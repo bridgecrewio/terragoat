@@ -1,0 +1,28 @@
+{
+  "violation-policy": [
+    {
+      "class": "cloud-misconfiguration",
+      "rules": {
+        "sensitive-data-in-default-variable": "alert",
+        "sensitive-data-in-block-attribute": "alert",
+        "unencrypted-block-device": "alert",
+        "unencrypted-sns-queue": "alert",
+        "unencrypted-s3-bucket": "alert",
+        "use-of-plain-http": "alert",
+        "outdated-ssl-in-load-balancer": "alert",
+        "unencrypted-cloudfront": "alert",
+        "outdated-ssl-cloudfront": "alert",
+        "s3-public-access": "alert",
+        "load-balancer-public-access": "alert",
+        "egress-security-group-public-access": "alert",
+        "inline-ingress-security-group-public-access": "alert",
+        "inline-egress-security-group-public-access": "alert",
+        "resource-publicly-accessible": "alert",
+        "s3-disabled-server-logging": "alert",
+        "security-group-rule-missing-description": "alert",
+        "kms-no-auto-rotation": "alert",
+        "ecr-disabled-image-scans": "alert"
+      }
+    }
+  ]
+}
