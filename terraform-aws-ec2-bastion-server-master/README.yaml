@@ -1,0 +1,59 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-ec2-bastion-server
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-ec2-bastion-server
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-ec2-bastion-server.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-ec2-bastion-server"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-ec2-bastion-server.svg"
+    url: "https://github.com/cloudposse/terraform-aws-ec2-bastion-server/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "bastion"
+    description: "🔒Secure Bastion implemented as Docker Container running Alpine Linux with Google Authenticator & DUO MFA support"
+    url: "https://github.com/cloudposse/bastion"
+  - name: "terraform-aws-ec2-instance"
+    description: "Terraform module for providing a general EC2 instance provisioned by Ansible"
+    url: "https://github.com/cloudposse/terraform-aws-ec2-instance"
+  - name: "terraform-aws-ec2-ami-backup"
+    description: "Terraform module for automatic & scheduled AMI creation"
+    url: "https://github.com/cloudposse/terraform-aws-ec2-ami-backup"
+
+# Short description of this project
+description: |-
+  Terraform module to define a generic Bastion host with parameterized `user_data`
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Andriy Knysh"
+    github: "aknysh"
+  - name: "Igor Rodionov"
+    github: "goruha"
+  - name: "Bobby Larson"
+    github: "karma0"
