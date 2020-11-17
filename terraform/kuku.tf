@@ -12,3 +12,7 @@ resource "aws_s3_bucket" "template_bucket" {
     enabled = true
   }
 }
+
+
+
+
