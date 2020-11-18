@@ -1,4 +1,9 @@
-variable "identifier" {
-  description = "The name of the RDS instance, if omitted, Terraform will assign a random, unique identifier"
-  type        = string
+resource "aws_s3_bucket" "template_bucket" {
+  bucket        = "local.bucket_name"
+  acl           = "public-read"
+  force_destroy = true
+
+  versioning {
+    enabled = true
+  }
 }
