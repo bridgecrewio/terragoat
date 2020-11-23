@@ -35,7 +35,7 @@ resource "aws_db_option_group" "default" {
   engine_name              = "mysql"
   name                     = "og-${local.resource_prefix.value}"
   major_engine_version     = "8.0"
-  option_group_description = "Terraform OG"
+  option_group_description = "Terraform OG" 
 
   tags = {
     Name        = "${local.resource_prefix.value}-og"
