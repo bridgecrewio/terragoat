@@ -1,0 +1,7 @@
+variable "port" {
+
+}
+
+variable "cidrs" {
+  
+}
