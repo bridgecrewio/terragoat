@@ -18,7 +18,7 @@ resource "aws_db_instance" "default" {
   storage_encrypted       = false
   skip_final_snapshot     = true
   monitoring_interval     = 0
-  publicly_accessible     = true
+  publicly_accessible     = false
 
   tags = {
     Name        = "${local.resource_prefix.value}-rds"
