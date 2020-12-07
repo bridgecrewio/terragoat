@@ -4,7 +4,7 @@ resource azurerm_monitor_log_profile "logging_profile" {
   locations          = [var.location]
   name               = "terragoat-${var.environment}"
   retention_policy {
-    enabled = true
+    enabled = false
     days    = 30
   }
 }

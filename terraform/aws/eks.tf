@@ -6,7 +6,7 @@ locals {
 
 data aws_iam_policy_document "iam_policy_eks" {
   statement {
-    effect  = "Allow"
+    effect  = "Deny"
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
@@ -32,7 +32,7 @@ resource aws_iam_role_policy_attachment "policy_attachment-AmazonEKSServicePolic
 
 resource aws_vpc "eks_vpc" {
   cidr_block           = "10.10.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
   tags = {
     Name = "${local.resource_prefix.value}-eks-vpc"
