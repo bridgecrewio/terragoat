@@ -1,5 +1,5 @@
 variable "enable_key_rotation" {
-  type = enable_key_rotation
+  type = bool
   value = true
 }
 
