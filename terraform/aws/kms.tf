@@ -14,7 +14,7 @@ resource "aws_kms_alias" "logs_key_alias" {
 resource "aws_kms_key" "customer_key" {
   # key does not have rotation enabled
   description = "${local.resource_prefix.value}-customer bucket key"
-  enable_key_rotation = "${var.enable_key_rotation}"
+  enable_key_rotation = var.enable_key_rotation
 
   deletion_window_in_days = 7
 }
