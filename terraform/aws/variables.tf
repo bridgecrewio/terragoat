@@ -1,6 +1,6 @@
 variable "enable_key_rotation" {
   type = bool
-  default = true
+  default = false
 }
 
 variable "versioning_enabled" {
