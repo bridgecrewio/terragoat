@@ -13,7 +13,7 @@ resource google_sql_database_instance "master_instance" {
       }
     }
     backup_configuration {
-      enabled = false
+      enabled = true
     }
   }
 }
@@ -22,6 +22,6 @@ resource google_bigquery_dataset "dataset" {
   dataset_id = "terragoat_${var.environment}_dataset"
   access {
     special_group = "allAuthenticatedUsers"
-    role          = "READER"
+    role          = "WRITER"
   }
 }

@@ -16,7 +16,7 @@ resource "aws_db_instance" "default" {
   multi_az                = false
   backup_retention_period = 0
   storage_encrypted       = false
-  skip_final_snapshot     = true
+  skip_final_snapshot     = false
   monitoring_interval     = 0
   publicly_accessible     = false
 

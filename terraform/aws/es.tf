@@ -11,7 +11,7 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
   }
 
   ebs_options {
-    ebs_enabled = true
+    ebs_enabled = false
     volume_size = 30
   }
 }
