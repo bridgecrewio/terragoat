@@ -348,7 +348,7 @@ output "db_endpoint" {
   value       = aws_db_instance.default.endpoint
 }
 
-resource "aws_s3_bucket" "data" {
+resource "aws_s3_bucket" "yoncicd" {
   # bucket is public
   # bucket is not encrypted
   # bucket does not have access logs
