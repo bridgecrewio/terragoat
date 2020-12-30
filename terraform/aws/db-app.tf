@@ -11,7 +11,7 @@ resource "aws_db_instance" "default" {
   instance_class          = "db.t3.micro"
   allocated_storage       = "20"
   username                = "admin"
-  password                = "123"
+  password                = var.password
   apply_immediately       = true
   multi_az                = false
   backup_retention_period = 0
@@ -347,16 +347,3 @@ output "db_endpoint" {
   description = "DB Endpoint"
   value       = aws_db_instance.default.endpoint
 }
-
-resource "aws_s3_bucket" "yoncicd" {
-  # bucket is public
-  # bucket is not encrypted
-  # bucket does not have access logs
-  # bucket does not have versioning
-  bucket        = "${local.resource_prefix.value}-data"
-  acl           = "public-read"
-  force_destroy = true
-  tags = {
-    Name        = "${local.resource_prefix.value}-data"
-    Environment = local.resource_prefix.value
-  }
