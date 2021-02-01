@@ -1,9 +1,9 @@
 resource "aws_iam_user" "user" {
-  name          = "${local.resource_prefix.value}-user"
+  name          = "${local.resource_prefix.value}-user-mor4"
   force_destroy = true
 
   tags = {
-    Name        = "${local.resource_prefix.value}-user"
+    Name        = "${local.resource_prefix.value}-user-mor4"
     Environment = local.resource_prefix.value
   }
 

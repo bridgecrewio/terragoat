@@ -6,6 +6,6 @@ resource "aws_kms_key" "logs_key" {
 }
 
 resource "aws_kms_alias" "logs_key_alias" {
-  name          = "alias/${local.resource_prefix.value}-logs-bucket-key"
+  name          = "alias/${local.resource_prefix.value}-logs-bucket-key-mor4"
   target_key_id = "${aws_kms_key.logs_key.key_id}"
 }
