@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "data" {
   bucket = "${local.resource_prefix.value}-data-mor4"
   acl = "private"
   force_destroy = true
+  arn = "arn:aws:s3:::619572639823-acme-dev-data-mor4"
   tags = {
     Name = "${local.resource_prefix.value}-data-mor4"
     Environment = local.resource_prefix.value
