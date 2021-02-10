@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+name: CI
+# Controls when the action will run. Triggers the workflow on push or pull request
+
+# Triggers the workflow on push or pull request events
+on: [push, pull_request]          
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      BC_API_URL: https://6f8fqk04b0.execute-api.us-west-2.amazonaws.com/v1/api/v1
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Scan IaC directory
+      id: Bridgecrew-directory-scanner
+      uses: bridgecrewio/bridgecrew-action@master
+      with:
+        directory: "terraform"
+        soft-fail: "true"
+    - name: Scan IaC file
+      id: Bridgecrew-file-scanner
+      uses: bridgecrewio/bridgecrew-action@master
+      with:
+        file: "./terraform/db-app.tf"
+        output: "json"
+        api-key: ${{ secrets.BRIDGECREW_API_KEY }}
