@@ -1,8 +1,6 @@
 name: Bridgecrew
 on:
-  push:
-    branches:
-      - master
+  pull_request
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -16,3 +14,4 @@ jobs:
       uses: bridgecrewio/bridgecrew-action@master
       with:
         api-key: ${{ secrets.BRIDGECREW_API_KEY }}
+        directory: terraform/
