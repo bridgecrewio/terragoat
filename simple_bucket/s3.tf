@@ -6,5 +6,4 @@ resource "aws_s3_bucket" "storage" {
 variable "bucket_name" {
   description = "Name for your S3 bucket (globally unique)"
   type        = string
-  default     = "my_bucket"
 }
