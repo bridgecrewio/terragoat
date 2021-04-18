@@ -37,3 +37,20 @@ resource "aws_s3_bucket" "some_bucket" {
     }
   }
 }
+
+
+resource "aws_s3_bucket" "financials" {
+  # bucket is not encrypted
+  # bucket does not have access logs
+  # bucket does not have versioning
+  arn           = "arn:aws:s3:::619572639823-acme-dev-financials-test-mor4"
+  bucket        = "pref-financials-test-mor4"
+  acl           = "private"
+  force_destroy = true
+  tags = {
+    Name        = "pref-financials-test-mor4"
+    Environment = "Env"
+  }
+
+}
+
