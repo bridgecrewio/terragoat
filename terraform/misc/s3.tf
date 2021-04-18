@@ -14,9 +14,9 @@ resource "aws_s3_bucket" "some_bucket" {
       }
     }
   }
-}
 
-logging {
-  target_bucket = aws_s3_bucket.some_bucket.id
-  target_prefix = "log/bucket"
+  logging {
+    target_bucket = aws_s3_bucket.some_bucket.id
+    target_prefix = "log/bucket"
+  }
 }
