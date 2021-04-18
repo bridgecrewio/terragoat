@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "some_bucket" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
+        sse_algorithm = "aws:kms"
       }
     }
   }
@@ -19,7 +19,21 @@ resource "aws_s3_bucket" "some_bucket" {
   }
 
   logging {
-    target_bucket = aws_s3_bucket.some_bucket.id
+    target_bucket = aws_s3_bucket.some_bucket.arn
     target_prefix = "log/bucket"
+  }
+
+  replication_configuration {
+    role = "role"
+    rules {
+      id = "foobar"
+      prefix = "foo"
+      status = "Enabled"
+
+      destination {
+        bucket = aws_s3_bucket.some_bucket.arn
+        storage_class = "STANDARD"
+      }
+    }
   }
 }
