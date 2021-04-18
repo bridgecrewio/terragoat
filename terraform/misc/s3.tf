@@ -14,6 +14,9 @@ resource "aws_s3_bucket" "some_bucket" {
       }
     }
   }
+  versioning {
+    enabled = true
+  }
 
   logging {
     target_bucket = aws_s3_bucket.some_bucket.id
