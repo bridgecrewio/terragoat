@@ -11,6 +11,13 @@ jobs:
         python-version: [3.7]
     steps:
       - uses: actions/checkout@v2
+        name: Checkout repo
+        with:
+          fetch-depth: 0
+      - name: Run yor action
+        uses: bridgecrewio/yor-action@main
+      - name: Commit tag changes
+        uses: stefanzweifel/git-auto-commit-action@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
