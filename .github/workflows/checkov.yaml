@@ -6,9 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.7]
     steps:
       - uses: actions/checkout@v2
         name: Checkout repo
@@ -21,7 +18,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.7
       - name: Update documentation
         run: |
           git config --local user.email "action@github.com"
