@@ -33,7 +33,7 @@ EOF
 
 resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
-  availability_zone = "${var.availability_zone}"
+  availability_zone       = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
   size = 1
   tags = merge({
@@ -135,7 +135,7 @@ resource "aws_vpc" "web_vpc" {
 resource "aws_subnet" "web_subnet" {
   vpc_id                  = aws_vpc.web_vpc.id
   cidr_block              = "172.16.10.0/24"
-  availability_zone       = var.availability_zone
+  availability_zone       = "${var.region}a"
   map_public_ip_on_launch = true
 
   tags = merge({
@@ -155,7 +155,7 @@ resource "aws_subnet" "web_subnet" {
 resource "aws_subnet" "web_subnet2" {
   vpc_id                  = aws_vpc.web_vpc.id
   cidr_block              = "172.16.11.0/24"
-  availability_zone       = var.availability_zone2
+  availability_zone       = "${var.region}b"
   map_public_ip_on_launch = true
 
   tags = merge({
