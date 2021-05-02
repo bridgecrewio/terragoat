@@ -76,6 +76,9 @@ resource aws_subnet "eks_subnet1" {
     git_repo                                         = "terragoat"
     "kubernetes.io/cluster/$${local.eks_name.value}" = "shared"
     yor_trace                                        = "1fb4fa23-a5d6-4d6a-b7dc-88749383f48d"
+    }, {
+    "kubernetes.io/cluster/$$${local.eks_name.value}" = "shared"
+    "kubernetes.io/cluster/$${local.eks_name.value}"  = "shared"
   })
 }
 
@@ -97,6 +100,9 @@ resource aws_subnet "eks_subnet2" {
     git_repo                                         = "terragoat"
     "kubernetes.io/cluster/$${local.eks_name.value}" = "shared"
     yor_trace                                        = "9ce04af2-5321-4e6c-a262-e4d7c1f69525"
+    }, {
+    "kubernetes.io/cluster/$$${local.eks_name.value}" = "shared"
+    "kubernetes.io/cluster/$${local.eks_name.value}"  = "shared"
   })
 }
 

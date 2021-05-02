@@ -18,7 +18,7 @@ resource "azurerm_application_gateway" "network" {
     name = "name"
     port = "port-no"
   }
-####Missing WAF block: As per azure best practices, it is important to have a web application firewall enabled at application gateway.
+  ####Missing WAF block: As per azure best practices, it is important to have a web application firewall enabled at application gateway.
 
 
   frontend_ip_configuration {
@@ -52,5 +52,15 @@ resource "azurerm_application_gateway" "network" {
     http_listener_name         = local.listener_name
     backend_address_pool_name  = local.backend_address_pool_name
     backend_http_settings_name = local.http_setting_name
+  }
+  tags = {
+    git_commit           = "da67c0f30803d00c3036789e22cd1f5ad043a099"
+    git_file             = "terraform/azure/application_gateway.tf"
+    git_last_modified_at = "2020-10-19 01:56:34"
+    git_last_modified_by = "harkiratbhardwaj@gmail.com"
+    git_modifiers        = "harkiratbhardwaj"
+    git_org              = "bridgecrewio"
+    git_repo             = "terragoat"
+    yor_trace            = "3f62753b-3d20-4fa7-b402-b780234a14d8"
   }
 }
