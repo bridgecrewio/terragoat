@@ -3,8 +3,16 @@ resource "aws_iam_user" "user" {
   force_destroy = true
 
   tags = {
-    Name        = "${local.resource_prefix.value}-user"
-    Environment = local.resource_prefix.value
+    Name                 = "${local.resource_prefix.value}-user"
+    Environment          = local.resource_prefix.value
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_file             = "terraform/aws/iam.tf"
+    git_last_modified_at = "2020-06-16 14:46:24"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "try-bridgecrew"
+    git_repo             = "terragoat"
+    yor_trace            = "f9d81ed3-9207-49f5-8761-f3bde6bdb125"
   }
 
 }
