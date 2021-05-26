@@ -1,0 +1,616 @@
+{
+  "$id": "https://boostsecurity.io/sectool-config.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "A full representation of a policy",
+  "type": "object",
+  "properties": {
+    "violation-policy": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/stored-secrets-violation"
+          },
+          { "$ref": "#/definitions/web-app-violation" },
+          { "$ref": "#/definitions/cloud-misconfiguration-violation" }
+        ]
+      }
+    },
+    "plugin-options": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/detect-secrets-plugin"
+          },
+          {
+            "$ref": "#/definitions/appinspector-plugin"
+          },
+          {
+            "$ref": "#/definitions/eslint-plugin"
+          },
+          {
+            "$ref": "#/definitions/tfsec-plugin"
+          },
+          {
+            "$ref": "#/definitions/tslint-plugin"
+          }
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "plugin-on-off": {
+      "enum": ["on", "off"]
+    },
+    "detect-secrets-plugin": {
+      "type": "object",
+      "required": ["name", "options"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["detect_secrets"]
+        },
+        "options": {
+          "type": "object",
+          "$ref": "#/definitions/detect-secrets-plugin-options"
+        }
+      }
+    },
+    "appinspector-plugin": {
+      "type": "object",
+      "required": ["name", "options"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["appinspector"]
+        },
+        "options": {
+          "type": "object",
+          "$ref": "#/definitions/appinspector-plugin-options"
+        }
+      }
+    },
+    "eslint-plugin": {
+      "type": "object",
+      "required": ["name", "options"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["es-security-lint"]
+        },
+        "options": {
+          "type": "object",
+          "$ref": "#/definitions/eslint-plugin-options"
+        }
+      }
+    },
+    "tfsec-plugin": {
+      "type": "object",
+      "required": ["name", "options"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["tfsec"]
+        },
+        "options": {
+          "type": "object",
+          "$ref": "#/definitions/tfsec-plugin-options"
+        }
+      }
+    },
+    "tslint-plugin": {
+      "type": "object",
+      "required": ["name", "options"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["ts-security-lint"]
+        },
+        "options": {
+          "type": "object",
+          "$ref": "#/definitions/tslint-plugin-options"
+        }
+      }
+    },
+    "detect-secrets-plugin-options": {
+      "type": "object",
+      "properties": {
+        "entropy_checks": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "basic_auth": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "jwt": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "keyword": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "mailchimp": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "private_key": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "stripe": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "aws": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "aws_access_key_id": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "aws_secret_access_key": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "slack": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "twilio": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "ibm": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "artifactory": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "raw_options": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "appinspector-plugin-options": {
+      "type": "object",
+      "properties": {
+        "weak_ssl": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "rng": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "legacy_hash": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "cryptomining": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "deserialization": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "xmlparsing": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "dynamic_execution": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        }
+      },
+      "additionalProperties": false
+    },
+    "eslint-plugin-options": {
+      "type": "object",
+      "properties": {
+        "non-literal-regexp": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe_buffer": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "child_process": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe_eval": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "html_injection": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe_require": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "timing_attack": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "sql_injection": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "insecure_randomness": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "property_name_session": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "crlf": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "open_redirect": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "helmet_nocache": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "nosql_injection": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "mysql_multistatements": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "reject_unauth": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe_deserialization": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "vm_context": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "misconfigured_cookie": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "disable_ssl": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tfsec-plugin-options": {
+      "type": "object",
+      "properties": {
+        "sensitive_data": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "aws": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tslint-plugin-options": {
+      "type": "object",
+      "properties": {
+        "unsafe-regexp": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "non-literal-regexp": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe-buffer": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "buffer-noassert": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe-require": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe-filename": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe-eval": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "child-process": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "mustache-escape": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "csrf": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "timing-attack": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "random-bytes": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "html-injection": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "sql-injection": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe-cross-origin": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        },
+        "unsafe-properties-access": {
+          "type": "string",
+          "$ref": "#/definitions/plugin-on-off"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stored-secrets-violation": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "type": "string",
+          "enum": ["stored-secrets"]
+        },
+        "rules": {
+          "type": "object",
+          "anyOf": [{ "$ref": "#/definitions/stored-secrets-violation-rule" }]
+        }
+      },
+      "required": ["class", "rules"],
+      "additionalProperties": false
+    },
+    "stored-secrets-violation-rule": {
+      "type": "object",
+      "properties": {
+        "generic-secret": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "high-entropy-secret": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "secret-keyword": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "basic-auth-credentials": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "aws-access-key-id": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "aws-secret-access-key": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "artifactory-credentials": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "cloudant-credentials": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "private-credentials": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "web-app-violation": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "type": "string",
+          "enum": ["web-app"]
+        },
+        "rules": {
+          "type": "object",
+          "anyOf": [{ "$ref": "#/definitions/web-app-violation-rule" }]
+        }
+      },
+      "required": ["class", "rules"],
+      "additionalProperties": false
+    },
+    "web-app-violation-rule": {
+      "type": "object",
+      "properties": {
+        "generic-web-app": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "non-literal-filesystem-filename": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "non-literal-require": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "cloud-misconfiguration-violation": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "type": "string",
+          "enum": ["cloud-misconfiguration"]
+        },
+        "rules": {
+          "type": "object",
+          "anyOf": [
+            { "$ref": "#/definitions/cloud-misconfiguration-violation-rule" }
+          ]
+        }
+      },
+      "required": ["class", "rules"],
+      "additionalProperties": false
+    },
+    "cloud-misconfiguration-violation-rule": {
+      "type": "object",
+      "properties": {
+        "generic-cloud": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "sensitive-data-in-default-variable": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "sensitive-data-in-block-attribute": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "sensitive-data-in-local-value": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-block-device": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-sns-queue": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-sqs-queue": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-kinesis-stream": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-data-managed-kafka": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-s3-bucket": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "use-of-plain-http": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "outdated-ssl-in-load-balancer": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "unencrypted-cloudfront": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "outdated-ssl-cloudfront": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "s3-public-access": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "launch-configuration-public-ip-address": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "load-balancer-public-access": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "egress-security-group-public-access": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "ingress-security-group-public-access": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "inline-ingress-security-group-public-access": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "inline-egress-security-group-public-access": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "resource-publicly-accessible": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "resource-public-ip-address": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "s3-disabled-server-logging": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "security-group-rule-missing-description": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "kms-no-auto-rotation": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "aws-classic-resource-usage": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        },
+        "ecr-disabled-image-scans": {
+          "type": "string",
+          "enum": ["alert", "block"]
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    }
+  }
+}
