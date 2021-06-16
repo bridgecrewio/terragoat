@@ -5,7 +5,7 @@ terraform_012_parameters:
 #
 #template_version: 0.12
 #template_parameters:
-#  - root_module: iac-api-v2
+#  - root_module: terraform
 #    variable_files:
 #    - iac-api-v2/variables.tf
 #
