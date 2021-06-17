@@ -5,6 +5,7 @@ resource "aws_iam_user" "user" {
   tags = {
     Name        = "${local.resource_prefix.value}-user"
     Environment = local.resource_prefix.value
+    yor_trace   = "b706859a-a3a2-41f2-ae67-d6fdd4ab5166"
   }
 
 }

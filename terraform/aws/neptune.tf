@@ -7,19 +7,25 @@ resource "aws_neptune_cluster" "default" {
   iam_database_authentication_enabled = false
   apply_immediately                   = true
   storage_encrypted                   = false
+  tags = {
+    yor_trace = "30ddd598-849a-49ee-9b96-699b67038686"
+  }
 }
 
 resource "aws_neptune_cluster_instance" "default" {
-  count                               = 1
-  cluster_identifier                  = aws_neptune_cluster.default.id
-  engine                              = "neptune"
-  instance_class                      = "db.t3.medium" # Smallest instance type listed for neptune https://aws.amazon.com/neptune/pricing/
-  apply_immediately                   = true
+  count              = 1
+  cluster_identifier = aws_neptune_cluster.default.id
+  engine             = "neptune"
+  instance_class     = "db.t3.medium" # Smallest instance type listed for neptune https://aws.amazon.com/neptune/pricing/
+  apply_immediately  = true
   #publicly_accessible                = true # No longer supported, API returns create error. See https://docs.aws.amazon.com/neptune/latest/userguide/api-instances.html#CreateDBInstance
+  tags = {
+    yor_trace = "0e01114a-1f49-41b9-a3b9-f7f716067e67"
+  }
 }
 
 resource "aws_neptune_cluster_snapshot" "default" {
-  db_cluster_identifier               = aws_neptune_cluster.default.id
-  db_cluster_snapshot_identifier      = "resourcetestsnapshot1"
+  db_cluster_identifier          = aws_neptune_cluster.default.id
+  db_cluster_snapshot_identifier = "resourcetestsnapshot1"
 }
 
