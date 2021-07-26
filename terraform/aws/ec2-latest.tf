@@ -1,4 +1,4 @@
-#06-07021 updating information
+#updating information
 
 resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
@@ -77,6 +77,13 @@ resource "aws_security_group" "web-node" {
   ingress {
     from_port = 22
     to_port   = 22
+    protocol  = "tcp"
+    cidr_blocks = [
+    "0.0.0.0/0"]
+  }
+  ingress {
+    from_port = 3389  
+    to_port   = 3389
     protocol  = "tcp"
     cidr_blocks = [
     "0.0.0.0/0"]
