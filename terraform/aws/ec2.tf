@@ -34,6 +34,7 @@ resource "aws_ebs_volume" "web_host_storage" {
     Name      = "${local.resource_prefix.value}-ebs"
     yor_trace = "a5b0abf3-5001-4a6e-9bc8-3f8db4cccfa5"
   }
+  encrypted = true
 }
 
 resource "aws_ebs_snapshot" "example_snapshot" {
