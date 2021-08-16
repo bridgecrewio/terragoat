@@ -1,5 +1,7 @@
 # TerraGoat - Vulnerable Terraform Infrastructure
 
+[![HIPAA](https://app.soluble.cloud/api/v1/public/badges/8dfb0b79-49aa-4298-bb4a-0ffee6d93b9d.svg)](https://app.soluble.cloud/repos/details/github.com/lioskaderon/terragoat)  [![IaC](https://app.soluble.cloud/api/v1/public/badges/4eb551ad-e5e7-48e9-ab62-a50af1319db9.svg)](https://app.soluble.cloud/repos/details/github.com/lioskaderon/terragoat)  [![CIS](https://app.soluble.cloud/api/v1/public/badges/798bbe15-38cd-45af-9ba1-ce4dea9acf36.svg)](https://app.soluble.cloud/repos/details/github.com/lioskaderon/terragoat)  
+
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terragoat)
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/bridgecrewio/terragoat/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=bridgecrewio%2Fterragoat&benchmark=INFRASTRUCTURE+SECURITY)
 [![CIS Azure](https://www.bridgecrew.cloud/badges/github/bridgecrewio/terragoat/cis_azure)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=bridgecrewio%2Fterragoat&benchmark=CIS+AZURE+V1.1)
