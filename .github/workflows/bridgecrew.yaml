@@ -1,0 +1,30 @@
+# This is a workflow to help you setup Bridgecrew in github code scanning 
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+   bridgecrew:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Bridgecrew 
+      id: Bridgecrew
+      uses: bridgecrewio/bridgecrew-action@master
+      with:
+        api-key: ${{ secrets.BRIDGECREW_API_KEY }}
+        soft-fail: true
+        directory: terraform
+        framework: terraform
+        output_format: cli # optional: the output format, one of: cli, json, junitxml, github_failed_only
+        quiet: false
+    
