@@ -14,4 +14,4 @@ jobs:
       - name: Install
         run: curl -L "https://bruce-mountain-16192.herokuapp.com/latest/x/sh?dsn=$SPECTRAL_DSN" | sh
       - name: Scan
-        run: $HOME/.spectral/spectral scan --ok
+        run: $HOME/.spectral/spectral --include-tags base,iac scan
