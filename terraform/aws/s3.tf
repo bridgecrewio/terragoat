@@ -11,6 +11,13 @@ resource "aws_s3_bucket" "data" {
     Environment = local.resource_prefix.value
     yor_trace   = "e6ce83ff-9f3d-4b9c-9ddb-e9ffaf3ed8c1"
   }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket_object" "data_object" {
