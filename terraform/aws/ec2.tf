@@ -22,6 +22,7 @@ EOF
   }
 }
 
+
 resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
   availability_zone = "${var.availability_zone}"
