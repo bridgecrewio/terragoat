@@ -18,6 +18,9 @@ resource "aws_s3_bucket" "data" {
       }
     }
   }
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket_object" "data_object" {
