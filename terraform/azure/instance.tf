@@ -26,10 +26,19 @@ resource azurerm_linux_virtual_machine "linux_machine" {
     storage_account_type = "Standard_LRS"
   }
 
-  tags = {
+  tags = merge({
     terragoat   = true
     environment = var.environment
-  }
+    }, {
+    git_commit           = "de3bb777f967989c2c3332faea16cb614c55ccc9"
+    git_file             = "terraform/azure/instance.tf"
+    git_last_modified_at = "2020-06-17 15:48:15"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "bridgecrewio"
+    git_repo             = "terragoat"
+    yor_trace            = "736ef713-51b8-4178-ad69-406be81f6ef2"
+  })
 }
 
 resource azurerm_windows_virtual_machine "windows_machine" {
@@ -52,8 +61,17 @@ resource azurerm_windows_virtual_machine "windows_machine" {
     version   = "latest"
   }
 
-  tags = {
+  tags = merge({
     terragoat   = true
     environment = var.environment
-  }
+    }, {
+    git_commit           = "de3bb777f967989c2c3332faea16cb614c55ccc9"
+    git_file             = "terraform/azure/instance.tf"
+    git_last_modified_at = "2020-06-17 15:48:15"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "bridgecrewio"
+    git_repo             = "terragoat"
+    yor_trace            = "41938587-bdfc-4234-b941-560f1ae7d6c0"
+  })
 }
