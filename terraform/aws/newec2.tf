@@ -210,6 +210,9 @@ resource "aws_s3_bucket" "flowbucket" {
     Environment = local.resource_prefix.value
     yor_trace   = "96b6a8ce-6618-4844-82c9-59ddb5081ba2"
   }
+  versioning {
+    enabled = true
+  }
 }
 
 output "ec2_public_dns" {
