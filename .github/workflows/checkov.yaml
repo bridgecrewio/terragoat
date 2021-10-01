@@ -19,4 +19,6 @@ jobs:
           python-version: 3.7
       - name: Test with Checkov
         id: checkov
-        uses: bridgecrewio/checkov-action@main
+        uses: bridgecrewio/checkov-action@master
+        with:
+          github_token: ${{ github.token }}
