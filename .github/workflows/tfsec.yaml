@@ -10,4 +10,3 @@ jobs:
 
       - name: tfsec
         uses: tfsec/tfsec-pr-commenter-action@main
-        with:
