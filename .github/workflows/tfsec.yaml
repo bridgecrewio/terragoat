@@ -12,4 +12,3 @@ jobs:
         uses: tfsec/tfsec-pr-commenter-action@main
         with:
           github_token: ${{ github.token }}
-          working_directory: "terraform/aws/"
