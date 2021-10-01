@@ -20,5 +20,3 @@ jobs:
       - name: Test with Checkov
         id: checkov
         uses: bridgecrewio/checkov-action@master
-        with:
-          github_token: ${{ github.token }}
