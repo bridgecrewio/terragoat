@@ -18,4 +18,4 @@ jobs:
       with:
         api-key: ${{ secrets.BRIDGECREW_API_KEY }}
         directory: terraform/
-        output-format: cli
+        output_format: cli
