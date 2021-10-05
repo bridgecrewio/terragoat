@@ -27,7 +27,7 @@ resource "aws_security_group" "ssh_traffic" {
 
 resource "aws_instance" "web_server_instance" {
   ami             = data.aws_ami.ubuntu.id
-  vpc_id     = "vpc-0e3c5e2a6a4d7d6a5"
+  subnet_id    = "subnet-045fa779639d7decf"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.ssh_traffic.name}"]
   tags = {
