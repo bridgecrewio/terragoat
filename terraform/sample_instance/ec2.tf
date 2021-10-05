@@ -29,7 +29,7 @@ resource "aws_instance" "web_server_instance" {
   ami             = data.aws_ami.ubuntu.id
   subnet_id    = "subnet-045fa779639d7decf"
   instance_type   = "t2.micro"
-  security_groups = ["${aws_security_group.ssh_traffic.name}"]
+  security_groups = ["${aws_security_group.ssh_traffic.id}"]
   tags = {
     Name                 = "bc_workshop_ec2"
     git_commit           = "4cf5dd4337f73d89ab5e43d286410cfaeaf275d8"
