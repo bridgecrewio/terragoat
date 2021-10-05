@@ -5,6 +5,7 @@ provider "aws" {
 resource "aws_security_group" "ssh_traffic" {
   name        = "ssh_traffic"
   description = "Allow SSH inbound traffic"
+  vpc_id     = "vpc-0e3c5e2a6a4d7d6a5"
   ingress {
     description = "SSH"
     from_port   = 22
