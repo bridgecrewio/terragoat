@@ -1,4 +1,6 @@
 provider "aws" {
+  access_key = "$aws_access_key_id"
+  secret_key = "$aws_secret_access_key"
   region = "us-west-2"
 }
 
@@ -54,5 +56,5 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["514809078269"] # Canonical
 }
