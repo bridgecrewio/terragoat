@@ -1,0 +1,15 @@
+name: IaC trace
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  yor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout repo
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      - name: Run yor action and commit
+        uses: bridgecrewio/yor-action@main
