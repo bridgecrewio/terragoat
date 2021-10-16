@@ -201,7 +201,7 @@ To create the credentials:
 1. Sign into your GCP project, go to `IAM` > `Service Accounts` and click on the relevant Service Account.
 2. Click `ADD KEY` > `Create new key` > `JSON` and click `CREATE`. This will create a `.json` file and download it to your computer.
 
-We recommend saving the key with a nicer name than the auto-generated one (i.e. `terragoat_credentials.json`), and storing the resulting JSON file inside `terraform/gcp` directory of terragoat.
+We recommend you to save the key with a adequate name than the auto-generated one (i.e. `terragoat_credentials.json`), and storing the resulting JSON file inside `terraform/gcp` directory of terragoat.
 Once the credentials are set up, create the BE configuration as follows:
 
 ```bash
@@ -241,7 +241,7 @@ terraform destroy
 
 Contribution is welcomed!
 
-We would love to hear about more ideas on how to find vulnerable infrastructure-as-code design patterns.
+We would love to hear more about ideas on how to find vulnerable infrastructure-as-code design patterns.
 
 ## Support
 
