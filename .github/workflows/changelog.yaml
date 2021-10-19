@@ -53,3 +53,9 @@ jobs:
     # Optional. Used by `git-status`
     # See https://git-scm.com/docs/git-status#_options
           # status_options: '--untracked-files=no'
+      - name: Push to protected branch
+        uses: CasperWA/push-protected@v2
+        with:
+          token: ${{ secrets.MJ_PAT }}
+          branch: main
+          unprotect_reviews: true
