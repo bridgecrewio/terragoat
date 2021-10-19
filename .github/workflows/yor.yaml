@@ -1,4 +1,5 @@
           # Triggers the workflow on push or pull request events but only for the main branch
+on:
   push:
     branches: [ main ]
   pull_request:
@@ -9,6 +10,7 @@
 
 jobs:
   yor:
+    name: Run YOR
     runs-on: ubuntu-latest
     env:
       GIT_APP_TOKEN: ${{ secrets.PAT }}
