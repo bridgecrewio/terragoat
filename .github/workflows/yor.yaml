@@ -10,6 +10,7 @@ on:
 
 jobs:
   yor:
+    name: Run YOR
     runs-on: ubuntu-latest
     env:
       GIT_APP_TOKEN: ${{ secrets.PAT }}
