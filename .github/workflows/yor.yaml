@@ -10,6 +10,9 @@
 jobs:
   yor:
     runs-on: ubuntu-latest
+    env:
+      GIT_APP_TOKEN: ${{ secrets.PAT }}
+      GITHUB_REPOSITORY: main
     steps:
       - uses: actions/checkout@v2
         name: Checkout repo
@@ -20,9 +23,11 @@ jobs:
         uses: bridgecrewio/yor-action@main
     #   - name: Commit tag changes
     #     uses: stefanzweifel/git-auto-commit-action@v4
-      - name: Push to protected branch
-        uses: CasperWA/push-protected@v2
-        with:
-            token: ${{ secrets.PAT }}
-            branch: main
-            unprotect_reviews: true
+    #   - name: Push to protected branch
+    #     uses: CasperWA/push-protected@v2
+    #     with:
+    #         token: ${{ secrets.MJ_PAT }}
+    #         branch: main
+    #         unprotect_reviews: true
+      - name: Protected branch commit
+        uses: augustonascimentos/commit_and_push_to_protected_branch@v1
