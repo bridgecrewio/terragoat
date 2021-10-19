@@ -26,7 +26,7 @@ jobs:
         id: generate-full-changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.2
         with:
-          token: ${{ secrets.MJ_PAT }}
+          token: ${{ secrets.PAT }}
           headerLabel: "# 📑 Changelog"
           breakingLabel: '### 💥 Breaking'
           enhancementLabel: '### 🚀 Enhancements'
