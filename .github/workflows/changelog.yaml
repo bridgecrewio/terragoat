@@ -13,6 +13,9 @@ jobs:
   changelog-gen:
     name: "✏️ Changelog generation"
     runs-on: ubuntu-latest
+    env:
+      GIT_APP_TOKEN: ${{ secrets.PAT }}
+      GITHUB_REPOSITORY: main
     steps:
       - name: "📥 Check-out"
         uses: actions/checkout@v2
@@ -45,17 +48,19 @@ jobs:
           verbose: false
 
 
-      - name: "Commit updated CHANGELOG.md"
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "ci: Changelog updated by github action"
-          file_pattern: CHANGELOG.md
+      # - name: "Commit updated CHANGELOG.md"
+      #   uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: "ci: Changelog updated by github action"
+      #     file_pattern: CHANGELOG.md
     # Optional. Used by `git-status`
     # See https://git-scm.com/docs/git-status#_options
           # status_options: '--untracked-files=no'
-      - name: Push to protected branch
-        uses: CasperWA/push-protected@v2
-        with:
-          token: ${{ secrets.MJ_PAT }}
-          branch: main
-          unprotect_reviews: true
+      # - name: Push to protected branch
+      #   uses: CasperWA/push-protected@v2
+      #   with:
+      #     token: ${{ secrets.MJ_PAT }}
+      #     branch: main
+      #     unprotect_reviews: true
+      - name: Protected branch commit
+        uses: augustonascimentos/commit_and_push_to_protected_branch@v1
