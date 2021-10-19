@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GIT_APP_TOKEN: ${{ secrets.PAT }}
-      GITHUB_REPOSITORY: main
+      GITHUB_REPOSITORY: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v2
         name: Checkout repo
