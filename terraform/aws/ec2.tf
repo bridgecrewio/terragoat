@@ -135,13 +135,6 @@ resource "aws_subnet" "web_subnet" {
     Name = "${local.resource_prefix.value}-subnet"
     }, {
     git_commit           = "6e62522d2ab8f63740e53752b84a6e99cd65696a"
-    git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2021-05-02 11:16:31"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
-    yor_trace            = "0345f650-d280-4ca8-86c9-c71c38c0eda8"
   })
 }
 
@@ -155,13 +148,6 @@ resource "aws_subnet" "web_subnet2" {
     Name = "${local.resource_prefix.value}-subnet2"
     }, {
     git_commit           = "6e62522d2ab8f63740e53752b84a6e99cd65696a"
-    git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2021-05-02 11:16:31"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
-    yor_trace            = "224af03a-00e0-4981-be30-14965833c2db"
   })
 }
 
