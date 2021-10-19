@@ -26,4 +26,4 @@ jobs:
           soft_fail: true # optional: do not return an error code if there are failed checks
           framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
           output_format: cli # optional: the output format, one of: cli, json, junitxml, github_failed_only
-          baseline: .checkov.baseline # Only report results not already in the baseline, ideally ignoring root module errors
+          #baseline: .checkov.baseline # Only report results not already in the baseline, ideally ignoring root module errors
