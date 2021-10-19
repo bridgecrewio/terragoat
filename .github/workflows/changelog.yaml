@@ -1,0 +1,55 @@
+name: Generate CHANGELOG.md
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  workflow_dispatch: # add manual run option to Actions tab
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
+jobs:
+  changelog-gen:
+    name: "✏️ Changelog generation"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: "✏️ Generate full changelog"
+        id: generate-full-changelog
+        uses: heinrichreimer/github-changelog-generator-action@v2.2
+        with:
+          token: ${{ secrets.MJ_PAT }}
+          headerLabel: "# 📑 Changelog"
+          breakingLabel: '### 💥 Breaking'
+          enhancementLabel: '### 🚀 Enhancements'
+          bugsLabel: '### 🐛 Bug fixes'
+          deprecatedLabel: '### ⚠️ Deprecations'
+          removedLabel: '### 🔥 Removals'
+          securityLabel: '### 🛡️ Security'
+          issuesLabel: '### 📁 Other issues'
+          prLabel: '### 📁 Other pull requests'
+          addSections: '{"documentation":{"prefix":"### 📖 Documentation","labels":["documentation"]},"tests":{"prefix":"### ✅ Testing","labels":["tests"]}}'
+          issues: true
+          issuesWoLabels: true
+          pullRequests: true
+          prWoLabels: true
+          author: true
+          unreleased: true
+          compareLink: true
+          stripGeneratorNotice: true
+          verbose: false
+
+
+      - name: "Commit updated CHANGELOG.md"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "ci: Changelog updated by github action"
+          file_pattern: CHANGELOG.md
+    # Optional. Used by `git-status`
+    # See https://git-scm.com/docs/git-status#_options
+          # status_options: '--untracked-files=no'

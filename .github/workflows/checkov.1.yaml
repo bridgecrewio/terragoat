@@ -1,0 +1,29 @@
+name: Checkov OLD
+
+on:
+  push:
+    branches:
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+    workflow_dispatch:
+
+jobs:
+  checkov-job:
+    runs-on: ubuntu-latest
+    name: checkov-action
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+      - name: Run Checkov action
+        id: Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          #check: CKV_AWS_1 # optional: run only a specific check_id. can be comma separated list https://github.com/bridgecrewio/checkov/blob/master/docs/3.Scans/resource-scans.md
+          #skip_check: CKV_AWS_1 # optional: skip a specific check_id. can be comma separated list
+          quiet: true # optional: display only failed checks
+          soft_fail: true # optional: do not return an error code if there are failed checks
+          framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+          output_format: cli # optional: the output format, one of: cli, json, junitxml, github_failed_only
+          #baseline: .checkov.baseline # Only report results not already in the baseline, ideally ignoring root module errors

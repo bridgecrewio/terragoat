@@ -1,8 +1,9 @@
-name: build
+name: Checkov NEW
 on:
   push:
     branches:
-      - master
+      - main
+  workflow_dispatch: #allow manual runs
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,9 +33,9 @@ jobs:
           echo "new tag: $new_tag"
 
           pip install -U checkov
-          cat .github/template.md > README.md && checkov -d terraform -o github_failed_only -s >> README.md
-          git add README.md  || echo "No changes to commit"
-          git commit -m "update resource scan result doc" README.md || echo "No changes to commit"
+          cat .github/template.md > CHECKOV.md && checkov -d terraform -o github_failed_only -s >> CHECKOV.md
+          git add CHECKOV.md  || echo "No changes to commit"
+          git commit -m "update resource scan result doc" CHECKOV.md || echo "No changes to commit"
           git push origin
           git tag $new_tag
           git push origin $new_tag
