@@ -1,0 +1,24 @@
+name: Generate Terradocs README.md
+on:
+  - pull_request
+jobs:
+  readme-gen:
+    name: "✏️ Readme Generation"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
+        uses: terraform-docs/gh-actions@v0.6.1
+        with:
+          working-dir: .
+          find-dir: .
+          output-file: README.md
+          output-method: replace
+          git-push: "true"
+          args: --sort-by required
+          git-commit-message: "terraform-docs: automated action"
+          indention: 3
