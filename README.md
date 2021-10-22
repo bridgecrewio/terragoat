@@ -188,10 +188,10 @@ You can deploy multiple TerraGoat stacks in a single GCP project using the param
 
 #### Create a GCS backend to keep Terraform state
 
-To use terraform, a Service Account and matching set of credentials are required.
+To use terraform, a Service Account and a matching set of credentials are required.
 If they do not exist, they must be manually created for the relevant project.
 To create the Service Account:
-1. Sign into your GCP project, go to `IAM` > `Service Accounts`.
+1. Sign in to your GCP project, go to `IAM` > `Service Accounts`.
 2. Click the `CREATE SERVICE ACCOUNT`.
 3. Give a name to your service account (for example - `terragoat`) and click `CREATE`.
 4. Grant the Service Account the `Project` > `Editor` role and click `CONTINUE`.
@@ -241,7 +241,7 @@ terraform destroy
 
 Contribution is welcomed!
 
-We would love to hear about more ideas on how to find vulnerable infrastructure-as-code design patterns.
+We would love to hear more ideas on how to find vulnerable infrastructure-as-code design patterns.
 
 ## Support
 
