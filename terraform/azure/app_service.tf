@@ -26,7 +26,7 @@ resource azurerm_app_service "app-service1" {
   resource_group_name = azurerm_resource_group.example.name
   https_only          = false
   site_config {
-    min_tls_version = "1.0"
+    min_tls_version = "1.1"
   }
   tags = {
     git_commit           = "81738b80d571fa3034633690d13ffb460e1e7dea"
