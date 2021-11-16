@@ -45,4 +45,4 @@ resource google_compute_disk "unencrypted_disk" {
     git_repo             = "terragoat"
     yor_trace            = "bf87b7d7-a9d8-4f03-a0d4-8a4cbb647d03"
   }
-}
+}#
