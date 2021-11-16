@@ -139,7 +139,7 @@ resource azurerm_network_watcher_flow_log "flow_log" {
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
     git_org              = "ivan-tresoldi"
-    git_repo             = "terragoat"
+    git_repo             = "ivan-terragoat"
     yor_trace            = "1371c4b9-d69a-4475-a3a1-da9b9ae2d578"
   }
 }
