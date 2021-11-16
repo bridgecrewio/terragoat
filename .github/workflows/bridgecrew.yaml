@@ -10,12 +10,15 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
+        
     steps:
-    - uses: actions/checkout@v2
-    - name: Run Bridgecrew 
-      id: Bridgecrew
-      uses: bridgecrewio/bridgecrew-action@master
-      with:
-        api-key: ${{ secrets.BRIDGECREW_API_KEY }}
-        directory: terraform/
-        output_format: cli
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run Bridgecrew 
+        id: Bridgecrew
+        uses: bridgecrewio/bridgecrew-action@master 
+        env:
+          PRISMA_API_URL: https://api.prismacloud.io
+        with:
+          api-key: ${{ secrets.BC_API_KEY }}
