@@ -32,7 +32,7 @@ EOF
 }
 
 resource "aws_ebs_volume" "web_host_storage" {
-  for_each = toset(local.azs) # HERE CHECKOV FAILS
+  for_each = toset(local.azs) # Checkov Issue https://github.com/bridgecrewio/checkov/issues/1948
   # unencrypted volume
   availability_zone = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
@@ -309,4 +309,4 @@ output "public_subnet2" {
 }
 locals {
   azs         = ["eu-central-1a", "eu-central-1b"]
-} # HERE CHECKOV FAILS
+} # Checkov Issue https://github.com/bridgecrewio/checkov/issues/1948
