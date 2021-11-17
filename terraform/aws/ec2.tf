@@ -32,6 +32,7 @@ EOF
 }
 
 resource "aws_ebs_volume" "web_host_storage" {
+  for_each = toset(local.azs) # HERE CHECKOV FAILS
   # unencrypted volume
   availability_zone = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
@@ -306,3 +307,6 @@ output "public_subnet2" {
   description = "The ID of the Public subnet"
   value       = aws_subnet.web_subnet2.id
 }
+locals {
+  azs         = ["eu-central-1a", "eu-central-1b"]
+} # HERE CHECKOV FAILS
