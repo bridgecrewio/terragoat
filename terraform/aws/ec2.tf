@@ -92,7 +92,7 @@ resource "aws_security_group" "web-node" {
     to_port   = 22
     protocol  = "tcp"
     cidr_blocks = [
-    "0.0.0.0/0"]
+    "10.0.0.0/0"]  # Auto-replaced to private sub-net by Lacework - please contact squad leader for open access                          
   }
   egress {
     from_port = 0
