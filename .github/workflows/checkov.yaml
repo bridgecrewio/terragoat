@@ -37,6 +37,7 @@ jobs:
         id: checkov
         uses: bridgecrewio/checkov-action@master
         with:
+          baseline: .checkov.baseline
           quiet: true
 
       - name: Reset workspace ownership
