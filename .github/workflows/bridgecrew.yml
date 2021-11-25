@@ -1,4 +1,4 @@
-name: Bridgecrew
+name: Bridgecrew IaC Code Scan
 on:
   pull_request:
   push:
@@ -12,9 +12,10 @@ jobs:
         python-version: [3.8]
     steps:
     - uses: actions/checkout@v2
-    - name: Run Bridgecrew 
+    - name: Run Bridgecrew Iac Code Scan
       id: Bridgecrew
       uses: bridgecrewio/bridgecrew-action@master
       with:
         api-key: ${{ secrets.STANDALONE_BRIDGECREW_API_KEY }}
         directory: terraform/
+        soft_fail: true
