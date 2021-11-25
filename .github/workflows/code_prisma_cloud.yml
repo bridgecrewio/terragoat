@@ -1,4 +1,4 @@
-name: Bridgecrew
+name: Prisma Cloud IaC Code Scan
 on:
   pull_request:
   push:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Run Bridgecrew 
+      - name: Prisma Cloud IaC Code Scan 
         id: Bridgecrew
         uses: bridgecrewio/bridgecrew-action@master 
         env:
