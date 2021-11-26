@@ -1,0 +1,27 @@
+name: "Reset workspace ownership"
+
+# This is required whilst we don't have ephemeral runners as the
+# ownership of some files / folders can break between runs.
+# Additionally, not all actions ensure they don't change the
+# ownership of files / folders they touch. It's this problem
+# basically https://vsupalov.com/docker-shared-permissions/
+
+# This action needs to always to be ran at the end of any relevant jobs
+# (regardless of the jobs success status) to ensure the next run
+# isn't blocked from ownership issues.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get actions uuid
+      id: uuid
+      run: |
+        actions_user_id=`id -u $USER`
+        echo $actions_user_id
+        echo ::set-output name=uuid::$actions_user_id
+      shell: bash
+
+    - name: Reset ownership in GITHUB_WORKSPACE directory
+      uses: peter-murray/reset-workspace-ownership-action@v1
+      with:
+        user_id: ${{ steps.uuid.outputs.uuid }}
