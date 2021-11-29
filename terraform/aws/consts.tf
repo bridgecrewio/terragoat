@@ -5,6 +5,7 @@ variable "company_name" {
   default = "acme"
 }
 
+
 variable "environment" {
   default = "dev"
 }
