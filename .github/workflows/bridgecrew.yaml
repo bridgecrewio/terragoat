@@ -18,3 +18,4 @@ jobs:
       with:
         api-key: ${{ secrets.BC_API_KEY }}
         directory: terraform/
+        soft_fail: true
