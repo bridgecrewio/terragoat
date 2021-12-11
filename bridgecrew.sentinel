@@ -1,0 +1,15 @@
+import "http"
+import "json"
+req = http.request("https://www.bridgecrew.cloud/api/v1/tfCloud/sentinel/ws-VzYHHTsa8jNRqyQ3").with_header("Authorization", "6e526644-bb0c-4b91-bfa2-4171499927b5")
+resp = json.unmarshal(http.get(req).body)
+if (length(resp.violations) > 0) {
+    print("Violations:\n")
+    for resp.violations as violation {
+        print(violation.title)
+        print("Resource: " + violation.resource_id)
+        print("Violation ID: " + violation.violation_id)
+        print("\n")
+    }
+}
+print("More details: " + resp.details_url)  
+main = rule { length(resp.violations) < 1 }
