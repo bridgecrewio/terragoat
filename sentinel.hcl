@@ -1,4 +1,4 @@
 policy "bridgecrew" {
-    source            = "terragoat/"
+    source            = "/"
     enforcement_level = "hard-mandatory"
   }
