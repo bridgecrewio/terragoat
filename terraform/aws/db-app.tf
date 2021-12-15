@@ -17,7 +17,7 @@ resource "aws_db_instance" "default" {
   backup_retention_period = 0
   storage_encrypted       = false
   skip_final_snapshot     = true
-  monitoring_interval     = 0
+  monitoring_interval     = true
   publicly_accessible     = true
 
   tags = merge({
