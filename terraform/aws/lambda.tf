@@ -16,6 +16,16 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
+  tags = {
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_file             = "terraform/aws/lambda.tf"
+    git_last_modified_at = "2020-06-16 14:46:24"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "adelavv"
+    git_repo             = "terragoat"
+    yor_trace            = "7028fab4-99a4-47ff-ab66-95745cf4b6f7"
+  }
 }
 
 resource "aws_lambda_function" "analysis_lambda" {
@@ -34,5 +44,15 @@ resource "aws_lambda_function" "analysis_lambda" {
       access_key = "AKIAIOSFODNN7EXAMPLE"
       secret_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     }
+  }
+  tags = {
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_file             = "terraform/aws/lambda.tf"
+    git_last_modified_at = "2020-06-16 14:46:24"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "adelavv"
+    git_repo             = "terragoat"
+    yor_trace            = "d27ec554-90b4-4f06-b54a-9044f41d05d8"
   }
 }
