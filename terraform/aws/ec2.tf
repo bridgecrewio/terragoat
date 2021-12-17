@@ -283,7 +283,7 @@ resource "aws_s3_bucket" "flowbucket" {
     git_modifiers        = "nimrodkor"
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
-    yor_trace            = "f058838a-b1e0-4383-b965-7e06e987ffb1"
+    yor_trace            = "f058838a-b1e0-4383-b965-7e06e987ffb1" 
   })
 }
 
