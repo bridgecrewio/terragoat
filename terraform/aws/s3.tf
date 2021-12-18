@@ -33,7 +33,7 @@ resource "aws_s3_bucket_object" "data_object" {
   key    = "customer-master.xlsx"
   source = "resources/customer-master.xlsx"
   tags = merge({
-    Name        = "${local.resource_prefix.value}-customer-master"
+    Name        = "${local.resource_prefix.value}-customer-master" 
     Environment = local.resource_prefix.value
     }, {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
@@ -49,16 +49,16 @@ resource "aws_s3_bucket_object" "data_object" {
 
 resource "aws_s3_bucket" "financials" {
   # bucket is not encrypted
-  # bucket does not have access logs
+  # bucket does not have access logs dec18
   # bucket does not have versioning
   bucket        = "${local.resource_prefix.value}-financials"
   acl           = "private"
   force_destroy = true
   tags = merge({
-    Name        = "${local.resource_prefix.value}-financials"
+    Name        = "${local.resource_prefix.value}-financials" 
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0" 
     git_file             = "terraform/aws/s3.tf"
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
