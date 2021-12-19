@@ -3,6 +3,7 @@ resource "aws_rds_cluster" "app1-rds-cluster" {
   allocated_storage       = 10
   backup_retention_period = 0
 }
+##
 
 resource "aws_rds_cluster" "app2-rds-cluster" {
   cluster_identifier = "app2-rds-cluster"
