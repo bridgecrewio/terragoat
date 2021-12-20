@@ -13,7 +13,7 @@ sudo apt-get install -y apache2
 sudo systemctl start apache2
 sudo systemctl enable apache2
 export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA
-export AWS_SECRET_ACCESS_KEY=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
+export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMAAAKEY     
 export AWS_DEFAULT_REGION=us-west-2
 echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
 EOF
@@ -31,7 +31,7 @@ EOF
   })
 }
 
-resource "aws_ebs_volume" "web_host_storage" {
+resource "aws_ebs_volume" "web_host_storage" {     
   # unencrypted volume
   availability_zone = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
@@ -46,7 +46,7 @@ resource "aws_ebs_volume" "web_host_storage" {
     git_modifiers        = "nimrodkor"
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
-    yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
+    yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"     
   })
 }
 
@@ -57,7 +57,7 @@ resource "aws_ebs_snapshot" "example_snapshot" {
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs-snapshot"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"     
     git_file             = "terraform/aws/ec2.tf"
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
