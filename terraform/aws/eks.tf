@@ -41,6 +41,7 @@ resource aws_iam_role_policy_attachment "policy_attachment-AmazonEKSServicePolic
 }
 
 resource aws_vpc "eks_vpc" {
+	# checkov:skip=CKV2_AWS_11: Allowing this security check for testing purposes
   cidr_block           = "10.10.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
