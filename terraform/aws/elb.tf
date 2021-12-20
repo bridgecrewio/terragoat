@@ -1,5 +1,7 @@
 # Create a new load balancer
 resource "aws_elb" "weblb" {
+	# checkov:skip=CKV_AWS_127: Testing skip comment feature
+	# checkov:skip=CKV_AWS_92: Testing skip comment feature
   name = "weblb-terraform-elb"
 
   listener {
