@@ -20,18 +20,18 @@ EOF
   tags = merge({
     Name = "${local.resource_prefix.value}-ec2"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "e71607a941b26a02791ab5d5fd53193e37cb45c3"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_last_modified_at = "2021-12-21 11:14:01"
+    git_last_modified_by = "81978904+panwtraining@users.noreply.github.com"
+    git_modifiers        = "81978904+panwtraining/nimrodkor"
+    git_org              = "panwtraining"
     git_repo             = "terragoat"
     yor_trace            = "347af3cd-4f70-4632-aca3-4d5e30ffc0b6"
   })
 }
 
-resource "aws_ebs_volume" "web_host_storage" {     
+resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
   availability_zone = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
@@ -39,14 +39,14 @@ resource "aws_ebs_volume" "web_host_storage" {
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs"
     }, {
-    git_commit           = "6e62522d2ab8f63740e53752b84a6e99cd65696a"
+    git_commit           = "f6113cae6ab810f060132b443a5fc900a7ba4f75"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2021-05-02 11:16:31"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_last_modified_at = "2021-12-20 23:11:46"
+    git_last_modified_by = "81978904+panwtraining@users.noreply.github.com"
+    git_modifiers        = "81978904+panwtraining/nimrodkor"
+    git_org              = "panwtraining"
     git_repo             = "terragoat"
-    yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"     
+    yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
   })
 }
 
@@ -57,7 +57,7 @@ resource "aws_ebs_snapshot" "example_snapshot" {
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs-snapshot"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"     
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/ec2.tf"
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
@@ -306,4 +306,4 @@ output "public_subnet2" {
   description = "The ID of the Public subnet"
   value       = aws_subnet.web_subnet2.id
 }
-     
+
