@@ -2,7 +2,7 @@ resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
   ami           = "${var.ami}"
   instance_type = "t2.nano"
-#
+  #
   vpc_security_group_ids = [
   "${aws_security_group.web-node.id}"]
   subnet_id = "${aws_subnet.web_subnet.id}"
@@ -20,12 +20,12 @@ EOF
   tags = merge({
     Name = "${local.resource_prefix.value}-ec2"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "26c21a197730043cf464a873b572ae23d629e700"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_last_modified_at = "2021-06-16 02:51:10"
+    git_last_modified_by = "sean.gnanarajah@gmail.com"
+    git_modifiers        = "nimrodkor/sean.gnanarajah"
+    git_org              = "seangz"
     git_repo             = "terragoat"
     yor_trace            = "347af3cd-4f70-4632-aca3-4d5e30ffc0b6"
   })
@@ -39,12 +39,12 @@ resource "aws_ebs_volume" "web_host_storage" {
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs"
     }, {
-    git_commit           = "6e62522d2ab8f63740e53752b84a6e99cd65696a"
+    git_commit           = "d3439f0f2af62f6fa3521e14d6c27819ef8f12e1"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2021-05-02 11:16:31"
-    git_last_modified_by = "nimrodkor@gmail.com"
+    git_last_modified_at = "2021-05-02 11:17:26"
+    git_last_modified_by = "nimrodkor@users.noreply.github.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "seangz"
     git_repo             = "terragoat"
     yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
   })
