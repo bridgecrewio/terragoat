@@ -132,4 +132,14 @@ resource azurerm_network_watcher_flow_log "flow_log" {
     enabled = false
     days    = 10
   }
+  tags = {
+    git_commit           = "898d5beaec7ffdef6df0d7abecff407362e2a74e"
+    git_file             = "terraform/azure/networking.tf"
+    git_last_modified_at = "2020-06-17 12:59:55"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "rbaccus"
+    git_repo             = "terragoat"
+    yor_trace            = "18805eb6-72e2-463e-a984-2e1891762efb"
+  }
 }
