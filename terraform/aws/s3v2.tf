@@ -10,12 +10,12 @@ resource "aws_s3_bucket" "data" {
     Name        = "${local.resource_prefix.value}-data"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "d9e68c63eed9917187cdb8321af4ecae0fe1f688"
+    git_file             = "terraform/aws/s3v2.tf"
+    git_last_modified_at = "2022-01-06 18:59:17"
+    git_last_modified_by = "caswalker@paloaltonetworks.com"
+    git_modifiers        = "caswalker"
+    git_org              = "caswalker"
     git_repo             = "terragoat"
     yor_trace            = "0874007d-903a-4b4c-945f-c9c233e13243"
   })
@@ -36,12 +36,12 @@ resource "aws_s3_bucket_object" "data_object" {
     Name        = "${local.resource_prefix.value}-customer-master"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "d9e68c63eed9917187cdb8321af4ecae0fe1f688"
+    git_file             = "terraform/aws/s3v2.tf"
+    git_last_modified_at = "2022-01-06 18:59:17"
+    git_last_modified_by = "caswalker@paloaltonetworks.com"
+    git_modifiers        = "caswalker"
+    git_org              = "caswalker"
     git_repo             = "terragoat"
     yor_trace            = "a7f01cc7-63c2-41a8-8555-6665e5e39a64"
   })
@@ -58,11 +58,11 @@ resource "aws_s3_bucket" "financials" {
     Name        = "${local.resource_prefix.value}-financials"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "80479a98ef65f5c725c14396497321002405de99"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2021-12-18 14:46:06"
-    git_last_modified_by = "90857961+caswalker@users.noreply.github.com"
-    git_modifiers        = "90857961+caswalker/nimrodkor"
+    git_commit           = "d9e68c63eed9917187cdb8321af4ecae0fe1f688"
+    git_file             = "terraform/aws/s3v2.tf"
+    git_last_modified_at = "2022-01-06 18:59:17"
+    git_last_modified_by = "caswalker@paloaltonetworks.com"
+    git_modifiers        = "caswalker"
     git_org              = "caswalker"
     git_repo             = "terragoat"
     yor_trace            = "0e012640-b597-4e5d-9378-d4b584aea913"
@@ -83,12 +83,12 @@ resource "aws_s3_bucket" "operations" {
     Name        = "${local.resource_prefix.value}-operations"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "d9e68c63eed9917187cdb8321af4ecae0fe1f688"
+    git_file             = "terraform/aws/s3v2.tf"
+    git_last_modified_at = "2022-01-06 18:59:17"
+    git_last_modified_by = "caswalker@paloaltonetworks.com"
+    git_modifiers        = "caswalker"
+    git_org              = "caswalker"
     git_repo             = "terragoat"
     yor_trace            = "29efcf7b-22a8-4bd6-8e14-1f55b3a2d743"
   })
@@ -108,12 +108,12 @@ resource "aws_s3_bucket" "data_science" {
   }
   force_destroy = true
   tags = {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "d9e68c63eed9917187cdb8321af4ecae0fe1f688"
+    git_file             = "terraform/aws/s3v2.tf"
+    git_last_modified_at = "2022-01-06 18:59:17"
+    git_last_modified_by = "caswalker@paloaltonetworks.com"
+    git_modifiers        = "caswalker"
+    git_org              = "caswalker"
     git_repo             = "terragoat"
     yor_trace            = "9a7c8788-5655-4708-bbc3-64ead9847f64"
   }
@@ -138,12 +138,12 @@ resource "aws_s3_bucket" "logs" {
     Name        = "${local.resource_prefix.value}-logs"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "d9e68c63eed9917187cdb8321af4ecae0fe1f688"
+    git_file             = "terraform/aws/s3v2.tf"
+    git_last_modified_at = "2022-01-06 18:59:17"
+    git_last_modified_by = "caswalker@paloaltonetworks.com"
+    git_modifiers        = "caswalker"
+    git_org              = "caswalker"
     git_repo             = "terragoat"
     yor_trace            = "01946fe9-aae2-4c99-a975-e9b0d3a4696c"
   })
