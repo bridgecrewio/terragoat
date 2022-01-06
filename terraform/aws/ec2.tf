@@ -31,6 +31,9 @@ EOF
   })
   monitoring = true
   ebs_optimized = true
+  *_block_device {
+    encrypted = true
+  }
 }
 
 
