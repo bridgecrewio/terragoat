@@ -1,7 +1,7 @@
-variable "credentials_path" {
-  type        = string
-  description = "Path to credentials file"
-}
+# variable "credentials_path" {
+#   type        = string
+#   description = "Path to credentials file"
+# }
 
 variable "project" {
   type        = string
@@ -16,4 +16,9 @@ variable "region" {
 variable "environment" {
   default     = "dev"
   description = "The environment name"
+}
+
+variable "location" {
+  default = "us-central1c"
+  type    = string
 }
