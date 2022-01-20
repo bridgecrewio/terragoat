@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "security_storage_account" {
-  name                     = "securitystorageaccount"
+  name                     = "securitystorageaccount-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"
@@ -8,7 +8,7 @@ resource "azurerm_storage_account" "security_storage_account" {
 }
 
 resource "azurerm_mssql_server" "mssql1" {
-  name                         = "mssql1"
+  name                         = "terragoat-mssql1-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -17,7 +17,7 @@ resource "azurerm_mssql_server" "mssql1" {
 }
 
 resource "azurerm_mssql_server" "mssql2" {
-  name                         = "mssql2"
+  name                         = "mssql2-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -26,7 +26,7 @@ resource "azurerm_mssql_server" "mssql2" {
 }
 
 resource "azurerm_mssql_server" "mssql3" {
-  name                         = "mssql3"
+  name                         = "mssql3-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -35,7 +35,7 @@ resource "azurerm_mssql_server" "mssql3" {
 }
 
 resource "azurerm_mssql_server" "mssql4" {
-  name                         = "mssql4"
+  name                         = "mssql4-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -44,7 +44,7 @@ resource "azurerm_mssql_server" "mssql4" {
 }
 
 resource "azurerm_mssql_server" "mssql5" {
-  name                         = "mssql5"
+  name                         = "mssql5-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -53,7 +53,7 @@ resource "azurerm_mssql_server" "mssql5" {
 }
 
 resource "azurerm_mssql_server" "mssql6" {
-  name                         = "mssql6"
+  name                         = "mssql6-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
@@ -62,7 +62,7 @@ resource "azurerm_mssql_server" "mssql6" {
 }
 
 resource "azurerm_mssql_server" "mssql7" {
-  name                         = "mssql7"
+  name                         = "mssql7-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
   version                      = "12.0"
