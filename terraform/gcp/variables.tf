@@ -1,7 +1,7 @@
-# variable "credentials_path" {
-#   type        = string
-#   description = "Path to credentials file"
-# }
+variable "credentials_path" {
+  type        = string
+  description = "Path to credentials file"
+}
 
 variable "project" {
   type        = string
