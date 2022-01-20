@@ -71,8 +71,6 @@ resource "azurerm_mssql_server" "mssql7" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy1" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql1.name
   state                      = "Enabled"
@@ -87,8 +85,6 @@ resource "azurerm_mssql_server_security_alert_policy" "alertpolicy1" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy2" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql2.name
   state                      = "Enabled"
@@ -103,8 +99,6 @@ resource "azurerm_mssql_server_security_alert_policy" "alertpolicy2" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy3" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql3.name
   state                      = "Enabled"
@@ -119,8 +113,6 @@ resource "azurerm_mssql_server_security_alert_policy" "alertpolicy3" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy4" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql4.name
   state                      = "Enabled"
@@ -135,8 +127,6 @@ resource "azurerm_mssql_server_security_alert_policy" "alertpolicy4" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy5" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql5.name
   state                      = "Enabled"
@@ -150,8 +140,6 @@ resource "azurerm_mssql_server_security_alert_policy" "alertpolicy5" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy6" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql6.name
   state                      = "Enabled"
@@ -166,8 +154,6 @@ resource "azurerm_mssql_server_security_alert_policy" "alertpolicy6" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "alertpolicy7" {
-	# checkov:skip=CKV_AZURE_27: Other contact
-  # checkov:skip=CKV_AZURE_25: Other contact
   resource_group_name        = azurerm_resource_group.example.name
   server_name                = azurerm_mssql_server.mssql7.name
   state                      = "Enabled"
