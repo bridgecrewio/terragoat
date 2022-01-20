@@ -1,5 +1,6 @@
 resource "google_storage_bucket" "terragoat_website" {
   name          = "terragot-${var.environment}"
+  location      = var.location
   force_destroy = true
   labels = {
     git_commit           = "ff3ee8387837a499665630ebb0371be39ce35fb6"
