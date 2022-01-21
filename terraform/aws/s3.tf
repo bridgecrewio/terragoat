@@ -72,7 +72,7 @@ resource "aws_s3_bucket" "financials" {
       }
     }
   }
-}
+        sse_algorithm = "aws:kms"
 
 
 resource "aws_s3_bucket" "operations" {
