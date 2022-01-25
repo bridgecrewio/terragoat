@@ -48,7 +48,9 @@ resource "aws_ebs_volume" "web_host_storage" {
     git_repo             = "ivan-terragoat"
     yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
   })
+  encrypted = true
 }
+
 
 resource "aws_ebs_snapshot" "example_snapshot" {
   # ebs snapshot without encryption
