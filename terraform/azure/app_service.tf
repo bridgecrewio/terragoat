@@ -35,7 +35,7 @@ resource azurerm_app_service "app-service1" {
     git_last_modified_by = "Adin.Ermie@outlook.com"
     git_modifiers        = "Adin.Ermie/nimrodkor"
     git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_repo             = "terragoat1"
     yor_trace            = "13be096d-c599-46e5-bf54-51c6e9732858"
   }
 }
