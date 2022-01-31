@@ -21,7 +21,7 @@ resource "azurerm_mssql_server" "mssql1" {
   name                         = "terragoat-mssql1-${var.environment}${random_integer.rnd_int.result}"
   resource_group_name          = azurerm_resource_group.example.name
   location                     = azurerm_resource_group.example.location
-  version                      = "12.0"
+  version                      = "12.1"
   administrator_login          = "missadministrator"
   administrator_login_password = "AdminPassword123!"
   tags = {
