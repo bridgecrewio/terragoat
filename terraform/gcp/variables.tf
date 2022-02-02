@@ -17,3 +17,8 @@ variable "environment" {
   default     = "dev"
   description = "The environment name"
 }
+
+variable "location" {
+  default = "us-central1c"
+  type    = string
+}
