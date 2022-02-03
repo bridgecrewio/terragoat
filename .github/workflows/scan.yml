@@ -1,0 +1,32 @@
+on: [ push, workflow_dispatch ]
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+
+jobs:
+  build-and-scan:
+    name: Build and scan image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Build the image
+        run: docker build -t $IMAGE_NAME .
+
+      - name: Prisma Cloud image scan
+        id: scan
+        uses: PaloAltoNetworks/prisma-cloud-scan@v1
+        with:
+          pcc_console_url: ${{ secrets.PCC_CONSOLE_URL }}
+          pcc_user: ${{ secrets.PCC_USER }}
+          pcc_pass: ${{ secrets.PCC_PASS }}
+          image_name: ${{ env.IMAGE_NAME }}
+
+      # (Optional) for compatibility with GitHub's code scanning alerts
+      - name: Upload SARIF file
+        if: ${{ always() }} # necessary if using failure thresholds in the image scan
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif_file }}
