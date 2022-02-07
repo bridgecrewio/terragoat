@@ -1,9 +1,10 @@
 name: Bridgecrew
 on:
   pull_request:
+    branches: [master]
   push:
-    branches:
-      - master
+    branches: [master]
+
 jobs:
   scan:
     runs-on: ubuntu-latest
