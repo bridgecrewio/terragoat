@@ -18,3 +18,8 @@ jobs:
       with:
         api-key: ${{ secrets.BC_API_KEY }}
         directory: terraform/
+        #The Bridgecrew GitHub Action can either pass all builds or block builds based on policy violations.
+        #The first acts as just an observability and alerting tool,
+        #the second as guardrails for developers to prevent misconfigured templates from making it into the repository.
+        #You can change this to not fail a build uncommenting the next line:
+        soft_fail: true
