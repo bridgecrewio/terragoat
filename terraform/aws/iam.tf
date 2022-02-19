@@ -18,7 +18,7 @@ resource "aws_iam_user" "user" {
 
 }
 
-# aaa
+# aaabbb
 resource "aws_iam_access_key" "user" {
   user = aws_iam_user.user.name
 }
