@@ -1,0 +1,26 @@
+version: 0.2
+env:
+  variables:
+      BC_SOURCE: "codebuild"
+  parameter-store:
+      BC_API_KEY: "bc-api-key"
+      PRISMA_API_URL: "https://api.prismacloud.io"
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+    commands:
+       - pip3 install bridgecrew
+       - echo Installing codebuild-extras...
+       - curl -fsSL https://raw.githubusercontent.com/bridgecrewio/aws-codebuild-extras/master/install >> extras.sh
+       - . ./extras.sh
+  build:
+    commands:
+       - bridgecrew -d . --bc-api-key $BC_API_KEY --repo-id $CODEBUILD_ACCOUNT_ID/$CODEBUILD_PROJECT --branch $CODEBUILD_GIT_BRANCH -s
+       - bridgecrew -d . -o junitxml > test_results.xml
+reports:
+  bridgecrew-infrastructure-security:
+    files:
+       - test_results.xml
+    discard-paths: yes
+    file-format: JunitXml
