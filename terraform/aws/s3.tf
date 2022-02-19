@@ -1,4 +1,5 @@
 resource "aws_s3_bucket" "data" {
+	# checkov:skip=BC_AWS_S3_16: ADD REASON
   # bucket is public
   # bucket is not encrypted
   # bucket does not have access logs
