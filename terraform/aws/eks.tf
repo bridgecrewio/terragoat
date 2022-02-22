@@ -124,8 +124,8 @@ resource aws_eks_cluster "eks_cluster" {
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.policy_attachment-AmazonEKSClusterPolicy",
-    "aws_iam_role_policy_attachment.policy_attachment-AmazonEKSServicePolicy",
+    aws_iam_role_policy_attachment.policy_attachment-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.policy_attachment-AmazonEKSServicePolicy,
   ]
   tags = {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
