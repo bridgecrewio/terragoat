@@ -21,6 +21,13 @@ resource "aws_s3_bucket" "my_private_bucket" {
         }
     }
   }
+
+  tags = {
+      Environment    = "Production"
+      Application    = "My Credit Card App"
+      Classification = "PCI"
+  }
+
 }
 
 resource "aws_s3_bucket_public_access_block" "my_private_bucket" {
@@ -66,6 +73,12 @@ resource "aws_s3_bucket" "my_private_bucket_logs" {
     noncurrent_version_expiration {
         days = 30
     }
+  }
+
+  tags = {
+      Environment    = "Production"
+      Application    = "S3 Access Logs"
+      Classification = "None"
   }
 }
 
