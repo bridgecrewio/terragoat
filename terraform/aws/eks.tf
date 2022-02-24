@@ -128,12 +128,12 @@ resource aws_eks_cluster "eks_cluster" {
     aws_iam_role_policy_attachment.policy_attachment-AmazonEKSServicePolicy,
   ]
   tags = {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "39ce3cdc065030e61134eb8efc3ced439e3b7d69"
     git_file             = "terraform/aws/eks.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_last_modified_at = "2022-02-22 13:03:25"
+    git_last_modified_by = "jj2198082082@gmail.com"
+    git_modifiers        = "jj2198082082/nimrodkor"
+    git_org              = "jj21980"
     git_repo             = "terragoat"
     yor_trace            = "7fa14261-c18d-4fa2-aec4-746f6e64d2d3"
   }
