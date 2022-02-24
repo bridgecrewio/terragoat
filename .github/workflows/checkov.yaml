@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+      
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,5 +15,6 @@ jobs:
         name: Checkout repo
         with:
           fetch-depth: 0
+          token: ${{ env.GH_TOKEN }}
       - name: Run yor action
         uses: bridgecrewio/yor-action@main
