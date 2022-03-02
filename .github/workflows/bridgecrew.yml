@@ -1,0 +1,21 @@
+- name: Bridgecrew Github Action
+  # You may pin to the exact commit or the version.
+  # uses: bridgecrewio/bridgecrew-action@e388196ade022d4c6f28c368c4428b05e4f5d33a
+  uses: bridgecrewio/bridgecrew-action@v1.177.2
+  with:
+    # directory with infrastructure code to scan
+    directory: # optional, default is .
+    # Run scan only on a specific check identifier (comma separated)
+    check: # optional
+    # Run scan on all checks but a specific check identifier (comma separated)
+    skip_check: # optional
+    # display only failed checks
+    quiet: # optional
+    # Environment variable name of the Bridgecrew API key from Bridgecrew app
+    api-key: # optional
+    # Runs checks but suppresses error code
+    soft-fail: # optional
+    # Directory for custom checks to be loaded
+    external-checks-dir: # optional
+    # Output Format (cli, cli+sarif, json, junitxml)
+    output_format: # optional, default is sarif
