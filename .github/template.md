@@ -236,7 +236,7 @@ terraform destroy
 * [CfnGoat](https://github.com/bridgecrewio/cfngoat) - Vulnerable by design Cloudformation template
 * [TerraGoat](https://github.com/bridgecrewio/terragoat) - Vulnerable by design Terraform stack
 * [CDKGoat](https://github.com/bridgecrewio/cdkgoat) - Vulnerable by design CDK application
-
+* [kustomizegoat](https://github.com/bridgecrewio/kustomizegoat) - Vulnerable by design kustomize deployment
 ## Contributing
 
 Contribution is welcomed!
