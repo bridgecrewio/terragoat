@@ -26,7 +26,7 @@ TerraGoat is a learning and training project that demonstrates how common config
 * [Contributing](#contributing)
 * [Support](#support)
 
-## Introduction
+## Introduction ##
 
 TerraGoat was built to enable DevSecOps design and implement a sustainable misconfiguration prevention strategy. It can be used to test a policy-as-code framework like [Bridgecrew](https://bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terragoat) & [Checkov](https://github.com/bridgecrewio/checkov/), inline-linters, pre-commit hooks or other code scanning methods.
 
