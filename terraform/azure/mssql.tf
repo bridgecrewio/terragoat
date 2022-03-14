@@ -6,9 +6,9 @@ resource "azurerm_storage_account" "security_storage_account" {
   account_replication_type  = "LRS"
   enable_https_traffic_only = true
   tags = {
-    git_commit           = "c6f8caa51942284d02465518822685897ad90141"
+    git_commit           = "a1d1c1ce31a1bde6dafa188846d90eca82abe5fd"
     git_file             = "terraform/azure/mssql.tf"
-    git_last_modified_at = "2022-01-20 18:41:19"
+    git_last_modified_at = "2022-01-20 05:32:41"
     git_last_modified_by = "28880387+tsmithv11@users.noreply.github.com"
     git_modifiers        = "28880387+tsmithv11"
     git_org              = "bridgecrewio"
