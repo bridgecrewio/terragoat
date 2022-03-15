@@ -68,7 +68,9 @@ resource "azurerm_mysql_server" "example" {
     git_repo             = "terragoat"
     yor_trace            = "1ac18c16-09a4-41c9-9a66-6f514050178e"
   }
+  ssl_minimal_tls_version_enforced = "TLS1_2"
 }
+
 
 resource "azurerm_postgresql_server" "example" {
   name                         = "terragoat-postgresql-${var.environment}${random_integer.rnd_int.result}"
