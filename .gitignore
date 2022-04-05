@@ -34,3 +34,4 @@ credentials.json
 # example: *tfplan*
 
 .DS_Store
+twistcli
