@@ -22,6 +22,7 @@ resource "aws_s3_bucket" "data" {
 }
 
 resource "aws_s3_bucket_object" "data_object" {
+	# checkov:skip=CKV_AWS_186: We don't really have anything secret in this bucket, no need to encrypt it.
   bucket = aws_s3_bucket.data.id
   key    = "customer-master.xlsx"
   source = "resources/customer-master.xlsx"
