@@ -23,40 +23,32 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
    		<cloud.function.context.version>3.1.0</cloud.function.context.version>
-	</properties>
+    		<log4j.version>2.14.0</log4j.version>
+  	</properties>
 
-	<dependencies>
+  	<dependencies>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-compress</artifactId>
-			<version>1.15</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.4</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.stefanbirkner</groupId>
-			<artifactId>system-rules</artifactId>
-			<version>1.19.0</version>
-			<scope>test</scope>
-		</dependency>
-    		<dependency>
-			<groupId>org.springframework.cloud_spring</groupId>
-			<artifactId>cloud-function-context</artifactId>
-			<version>${cloud.function.context.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j</artifactId>
-		    <version>2.17.0</version>
-		    <type>pom</type>
-		    <scope>import</scope>
-		</dependency>
+	    	<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+	    	</dependency>
+	    	<dependency>
+		      <groupId>org.apache.commons</groupId>
+		      <artifactId>commons-compress</artifactId>
+		      <version>1.20</version>
+	    	</dependency>
+	    	<dependency>
+		      <groupId>org.springframework</groupId>
+		      <artifactId>spring-core</artifactId>
+		      <version>5.3.0</version>
+	    	</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
