@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-         run: | 
-           echo "Hello"
+        - name : Hello
+          run: | 
+             echo "Hello"
