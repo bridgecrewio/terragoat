@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: run kics Scan
-      uses: checkmarx/kics-github-action@v1.3
+      uses: checkmarx/kics-github-action@v1.4
       with:
          #path: test/samples/positive1.tf,test/samples/positive2.tf
          #token: ${{ secrets.GITHUB_TOKEN }}
