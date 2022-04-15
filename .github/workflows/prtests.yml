@@ -9,4 +9,4 @@ jobs:
     steps:
         - name : Hello
           run: | 
-             echo "Hello"
+             echo ${{ github.event.pull_request.head.sha }}
