@@ -24,12 +24,12 @@ resource "aws_db_instance" "default" {
     Name        = "${local.resource_prefix.value}-rds"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "47c13290-c2ce-48a7-b666-1b0085effb92"
   })
@@ -50,12 +50,12 @@ resource "aws_db_option_group" "default" {
     Name        = "${local.resource_prefix.value}-og"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "c8076043-5de7-4203-9a1c-b4e61900628a"
   })
@@ -82,12 +82,12 @@ resource "aws_db_parameter_group" "default" {
     Name        = "${local.resource_prefix.value}-pg"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "6432b3f9-3f45-4463-befc-2e0f2fbdffc1"
   })
@@ -102,12 +102,12 @@ resource "aws_db_subnet_group" "default" {
     Name        = "sg-${local.resource_prefix.value}"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "b8368249-50c5-4a24-bdb0-9f83d197b11c"
   })
@@ -121,12 +121,12 @@ resource "aws_security_group" "default" {
     Name        = "${local.resource_prefix.value}-rds-sg"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "7b251090-8ac1-4290-bd2e-bf3e16126430"
   })
@@ -156,12 +156,12 @@ resource "aws_iam_instance_profile" "ec2profile" {
   name = "${local.resource_prefix.value}-profile"
   role = "${aws_iam_role.ec2role.name}"
   tags = {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "6d33b2b9-2dd3-4915-b5d4-283152c928f1"
   }
@@ -191,12 +191,12 @@ EOF
     Name        = "${local.resource_prefix.value}-role"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "d4b631c1-c1d0-4986-affb-fb8b94a6a7a5"
   })
@@ -400,12 +400,12 @@ EOF
   tags = merge({
     Name = "${local.resource_prefix.value}-dbapp"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "5587adb93a9e625e9995bc9e2d3459001095d0ba"
+    git_file             = "sai/demo/db.tf"
+    git_last_modified_at = "2022-04-20 10:12:39"
+    git_last_modified_by = "84868436+testsai1234@users.noreply.github.com"
+    git_modifiers        = "84868436+testsai1234"
+    git_org              = "testsai1234"
     git_repo             = "terragoat"
     yor_trace            = "f7999d4e-c983-43ee-bd88-7903a6f8483e"
   })
