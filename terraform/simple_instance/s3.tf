@@ -11,3 +11,12 @@ resource "aws_s3_bucket" "docking_bay" {
     Environment          = "Dev"
   }
 }
+
+
+resource "aws_s3_bucket_versioning" "docking_bay" {
+  bucket = aws_s3_bucket.docking_bay.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+
