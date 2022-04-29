@@ -68,6 +68,24 @@ resource "aws_ebs_snapshot" "example_snapshot" {
   })
 }
 
+resource "aws_ebs_snapshot" "example_snapshot2" {
+  # ebs snapshot without encryption
+  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
+  description = "${local.resource_prefix.value}-ebs-snapshot"
+  tags = merge({
+    Name = "${local.resource_prefix.value}-ebs-snapshot"
+    }, {
+    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_file             = "terraform/aws/ec2.tf"
+    git_last_modified_at = "2020-06-16 14:46:24"
+    git_last_modified_by = "nimrodkor@gmail.com"
+    git_modifiers        = "nimrodkor"
+    git_org              = "bridgecrewio"
+    git_repo             = "terragoat"
+    yor_trace            = "c1008080-ec2f-4512-a0d0-2e9330aa58f0"
+  })
+}
+
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/sdh"
   volume_id   = "${aws_ebs_volume.web_host_storage.id}"
