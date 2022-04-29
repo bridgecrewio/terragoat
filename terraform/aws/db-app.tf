@@ -166,7 +166,7 @@ resource "aws_iam_instance_profile" "ec2profile" {
     yor_trace            = "6d33b2b9-2dd3-4915-b5d4-283152c928f1"
   }
 }
-
+  
 resource "aws_iam_role" "ec2role" {
   name = "${local.resource_prefix.value}-role"
   path = "/"
