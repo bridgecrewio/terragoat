@@ -35,3 +35,8 @@ credentials.json
 
 .DS_Store
 twistcli
+
+terraform/alicloud/
+terraform/aws/
+terraform/azure/
+terraform/gcp/
