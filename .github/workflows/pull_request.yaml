@@ -23,3 +23,5 @@ jobs:
           fetch-depth: 0
       - name: Run yor action
         uses: bridgecrewio/yor-action@main
+        with:
+          version: 0.1.142
