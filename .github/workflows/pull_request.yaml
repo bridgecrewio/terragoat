@@ -24,4 +24,4 @@ jobs:
       - name: Run yor action
         uses: bridgecrewio/yor-action@main
         with:
-          version: 0.1.142
+          version: 0.1.141
