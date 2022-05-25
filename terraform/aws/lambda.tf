@@ -23,6 +23,9 @@ resource "aws_lambda_function" "analysis_lambda" {
   tracing_config {
     mode = "PassThrough"
   }
+  tracing_config {
+    mode = "PassThrough"
+  }
   # lambda have plain text secrets in environment variables
   filename      = "resources/lambda_function_payload.zip"
   function_name = "${local.resource_prefix.value}-analysis"
