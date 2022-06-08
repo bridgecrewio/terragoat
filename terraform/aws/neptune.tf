@@ -16,7 +16,7 @@ resource "aws_neptune_cluster" "default" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "0d4cbb85-73ed-4ca0-b1da-296e4185f34e"
-    somekey              = "some value"
+    somekey              = "some value fdgfhfgh"
   }
 }
 
