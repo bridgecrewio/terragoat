@@ -21,7 +21,7 @@ resource "aws_neptune_cluster" "default" {
 }
 
 resource "aws_neptune_cluster_instance" "default" {
-  count              = 1
+  count              = 2
   cluster_identifier = aws_neptune_cluster.default.id
   engine             = "neptune"
   instance_class     = "db.t3.medium" # Smallest instance type listed for neptune https://aws.amazon.com/neptune/pricing/
@@ -32,7 +32,7 @@ resource "aws_neptune_cluster_instance" "default" {
     git_file             = "terraform/aws/neptune.tf"
     git_last_modified_at = "2021-05-02 10:06:10"
     git_last_modified_by = "nimrodkor@users.noreply.github.com"
-    git_modifiers        = "matt/nimrodkor"
+    git_modifiers        = "matt/nimrodkor3"
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "9b2b45fd-6f9f-44fd-b8bc-868b1db178b3"
