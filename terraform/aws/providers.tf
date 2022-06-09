@@ -7,7 +7,7 @@ provider "aws" {
 provider "aws" {
   alias      = "plain_text_access_keys_provider"
   region     = "us-west-1"
-  access_key = "AKIAIOSFODNN7EXAMPLZ"
+  access_key = "AKIAIOSFODNN7QXMMPLZ"
   secret_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 }
 
