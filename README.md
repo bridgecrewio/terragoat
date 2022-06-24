@@ -500,4 +500,4 @@ If you need direct support you can contact us at [info@bridgecrew.io](mailto:inf
 |  4 | CKV_SECRET_6 | /azure/sql.tf     | a57ae0fe47084bc8a05f69f3f8083896f8b437b0 | Base64 High Entropy String | https://docs.bridgecrew.io/docs/git_secrets_6 |
 
 ---
-
+PANW Training
