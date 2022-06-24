@@ -39,11 +39,11 @@ resource "aws_ebs_volume" "web_host_storage" {
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs"
     }, {
-    git_commit           = "f6113cae6ab810f060132b443a5fc900a7ba4f75"
+    git_commit           = "d3439f0f2af62f6fa3521e14d6c27819ef8f12e1"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2021-12-20 23:11:46"
-    git_last_modified_by = "81978904+panwtraining@users.noreply.github.com"
-    git_modifiers        = "81978904+panwtraining/nimrodkor"
+    git_last_modified_at = "2021-05-02 11:17:26"
+    git_last_modified_by = "nimrodkor@users.noreply.github.com"
+    git_modifiers        = "nimrodkor"
     git_org              = "panwtraining"
     git_repo             = "terragoat"
     yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
