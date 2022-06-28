@@ -11,12 +11,12 @@ resource "aws_s3_bucket" "data_science" {
   }
   force_destroy = true
   tags = {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "f7ddd6967fd643104704d8744c5e5d97a1d213e4"
+    git_file             = "s3.tf"
+    git_last_modified_at = "2022-03-01 18:35:29"
+    git_last_modified_by = "99741373+Winston1234567@users.noreply.github.com"
+    git_modifiers        = "99741373+Winston1234567"
+    git_org              = "Winston1234567"
     git_repo             = "terragoat"
     yor_trace            = "9a7c8788-5655-4708-bbc3-64ead9847f64"
   }
@@ -28,7 +28,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "data_science" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -53,12 +53,12 @@ resource "aws_s3_bucket" "logs" {
     Name        = "${local.resource_prefix.value}-logs"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_commit           = "f7ddd6967fd643104704d8744c5e5d97a1d213e4"
+    git_file             = "s3.tf"
+    git_last_modified_at = "2022-03-01 18:35:29"
+    git_last_modified_by = "99741373+Winston1234567@users.noreply.github.com"
+    git_modifiers        = "99741373+Winston1234567"
+    git_org              = "Winston1234567"
     git_repo             = "terragoat"
     yor_trace            = "01946fe9-aae2-4c99-a975-e9b0d3a4696c"
   })
