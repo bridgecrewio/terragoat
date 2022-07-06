@@ -123,6 +123,7 @@ resource "aws_rds_cluster" "app8-rds-cluster" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "af643747-0967-4251-8645-3b54882c2507"
+
   }
 }
 
