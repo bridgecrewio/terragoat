@@ -3,12 +3,17 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
 jobs:
   tfsec:
-    name: tfsec sarif report
+    name: tfsec
     runs-on: ubuntu-latest
 
     steps:
       - name: Clone repo
         uses: actions/checkout@master
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          soft_fail: false
