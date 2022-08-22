@@ -1,4 +1,4 @@
-name: tfsec
+name: tfsec2
 on:
   push:
     branches:
@@ -16,4 +16,4 @@ jobs:
       - name: tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
         with:
-          soft_fail: false
+          soft_fail: true
