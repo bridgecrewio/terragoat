@@ -1,5 +1,9 @@
-name: tfsec-pr-commenter
+name: tfsec123
 on:
+  push:
+    branches:
+      - main
+      - master
   pull_request:
 jobs:
   tfsec:
@@ -12,4 +16,4 @@ jobs:
       - name: tfsec
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
-          github_token: ${{ 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 }}
+          github_token: ${{ secrets.github }}
