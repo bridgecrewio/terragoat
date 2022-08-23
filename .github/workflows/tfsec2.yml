@@ -12,5 +12,4 @@ jobs:
       - name: tfsec
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
-          tfsec_args: --soft-fail
           github_token: ${{ secrets.GITHUB }}
