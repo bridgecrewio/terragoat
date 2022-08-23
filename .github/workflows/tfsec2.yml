@@ -1,10 +1,5 @@
 name: tfsec2
-on:
-  push:
-    branches:
-      - main
-      - master
-  pull_request:
+on: [pull_request]
 jobs:
   tfsec:
     name: tfsec
