@@ -207,17 +207,17 @@ resource "aws_route_table" "web_rtb" {
   })
 }
 
-resource "aws_route_table_association" "rtbassoc" {
+resource "aws_route_table_association" "rtbassoc" { 
   subnet_id      = aws_subnet.web_subnet.id
   route_table_id = aws_route_table.web_rtb.id
 }
 
-resource "aws_route_table_association" "rtbassoc2" {
+resource "aws_route_table_association" "rtbassoc2" { 
   subnet_id      = aws_subnet.web_subnet2.id
   route_table_id = aws_route_table.web_rtb.id
 }
 
-resource "aws_route" "public_internet_gateway" {
+resource "aws_route" "public_internet_gateway" { 
   route_table_id         = aws_route_table.web_rtb.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.web_igw.id
@@ -247,7 +247,7 @@ resource "aws_network_interface" "web-eni" {
 }
 
 # VPC Flow Logs to S3
-resource "aws_flow_log" "vpcflowlogs" {
+resource "aws_flow_log" "vpcflowlogs" { 
   log_destination      = aws_s3_bucket.flowbucket.arn
   log_destination_type = "s3"
   traffic_type         = "ALL"
@@ -268,7 +268,7 @@ resource "aws_flow_log" "vpcflowlogs" {
   })
 }
 
-resource "aws_s3_bucket" "flowbucket" {
+resource "aws_s3_bucket" "flowbucket" { 
   bucket        = "${local.resource_prefix.value}-flowlogs"
   force_destroy = true
 
