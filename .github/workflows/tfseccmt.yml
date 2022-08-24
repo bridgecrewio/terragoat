@@ -1,19 +1,16 @@
-name: tfsec123
-on:
-  push:
-    branches:
-      - main
-      - master
-  pull_request:
+name: tfsec
+on: [pull_request]
 jobs:
   tfsec:
-    name: tfsec PR commenter
+    name: runner / tfsec
     runs-on: ubuntu-latest
 
     steps:
       - name: Clone repo
-        uses: actions/checkout@master
-      - name: tfsec
-        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        uses: actions/checkout@v2
+
+      - name: Run tfsec with reviewdog output on the PR
+        uses: reviewdog/action-tfsec@master
         with:
           github_token: ${{ secrets.github }}
+ 
