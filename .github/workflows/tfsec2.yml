@@ -3,7 +3,7 @@ on: [pull_request]
 jobs:
   tfsec:
     name: runner / tfsec
-    runs-on: ubuntu-latest # Windows and macOS are also supported
+    runs-on: ubuntu-latest
 
     steps:
       - name: Clone repo
@@ -13,10 +13,4 @@ jobs:
         uses: reviewdog/action-tfsec@master
         with:
           github_token: ${{ secrets.github }}
-          working_directory: my_directory # Change working directory
-          level: info # Get more output from reviewdog
-          reporter: github-pr-review # Change reviewdog reporter
-          filter_mode: nofilter # Check all files, not just the diff
-          fail_on_error: true # Fail action if errors are found
-          flags: -tee # Add debug flag to reviewdog
-          tfsec_flags: "" # Optional
+ 
