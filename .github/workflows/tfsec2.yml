@@ -1,15 +1,22 @@
-name: tfsec-pr-commenter
-on:
-  pull_request:
+name: tfsec
+on: [pull_request]
 jobs:
   tfsec:
-    name: tfsec PR commenter
-    runs-on: ubuntu-latest
+    name: runner / tfsec
+    runs-on: ubuntu-latest # Windows and macOS are also supported
 
     steps:
       - name: Clone repo
-        uses: actions/checkout@master
-      - name: tfsec
-        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        uses: actions/checkout@v2
+
+      - name: Run tfsec with reviewdog output on the PR
+        uses: reviewdog/action-tfsec@master
         with:
-          github_token: ${{ secrets.GITHUB }}
+          github_token: ${{ secrets.github }}
+          working_directory: my_directory # Change working directory
+          level: info # Get more output from reviewdog
+          reporter: github-pr-review # Change reviewdog reporter
+          filter_mode: nofilter # Check all files, not just the diff
+          fail_on_error: true # Fail action if errors are found
+          flags: -tee # Add debug flag to reviewdog
+          tfsec_flags: "" # Optional
