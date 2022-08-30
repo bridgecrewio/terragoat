@@ -1,11 +1,11 @@
 resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
-  ami           = "${var.ami}"
+  ami           = var.ami
   instance_type = "t2.nano"
 
   vpc_security_group_ids = [
   "${aws_security_group.web-node.id}"]
-  subnet_id = "${aws_subnet.web_subnet.id}"
+  subnet_id = aws_subnet.web_subnet.id
   user_data = <<EOF
 #! /bin/bash
 sudo apt-get update
@@ -52,7 +52,7 @@ resource "aws_ebs_volume" "web_host_storage" {
 
 resource "aws_ebs_snapshot" "example_snapshot" {
   # ebs snapshot without encryption
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
+  volume_id   = aws_ebs_volume.web_host_storage.id
   description = "${local.resource_prefix.value}-ebs-snapshot"
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs-snapshot"
@@ -70,8 +70,8 @@ resource "aws_ebs_snapshot" "example_snapshot" {
 
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/sdh"
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
-  instance_id = "${aws_instance.web_host.id}"
+  volume_id   = aws_ebs_volume.web_host_storage.id
+  instance_id = aws_instance.web_host.id
 }
 
 resource "aws_security_group" "web-node" {
