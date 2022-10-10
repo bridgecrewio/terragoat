@@ -9,13 +9,15 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@master
-      - name: tfsec fail with critical and high
-        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
-        with:
-          tfsec_args: --force-all-dirs
-          github_token: ${{ github.token }} --minimum-severity HIGH
+      
       - name: tfsec soft
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
           tfsec_args: --force-all-dirs --soft-fail 
           github_token: ${{ github.token }}
+          
+      - name: tfsec fail with critical and high
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          tfsec_args: --force-all-dirs
+          github_token: ${{ github.token }} --minimum-severity HIGH
