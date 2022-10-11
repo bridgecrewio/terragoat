@@ -15,3 +15,8 @@ jobs:
           tfsec_args: --force-all-dirs
           github_token: ${{ github.token }}
           soft_fail_commenter: true
+      - name: tfsec high
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          tfsec_args: --force-all-dirs --minimum-severity HIGH
+          github_token: ${{ github.token }}
