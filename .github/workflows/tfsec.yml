@@ -18,5 +18,5 @@ jobs:
       - name: tfsec high
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
-          tfsec_args: --force-all-dirs --minimum-severity HIGH
+          tfsec_args: --force-all-dirs --minimum-severity LOW
           github_token: ${{ github.token }}
