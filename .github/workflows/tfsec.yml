@@ -15,6 +15,7 @@ jobs:
         with:
           tfsec_args: --force-all-dirs --soft-fail --concise-output
           github_token: ${{ github.token }}
+          soft_fail_commenter: true
           
       - name: tfsec fail with critical and high
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
