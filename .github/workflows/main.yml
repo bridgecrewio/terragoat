@@ -21,6 +21,12 @@ jobs:
         with:
           api_token: ${{ secrets.ORCA_TOKEN }}
           project_key: ${{ env.PROJECT_KEY }}
-          path:
-            # scan azure sub-directory
-            "./terraform/azure"
+          path: "./terraform/azure"
+          format: "json"
+          output: "results/iac_scan"
+      
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: iac_scan
+          path: results/iac_scan.json
