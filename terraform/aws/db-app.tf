@@ -15,7 +15,7 @@ resource "aws_db_instance" "default" {
   apply_immediately       = true
   multi_az                = false
   backup_retention_period = 0
-  storage_encrypted       = false
+  storage_encrypted       = true
   skip_final_snapshot     = true
   monitoring_interval     = 0
   publicly_accessible     = true
@@ -39,6 +39,7 @@ resource "aws_db_instance" "default" {
     ignore_changes = ["password"]
   }
 }
+
 
 resource "aws_db_option_group" "default" {
   engine_name              = "mysql"
