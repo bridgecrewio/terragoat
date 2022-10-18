@@ -1,0 +1,41 @@
+name: Sample Orca IaC Scan Workflow
+on:
+  # Trigger the workflow on push request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+jobs:
+  orca-iac_scan:
+    name: Orca IaC Scan
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_KEY: dev_testing
+    steps:
+      # Checkout your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Orca IaC Scan
+        uses: orcasecurity/shiftleft-iac-action@v1
+        with:
+          api_token: ${{ secrets.ORCA_TOKEN }}
+          project_key: ${{ env.PROJECT_KEY }}
+          path: "./terraform/azure"
+          format: "json"
+          output: "results/iac_scan/"
+      
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: iac_scan
+          path: results/iac_scan.json
+
+#blank job
+  deploy-iac-file:
+    name: Deploy IAC File
+    runs-on: ubuntu-latest
+    needs: orca-iac_scan
+    steps:
+      - name: Print message
+        run: echo "Deployment Successful"
