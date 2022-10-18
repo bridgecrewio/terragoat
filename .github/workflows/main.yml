@@ -1,0 +1,26 @@
+name: Sample Orca IaC Scan Workflow
+on:
+  # Trigger the workflow on push request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+jobs:
+  orca-iac_scan:
+    name: Orca IaC Scan
+    runs-on: ubuntu-latest
+      env:
+      PROJECT_KEY: finance_apps
+    steps:
+      # Checkout your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Orca IaC Scan
+        uses: orcasecurity/shiftleft-iac-action@v1
+        with:
+          api_token: ${{ secrets.ORCA_TOKEN }}
+          project_key: ${{ env.PROJECT_KEY }}
+          path:
+            # scanning directories: ./terraform/ ./sub-dir/ and a file: ./Dockerfile
+            "terraform,sub-dir,other-sub-dir/Dockerfile"
