@@ -1,4 +1,4 @@
-name: Sample Orca IaC Scan Workflow
+name: Developer Testing Orca IaC Scan Workflow
 on:
   # Trigger the workflow on push request,
   # but only for the master branch
