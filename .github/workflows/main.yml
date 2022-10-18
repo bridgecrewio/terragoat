@@ -35,3 +35,6 @@ jobs:
   deploy-iac-file:
     name: Deploy IAC File
     runs-on: ubuntu-latest
+    steps:
+      - name: Print message
+        run: echo "Deployment Successful"
