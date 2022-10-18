@@ -4,7 +4,7 @@ on:
   # but only for the master branch
   push:
     branches:
-      - master
+      - amitorca-testing-workflow
 jobs:
   orca-iac_scan:
     name: Orca IaC Scan
@@ -23,7 +23,7 @@ jobs:
           project_key: ${{ env.PROJECT_KEY }}
           path: "./terraform/azure"
           format: "json"
-          output: "results/iac_scan/"
+          output: "results/iac_scan"
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
