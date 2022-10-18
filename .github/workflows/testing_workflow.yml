@@ -4,7 +4,7 @@ on:
   # but only for the master branch
   push:
     branches:
-      - amitorca-testing-workflow
+      - master
 jobs:
   orca-iac_scan:
     name: Orca IaC Scan
