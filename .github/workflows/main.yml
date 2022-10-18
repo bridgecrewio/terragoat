@@ -9,7 +9,7 @@ jobs:
   orca-iac_scan:
     name: Orca IaC Scan
     runs-on: ubuntu-latest
-      env:
+    env:
       PROJECT_KEY: finance_apps
     steps:
       # Checkout your repository under $GITHUB_WORKSPACE, so your job can access it
