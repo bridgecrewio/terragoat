@@ -30,3 +30,8 @@ jobs:
         with:
           name: iac_scan
           path: results/iac_scan.json
+
+#blank job
+  deploy-iac-file:
+    name: Deploy IAC File
+    runs-on: ubuntu-latest
