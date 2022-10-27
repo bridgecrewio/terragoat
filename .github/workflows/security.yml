@@ -1,0 +1,21 @@
+name: Security tfsec
+on:
+  [push, pull_request] 
+jobs:
+  tfsec:
+    name: tfsec
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          soft_fail: true
+      - name: tfsec PR commenter
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          tfsec_args: --soft-fail
+          tfsec_formats: csv
+          github_token: ${{ github.token }}
