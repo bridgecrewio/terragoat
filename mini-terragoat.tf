@@ -1,6 +1,6 @@
 
 provider "aws" {
-  profile = "dev3"
+  profile = "acme3"
   region  = "us-west-2"
 }
 
@@ -12,7 +12,7 @@ variable "company_name" {
 }
 
 variable "environment" {
-  default = "dev3"
+  default = "acme3"
 }
 
 locals {
