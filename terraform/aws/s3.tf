@@ -1,13 +1,13 @@
-resource "aws_s3_bucket" "data" {
+resource "aws_s3_bucket" "data-2" {
   # bucket is public
   # bucket is not encrypted
   # bucket does not have access logs
   # bucket does not have versioning
-  bucket        = "${local.resource_prefix.value}-data"
+  bucket        = "${local.resource_prefix.value}-data-2"
   acl           = "public-read"
   force_destroy = true
   tags = merge({
-    Name        = "${local.resource_prefix.value}-data"
+    Name        = "${local.resource_prefix.value}-data-2"
     Environment = local.resource_prefix.value
     }, {
     git_commit           = "4d57f83ca4d3a78a44fb36d1dcf0d23983fa44f5"
