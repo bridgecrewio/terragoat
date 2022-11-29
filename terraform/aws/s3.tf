@@ -21,6 +21,21 @@ resource "aws_s3_bucket" "data" {
 }
 
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "data" {
+  bucket = aws_s3_bucket.data.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "AES256"
+    }
+  }
+}
+
+
+
+
+
+
 resource "aws_s3_bucket" "data_log_bucket" {
   bucket = "data-log-bucket"
 }
