@@ -6,6 +6,7 @@ jobs:
   build:
     name: Build and unit test
     runs-on: ubuntu-latest
+     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
