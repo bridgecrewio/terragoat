@@ -20,12 +20,12 @@ EOF
   tags = merge({
     Name = "${local.resource_prefix.value}-ec2"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "0daf456e367fa7ebefa095c614ac86b4a12b2e64"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_last_modified_at = "2022-12-27 05:04:41"
+    git_last_modified_by = "86843980+Juliandreslopez@users.noreply.github.com"
+    git_modifiers        = "86843980+Juliandreslopez/nimrodkor"
+    git_org              = "Juliandreslopez"
     git_repo             = "terragoat"
     yor_trace            = "347af3cd-4f70-4632-aca3-4d5e30ffc0b6"
   })
@@ -39,11 +39,11 @@ resource "aws_ebs_volume" "web_host_storage" {
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs"
     }, {
-    git_commit           = "d3439f0f2af62f6fa3521e14d6c27819ef8f12e1"
+    git_commit           = "0daf456e367fa7ebefa095c614ac86b4a12b2e64"
     git_file             = "terraform/aws/ec2.tf"
-    git_last_modified_at = "2021-05-02 11:17:26"
-    git_last_modified_by = "nimrodkor@users.noreply.github.com"
-    git_modifiers        = "nimrodkor"
+    git_last_modified_at = "2022-12-27 05:04:41"
+    git_last_modified_by = "86843980+Juliandreslopez@users.noreply.github.com"
+    git_modifiers        = "86843980+Juliandreslopez/nimrodkor"
     git_org              = "Juliandreslopez"
     git_repo             = "terragoat"
     yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
