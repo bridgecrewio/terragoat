@@ -21,3 +21,4 @@ jobs:
           PRISMA_API_URL: https://api3.prismacloud.io
         with:
           api-key: ${{ secrets.BC_API_KEY }}
+          soft_fail: true
