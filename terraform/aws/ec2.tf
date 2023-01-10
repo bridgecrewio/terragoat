@@ -44,8 +44,8 @@ resource "aws_ebs_volume" "web_host_storage" {
     git_last_modified_at = "2021-05-02 11:17:26"
     git_last_modified_by = "nimrodkor@users.noreply.github.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_org              = "etiennehansen"
+    git_repo             = "terragoat-sh"
     yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
   })
 }
