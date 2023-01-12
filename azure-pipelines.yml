@@ -1,10 +1,30 @@
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.8'
-  displayName: 'Install Python 3.8'
-- script: pip install checkov
-  displayName: 'Install Checkov'
-- script: checkov -d terragoat --bc-api-key 68570819-c42e-466b-83f9-f6e52c1386b5::9cY0/JybRHT6WNHBAe4OeYGCXB8= --repo-id abheemarao/terragoat --branch master
-  displayName: 'Scan with Prisma Cloud'
-  env:
-    PRISMA_API_URL: api4.prismacloud.io
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pr:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  PRISMA_API_URL: https://api4.prismacloud.io
+  PRISMA_REPO: abheemarao/terragoat
+
+jobs:
+- job: Prisma_Cloud_Job
+  displayName: Prisma Cloud Job
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: 3.8
+    displayName: 'Use Python 3.8'
+  - script: pip install checkov
+    displayName: Install Checkov
+  - script: checkov -d . --use-enforcement-rules --bc-api-key $(PRISMA_KEY) --repo-id $(PRISMA_REPO) --branch main 
+    displayName: Run Checkov
