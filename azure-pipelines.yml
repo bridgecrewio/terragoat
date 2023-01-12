@@ -26,5 +26,5 @@ jobs:
     displayName: 'Use Python 3.8'
   - script: pip install checkov
     displayName: Install Checkov
-  - script: checkov -d . --use-enforcement-rules --bc-api-key $(PRISMA_KEY) --repo-id $(PRISMA_REPO) --branch main 
+  - script: checkov -d . --use-enforcement-rules --bc-api-key $(PRISMA_KEY) --repo-id $(PRISMA_REPO) --branch master 
     displayName: Run Checkov
