@@ -1,4 +1,4 @@
-ame: Bridgecrew
+name: Bridgecrew
 on:
   pull_request:
   push:
