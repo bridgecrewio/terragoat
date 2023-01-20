@@ -1,0 +1,8 @@
+{
+	"folders": [],
+	"settings": {
+		"checkov.useBridgecrewIDs": true,
+		"checkov.prismaURL": "https://app2.eu.prismacloud.io/home",
+		"checkov.token": "0dca2fa0-29f1-41da-b5e3-33c445d7b723"
+	}
+}
