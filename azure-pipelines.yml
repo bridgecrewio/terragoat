@@ -14,7 +14,7 @@ pool:
 
 variables:
   PRISMA_API_URL: https://api4.prismacloud.io
-  PRISMA_REPO: abheemarao/terragoat
+  PRISMA_REPO: bridgecrewio/terragoat
 
 jobs:
 - job: Prisma_Cloud_Job
