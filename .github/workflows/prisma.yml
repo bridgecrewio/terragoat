@@ -1,0 +1,25 @@
+name: Prisma Cloud IaC Scan Example
+on: [ pull_request ]
+
+jobs:
+  prisma_cloud_iac_scan:
+    runs-on: ubuntu-latest
+    name: Run Prisma Cloud IaC Scan to check 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Scan on IaC files in the repository
+        uses: prisma-cloud-shiftleft/iac-scan-action@v1
+        id: iac-scan
+        with:
+          PRISMA_API_URL: https://api.sg.prismacloud.io
+          api-key: ${{ secrets.BC_API_KEY }}
+          asset_name: 'my-asset-name'
+          template_type: 'TF'
+          template_version: '0.13'
+      - name: Upload scan result artifact
+        uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: iac_scan_result
+          path: ${{ steps.iac-scan.outputs.iac_scan_result_path }}
