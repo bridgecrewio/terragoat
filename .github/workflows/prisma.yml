@@ -12,7 +12,7 @@ jobs:
         uses: prisma-cloud-shiftleft/iac-scan-action@v1
         id: iac-scan
         with:
-          PRISMA_API_URL: https://api.sg.prismacloud.io
+          prisma_api_url: https://api.sg.prismacloud.io
           api-key: ${{ secrets.BC_API_KEY }}
           asset_name: 'my-asset-name'
           template_type: 'TF'
