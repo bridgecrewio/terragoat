@@ -13,7 +13,8 @@ jobs:
         id: iac-scan
         with:
           prisma_api_url: https://api.sg.prismacloud.io
-          api-key: ${{ secrets.BC_API_KEY }}
+          access_key: ${{ secrets.ACCESS_KEY }}
+          secret_key: ${{ secrets.SECRET_KEY }}
           asset_name: 'my-asset-name'
           template_type: 'TF'
           template_version: '0.13'
