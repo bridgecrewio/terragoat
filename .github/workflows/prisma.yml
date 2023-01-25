@@ -12,7 +12,7 @@ jobs:
         uses: prisma-cloud-shiftleft/iac-scan-action@v1
         id: iac-scan
         with:
-          prisma_api_url: https://apps.paloaltonetworks.io
+          prisma_api_url: 'https://apps.paloaltonetworks.io'
           access_key: ${{ secrets.ACCESS_KEY }}
           secret_key: ${{ secrets.SECRET_KEY }}
           asset_name: 'my-asset-name'
