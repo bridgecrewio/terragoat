@@ -1,0 +1,31 @@
+
+name: Prisma Cloud IaC Scan
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  prisma_cloud_iac_scan:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    runs-on: ubuntu-latest
+    name: Run Prisma Cloud IaC Scan to check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - id: Bridgecrew
+        name: Run Scan on CFT files in the repository
+        uses: bridgecrewio/bridgecrew-action@master
+        env:
+          PRISMA_API_URL: https://app.sg.prismacloud.io
+        with:
+          api-key: ${{ secrets.BC_API_KEY }}
