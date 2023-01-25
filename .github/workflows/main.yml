@@ -29,4 +29,4 @@ jobs:
           PRISMA_API_URL: https://app.sg.prismacloud.io
         with:
           api-key: ${{ secrets.BC_API_KEY }}
-          hard_fail_on: High:50
+          hard_fail_on: High:3
