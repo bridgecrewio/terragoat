@@ -30,6 +30,7 @@ resource google_compute_instance "server" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "cd562b76-fbce-4e60-8c75-c9f43d7ffc16"
+    name                 = "zs"
   }
 }
 
@@ -44,5 +45,6 @@ resource google_compute_disk "unencrypted_disk" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "bf87b7d7-a9d8-4f03-a0d4-8a4cbb647d03"
+    name                 = "zs"
   }
 }
