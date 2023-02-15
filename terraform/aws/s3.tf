@@ -40,6 +40,7 @@ resource "aws_s3_bucket_object" "data_object" {
 }
 
 resource "aws_s3_bucket" "financials" {
+	# checkov:skip=CKV2_AWS_6: ADD REASON
   # bucket is not encrypted
   # bucket does not have access logs
   # bucket does not have versioning
@@ -61,6 +62,57 @@ resource "aws_s3_bucket" "financials" {
   })
 
 }
+
+
+resource "aws_s3_bucket_versioning" "financials" {
+  bucket = aws_s3_bucket.financials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket" "destination" {
+  bucket = aws_s3_bucket.financials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_iam_role" "replication" {
+  name = "aws-iam-role"
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_s3_bucket_replication_configuration" "financials" {
+  depends_on = [aws_s3_bucket_versioning.financials]
+  role   = aws_iam_role.financials.arn
+  bucket = aws_s3_bucket.financials.id
+  rule {
+    id = "foobar"
+    status = "Enabled"
+    destination {
+      bucket        = aws_s3_bucket.destination.arn
+      storage_class = "STANDARD"
+    }
+  }
+}
+
+
+
 
 resource "aws_s3_bucket" "operations" {
   # bucket is not encrypted
