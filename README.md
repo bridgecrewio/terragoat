@@ -36,7 +36,7 @@ TerraGoat follows the tradition of existing *Goat projects that provide a baseli
 
 * **Where to get help:** the [Bridgecrew Community Slack](https://slack.bridgecrew.io/?utm_source=github&utm_medium=organic_oss&utm_campaign=terragoat)
 
-Before you proceed, please take notice:
+Before you proceed, please take note of the following:
 > :warning: TerraGoat creates intentionally vulnerable AWS resources into your account. **DO NOT deploy TerraGoat in a production environment or alongside any sensitive AWS resources.**
 
 ## Requirements
