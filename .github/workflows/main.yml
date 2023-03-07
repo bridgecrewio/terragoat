@@ -52,9 +52,8 @@ jobs:
             steps:
                   - name: Install checkov
                     run: pip3 install checkov
-                  - name: Set Working Directory
-                    working-directory: ./terraform
                   - name: Run checkov
+                    working-directory: ./terraform
                     run: |
                         export PRISMA_API_URL=https://api4.prismacloud.io
                         checkov -d . --bc-api-key ${{secrets.BC_API_KEY }} --repo-id jluevan13/terragoat-forked --branch master --use-enforcement-rules
