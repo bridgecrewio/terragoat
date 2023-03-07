@@ -1,63 +1,62 @@
-# name: Prisma Cloud IaC Scan
-# on:
-#       pull_request:
-#             types:
-#                   - closed
-#       push:
-#             branches:
-#                   - master
-# jobs:
-#       if_merged:
-#             if: github.event.pull_request.merged == true
-#             runs-on: ubuntu-latest
-#             steps:
-#                   - run: |
-#                         echo The PR was merged
-#       scan:
-#             runs-on: ubuntu-latest
-#             strategy:
-#                   matrix:
-#                         python-version: [3.8]
-#             steps:
-#             - name: Checkout repo
-#               uses: actions/checkout@v2
-#             - name: Run Bridgecrew 
-#               id: Bridgecrew
-#               uses: bridgecrewio/bridgecrew-action@master 
-#               env:
-#                 PRISMA_API_URL: https://api4.prismacloud.io
-#               with:
-#                 api-key: ${{ secrets.BC_API_KEY }}
-#                 directory: terraform/
-#                 use_enforcement_rules: true
-
-
-name: Prisma Cloud IaC Scan with checkov
+name: Prisma Cloud IaC Scan
 on:
       pull_request:
             types:
                   - closed
+      push:
+            branches:
+                  - master
 jobs:
-#       if_merged:
-#             if: github.event.pull_request.merged == true
-#             runs-on: ubuntu-latest
-#             steps:
-#                   - run: |
-#                         echo The PR was merged
+      if_merged:
+            if: github.event.pull_request.merged == true
+            runs-on: ubuntu-latest
+            steps:
+                  - run: |
+                        echo The PR was merged
       scan:
             runs-on: ubuntu-latest
             strategy:
                   matrix:
                         python-version: [3.8]
-            defaults:
-                  run:
-                        working-directory: ./terraform
             steps:
-                  - name: Checkout repo
-                    uses: actions/checkout@v2
-                  - name: Install checkov
-                    run: pip3 install checkov
-                  - name: Run checkov
-                    run: |
-                        export PRISMA_API_URL=https://api4.prismacloud.io
-                        checkov -d . --bc-api-key ${{secrets.BC_API_KEY }} --repo-id jluevan13/terragoat-forked --branch master --use-enforcement-rules
+            - name: Checkout repo
+              uses: actions/checkout@v2
+            - name: Run Bridgecrew 
+              id: Bridgecrew
+              uses: bridgecrewio/bridgecrew-action@master 
+              env:
+                PRISMA_API_URL: https://api4.prismacloud.io
+              with:
+                api-key: ${{ secrets.BC_API_KEY }}
+                directory: terraform/
+
+
+# name: Prisma Cloud IaC Scan with checkov
+# on:
+#       pull_request:
+#             types:
+#                   - closed
+# jobs:
+# #       if_merged:
+# #             if: github.event.pull_request.merged == true
+# #             runs-on: ubuntu-latest
+# #             steps:
+# #                   - run: |
+# #                         echo The PR was merged
+#       scan:
+#             runs-on: ubuntu-latest
+#             strategy:
+#                   matrix:
+#                         python-version: [3.8]
+#             defaults:
+#                   run:
+#                         working-directory: ./terraform
+#             steps:
+#                   - name: Checkout repo
+#                     uses: actions/checkout@v2
+#                   - name: Install checkov
+#                     run: pip3 install checkov
+#                   - name: Run checkov
+#                     run: |
+#                         export PRISMA_API_URL=https://api4.prismacloud.io
+#                         checkov -d . --bc-api-key ${{secrets.BC_API_KEY }} --repo-id jluevan13/terragoat-forked --branch master --use-enforcement-rules
