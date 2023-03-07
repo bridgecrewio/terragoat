@@ -11,7 +11,8 @@ jobs:
                   matrix:
                         python-version: [3.8]
             steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repo
+              uses: actions/checkout@v2
             - name: Run Bridgecrew 
               id: Bridgecrew
               uses: bridgecrewio/bridgecrew-action@master 
@@ -20,4 +21,4 @@ jobs:
               with:
                 api-key: ${{ secrets.BC_API_KEY }}
                 directory: terraform/
-                soft_fail: 'true'
+                soft_fail: true
