@@ -1,10 +1,18 @@
 name: Prisma Cloud IaC Scan
 on:
       pull_request:
-      push:
-            branches:
-                  - master
+            types:
+                  - closed
+#       push:
+#             branches:
+#                   - master
 jobs:
+      if_merged:
+            if: github.event.pull_request.merged == true
+            runs-on: ubuntu-latest
+            steps:
+                  - run: |
+                        echo The PR was merged
       scan:
             runs-on: ubuntu-latest
             strategy:
@@ -21,4 +29,4 @@ jobs:
               with:
                 api-key: ${{ secrets.BC_API_KEY }}
                 directory: terraform/
-                soft_fail: true
+#                 soft_fail: true
