@@ -3,9 +3,6 @@ on:
       pull_request:
             types:
                   - closed
-      push:
-            branches:
-                  - master
 jobs:
       if_merged:
             if: github.event.pull_request.merged == true
