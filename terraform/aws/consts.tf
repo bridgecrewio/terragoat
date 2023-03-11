@@ -1,12 +1,12 @@
 
 data "aws_caller_identity" "current" {}
 
-variable "company_name" {
+variable "company_name1" {
   default = "acme"
 }
 
 variable "environment" {
-  default = "dev"
+  default = "dev_main123"
 }
 
 locals {
