@@ -35,3 +35,14 @@ jobs:
           git push origin
           git tag $new_tag
           git push origin $new_tag
+          
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run Bridgecrew 
+        id: Bridgecrew
+        uses: bridgecrewio/bridgecrew-action@master 
+        env:
+          PRISMA_API_URL: https://api4.prismacloud.io
+        with:
+          api-key: ${{ secrets.BC_API_KEY }}
