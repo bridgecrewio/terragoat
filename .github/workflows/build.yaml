@@ -35,7 +35,13 @@ jobs:
           git push origin
           git tag $new_tag
           git push origin $new_tag
-          
+         
+  scan:
+    runs-on: ubuntu-latest 
+    strategy:
+      matrix: 
+       python-version: [3.8]   
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
