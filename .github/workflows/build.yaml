@@ -21,6 +21,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+#cxgfbcb
           git fetch --tags
           git pull
           latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
