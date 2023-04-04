@@ -1,7 +1,7 @@
 resource "google_storage_bucket" "terragoat_website" {
   name          = "terragot-${var.environment}"
   location      = var.location
-  force_destroy = true
+  force_destroy = false
   labels = {
     git_commit           = "2bdc0871a5f4505be58244029cc6485d45d7bb8e"
     git_file             = "terraform__gcp__gcs_tf"
