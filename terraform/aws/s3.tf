@@ -62,6 +62,115 @@ resource "aws_s3_bucket" "financials" {
 
 }
 
+
+resource "aws_s3_bucket_versioning" "financials" {
+  bucket = aws_s3_bucket.financials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket" "destination" {
+  bucket = aws_s3_bucket.financials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "destination" {
+  bucket = aws_s3_bucket.destination.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+
+
+
+
+
+resource "aws_s3_bucket" "destination_log_bucket" {
+  bucket = "destination-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "destination" {
+  bucket = aws_s3_bucket.destination.id
+
+  target_bucket = aws_s3_bucket.destination_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+
+
+resource "aws_iam_role" "replication" {
+  name = "aws-iam-role"
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_s3_bucket_replication_configuration" "financials" {
+  depends_on = [aws_s3_bucket_versioning.financials]
+  role   = aws_iam_role.financials.arn
+  bucket = aws_s3_bucket.financials.id
+  rule {
+    id = "foobar"
+    status = "Enabled"
+    destination {
+      bucket        = aws_s3_bucket.destination.arn
+      storage_class = "STANDARD"
+    }
+  }
+}
+
+
+
+
+
+
+resource "aws_s3_bucket_versioning" "financials" {
+  bucket = aws_s3_bucket.financials.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+
+
+
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "financials" {
+  bucket = aws_s3_bucket.financials.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+
+
+
 resource "aws_s3_bucket" "operations" {
   # bucket is not encrypted
   # bucket does not have access logs
