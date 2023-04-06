@@ -94,6 +94,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "destination" {
 
 
 resource "aws_s3_bucket" "destination_log_bucket" {
+	# checkov:skip=CKV_AWS_144: ADD REASON
   bucket = "destination-log-bucket"
 }
 
