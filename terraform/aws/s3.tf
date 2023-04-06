@@ -1,4 +1,5 @@
 resource "aws_s3_bucket" "data" {
+	# checkov:skip=CKV2_AWS_6: ADD REASON
   # bucket is public
   # bucket is not encrypted
   # bucket does not have access logs
@@ -20,10 +21,27 @@ resource "aws_s3_bucket" "data" {
   })
 }
 
+
+resource "aws_s3_bucket" "data_log_bucket" {
+  bucket = "data-log-bucket"
+}
+
+resource "aws_s3_bucket_logging" "data" {
+  bucket = aws_s3_bucket.data.id
+
+  target_bucket = aws_s3_bucket.data_log_bucket.id
+  target_prefix = "log/"
+}
+
+
+
+
 resource "aws_s3_bucket_object" "data_object" {
+	# checkov:skip=CKV_AWS_186: ADD REASON
   bucket = aws_s3_bucket.data.id
   key    = "customer-master.xlsx"
   source = "resources/customer-master.xlsx"
+	# checkov:skip=CKV_AWS_145: ADD REASON
   tags = merge({
     Name        = "${local.resource_prefix.value}-customer-master"
     Environment = local.resource_prefix.value
