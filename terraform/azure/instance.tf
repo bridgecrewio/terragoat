@@ -42,6 +42,8 @@ resource azurerm_linux_virtual_machine "linux_machine" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -81,5 +83,7 @@ resource azurerm_windows_virtual_machine "windows_machine" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }

@@ -29,6 +29,8 @@ resource "azurerm_sql_server" "example" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -73,6 +75,7 @@ resource "azurerm_mysql_server" "example" {
     yor_trace            = "1ac18c16-09a4-41c9-9a66-6f514050178e"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -100,6 +103,7 @@ resource "azurerm_postgresql_server" "example" {
     yor_trace            = "9eae126d-9404-4511-9c32-2243457df459"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 

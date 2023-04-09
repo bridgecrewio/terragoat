@@ -18,6 +18,8 @@ resource "aws_iam_user" "user" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 
 }

@@ -17,6 +17,8 @@ resource aws_ecr_repository "repository" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 

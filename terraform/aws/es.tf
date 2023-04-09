@@ -25,6 +25,7 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
     yor_trace            = "95131dec-d7c9-49bb-9aff-eb0e2736603b"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 

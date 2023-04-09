@@ -21,6 +21,8 @@ resource "aws_s3_bucket" "data" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -44,6 +46,8 @@ resource "aws_s3_bucket_object" "data_object" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -70,6 +74,8 @@ resource "aws_s3_bucket" "financials" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 
 }
@@ -99,6 +105,8 @@ resource "aws_s3_bucket" "operations" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 
 }
@@ -126,6 +134,7 @@ resource "aws_s3_bucket" "data_science" {
     yor_trace            = "9a7c8788-5655-4708-bbc3-64ead9847f64"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -160,6 +169,8 @@ resource "aws_s3_bucket" "logs" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -167,8 +178,9 @@ resource "aws_s3_bucket" "logs" {
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
   tags = {
-    name  = "zs"
-    owner = ""
+    name   = "zs"
+    owner  = ""
+    zs-key = "new1"
   }
 }
 
@@ -182,8 +194,9 @@ resource "aws_s3_bucket_logging" "logs" {
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
   tags = {
-    name  = "zs"
-    owner = ""
+    name   = "zs"
+    owner  = ""
+    zs-key = "new1"
   }
 }
 
@@ -197,8 +210,9 @@ resource "aws_s3_bucket_logging" "logs" {
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
   tags = {
-    name  = "zs"
-    owner = ""
+    name   = "zs"
+    owner  = ""
+    zs-key = "new1"
   }
 }
 

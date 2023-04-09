@@ -32,6 +32,8 @@ EOF
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -55,6 +57,8 @@ resource "aws_ebs_volume" "web_host_storage" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -77,6 +81,8 @@ resource "aws_ebs_snapshot" "example_snapshot" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -125,6 +131,7 @@ resource "aws_security_group" "web-node" {
     yor_trace            = "b7af1b40-64eb-4519-a1a0-ab198db4b193"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -147,6 +154,8 @@ resource "aws_vpc" "web_vpc" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -171,6 +180,8 @@ resource "aws_subnet" "web_subnet" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -195,6 +206,8 @@ resource "aws_subnet" "web_subnet2" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -217,6 +230,8 @@ resource "aws_internet_gateway" "web_igw" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -238,6 +253,8 @@ resource "aws_route_table" "web_rtb" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -281,6 +298,8 @@ resource "aws_network_interface" "web-eni" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -307,6 +326,8 @@ resource "aws_flow_log" "vpcflowlogs" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -330,6 +351,8 @@ resource "aws_s3_bucket" "flowbucket" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 

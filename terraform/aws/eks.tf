@@ -29,6 +29,7 @@ resource aws_iam_role "iam_for_eks" {
     yor_trace            = "de052596-21a0-43de-8153-469add277b18"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -61,6 +62,8 @@ resource aws_vpc "eks_vpc" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -93,6 +96,8 @@ resource aws_subnet "eks_subnet1" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -125,6 +130,8 @@ resource aws_subnet "eks_subnet2" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -152,6 +159,7 @@ resource aws_eks_cluster "eks_cluster" {
     yor_trace            = "7fa14261-c18d-4fa2-aec4-746f6e64d2d3"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 

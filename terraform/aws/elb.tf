@@ -40,5 +40,7 @@ resource "aws_elb" "weblb" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }

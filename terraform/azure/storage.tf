@@ -19,6 +19,7 @@ resource "azurerm_managed_disk" "example" {
     yor_trace            = "d17da7b3-f1c5-4723-9f77-d1b9069459c7"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -60,6 +61,7 @@ resource "azurerm_storage_account" "example" {
     yor_trace            = "23861ff4-c42d-495e-80ac-776c74035f43"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
