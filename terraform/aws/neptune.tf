@@ -17,6 +17,7 @@ resource "aws_neptune_cluster" "default" {
     git_repo             = "terragoat"
     yor_trace            = "0d4cbb85-73ed-4ca0-b1da-296e4185f34e"
     name                 = "zs"
+    owner                = ""
   }
 }
 
@@ -37,6 +38,7 @@ resource "aws_neptune_cluster_instance" "default" {
     git_repo             = "terragoat"
     yor_trace            = "9b2b45fd-6f9f-44fd-b8bc-868b1db178b3"
     name                 = "zs"
+    owner                = ""
   }
 }
 

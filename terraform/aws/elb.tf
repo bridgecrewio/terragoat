@@ -38,5 +38,7 @@ resource "aws_elb" "weblb" {
     yor_trace            = "b4a83ce9-9a45-43b4-b6d9-1783c282f702"
     }, {
     name = "zs"
+    }, {
+    owner = ""
   })
 }

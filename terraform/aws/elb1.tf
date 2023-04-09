@@ -11,7 +11,8 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "tf_test"
+    Name  = "tf_test"
+    owner = ""
   }
 }
 
@@ -21,7 +22,8 @@ resource "aws_subnet" "tf_test_subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "zs_test_subnet"
+    Name  = "zs_test_subnet"
+    owner = "zs"
   }
 }
 
@@ -29,7 +31,8 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.default.id
 
   tags = {
-    Name = "tf_test_ig"
+    Name  = "tf_test_ig"
+    owner = ""
   }
 }
 
@@ -42,7 +45,8 @@ resource "aws_route_table" "r" {
   }
 
   tags = {
-    Name = "aws_route_table"
+    Name  = "aws_route_table"
+    owner = ""
   }
 }
 
@@ -81,6 +85,9 @@ resource "aws_security_group" "default" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    owner = ""
+  }
 }
 
 # Our elb security group to access
@@ -109,6 +116,9 @@ resource "aws_security_group" "elb" {
 
   # ensure the VPC has an Internet gateway or this step will fail
   depends_on = [aws_internet_gateway.gw]
+  tags = {
+    owner = ""
+  }
 }
 
 resource "aws_elb" "web" {
@@ -141,6 +151,9 @@ resource "aws_elb" "web" {
   idle_timeout                = 400
   connection_draining         = true
   connection_draining_timeout = 400
+  tags = {
+    owner = ""
+  }
 }
 
 resource "aws_lb_cookie_stickiness_policy" "default" {
@@ -172,6 +185,7 @@ resource "aws_instance" "web" {
   #Instance tags
 
   tags = {
-    Name = "elb-example"
+    Name  = "elb-example"
+    owner = ""
   }
 }
