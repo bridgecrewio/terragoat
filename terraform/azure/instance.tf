@@ -40,6 +40,8 @@ resource azurerm_linux_virtual_machine "linux_machine" {
     yor_trace            = "736ef713-51b8-4178-ad69-406be81f6ef2"
     }, {
     name = "zs"
+    }, {
+    owner = ""
   })
 }
 
@@ -77,5 +79,7 @@ resource azurerm_windows_virtual_machine "windows_machine" {
     yor_trace            = "41938587-bdfc-4234-b941-560f1ae7d6c0"
     }, {
     name = "zs"
+    }, {
+    owner = ""
   })
 }

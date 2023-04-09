@@ -16,6 +16,8 @@ resource "aws_iam_user" "user" {
     yor_trace            = "9b45b298-c1ea-426a-9644-610780021eaa"
     }, {
     name = "zs"
+    }, {
+    owner = ""
   })
 
 }

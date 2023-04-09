@@ -13,6 +13,7 @@ resource "aws_kms_key" "logs_key" {
     git_repo             = "terrag22at"
     yor_trace            = "cd8fa2a7-4868-4cd1-993d-da4644808ce5"
     name                 = "zs"
+    owner                = ""
   }
   enable_key_rotation = true
 }
