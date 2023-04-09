@@ -36,6 +36,8 @@ resource "aws_db_instance" "default" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 
   # Ignore password changes from tf plan diff
@@ -66,6 +68,8 @@ resource "aws_db_option_group" "default" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -102,6 +106,8 @@ resource "aws_db_parameter_group" "default" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -126,6 +132,8 @@ resource "aws_db_subnet_group" "default" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -149,6 +157,8 @@ resource "aws_security_group" "default" {
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -186,6 +196,7 @@ resource "aws_iam_instance_profile" "ec2profile" {
     yor_trace            = "6d33b2b9-2dd3-4915-b5d4-283152c928f1"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }
 
@@ -225,6 +236,8 @@ EOF
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 
@@ -438,6 +451,8 @@ EOF
     name = "zs"
     }, {
     owner = ""
+    }, {
+    zs-key = "new1"
   })
 }
 

@@ -64,5 +64,6 @@ resource "azurerm_application_gateway" "network" {
     yor_trace            = "3f62753b-3d20-4fa7-b402-b780234a14d8"
     name                 = "zs"
     owner                = ""
+    zs-key               = "new1"
   }
 }

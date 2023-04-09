@@ -3,7 +3,8 @@ resource "azurerm_key_vault_secret" "secret" {
   name         = "terragoat-secret-${var.environment}"
   value        = random_string.password.result
   tags = {
-    name  = "zs"
-    owner = ""
+    name   = "zs"
+    owner  = ""
+    zs-key = "new1"
   }
 }
