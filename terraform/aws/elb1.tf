@@ -11,8 +11,9 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags = {
-    Name   = "tf_test"
-    zs-key = "new1"
+    Name      = "tf_test"
+    zs-key    = "new1"
+    yor_trace = "c80c8d44-0cbe-4329-aff6-65c450917cea"
   }
 }
 
@@ -21,8 +22,9 @@ resource "aws_subnet" "tf_test_subnet" {
   cidr_block = "10.0.0.0/24"
 
   tags = {
-    Name   = "zs_test_subnet"
-    zs-key = "new1"
+    Name      = "zs_test_subnet"
+    zs-key    = "new1"
+    yor_trace = "485fe745-1db1-4509-9fcc-096fb4ac2d57"
   }
 }
 
@@ -30,8 +32,9 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.default.id
 
   tags = {
-    Name   = "tf_test_ig"
-    zs-key = "new1"
+    Name      = "tf_test_ig"
+    zs-key    = "new1"
+    yor_trace = "45a19f77-ac28-468e-a2c0-06a70a183d13"
   }
 }
 
@@ -44,8 +47,9 @@ resource "aws_route_table" "r" {
   }
 
   tags = {
-    Name   = "aws_route_table"
-    zs-key = "new1"
+    Name      = "aws_route_table"
+    zs-key    = "new1"
+    yor_trace = "06c2fbb5-3bd7-4fa1-92f8-843b8407c0a7"
   }
 }
 
@@ -85,7 +89,8 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    zs-key = "new1"
+    zs-key    = "new1"
+    yor_trace = "bbaa0458-b652-412d-a5fd-49ec40629338"
   }
 }
 
@@ -116,7 +121,8 @@ resource "aws_security_group" "elb" {
   # ensure the VPC has an Internet gateway or this step will fail
   depends_on = [aws_internet_gateway.gw]
   tags = {
-    zs-key = "new1"
+    zs-key    = "new1"
+    yor_trace = "a162256c-cdc9-4843-9d89-905f2e4a17d5"
   }
 }
 
@@ -151,7 +157,8 @@ resource "aws_elb" "web" {
   connection_draining         = true
   connection_draining_timeout = 400
   tags = {
-    zs-key = "new1"
+    zs-key    = "new1"
+    yor_trace = "c7c53356-86cc-483a-96d7-3ff21d2d8329"
   }
 }
 
@@ -184,7 +191,8 @@ resource "aws_instance" "web" {
   #Instance tags
 
   tags = {
-    Name   = "elb-example"
-    zs-key = "new1"
+    Name      = "elb-example"
+    zs-key    = "new1"
+    yor_trace = "fecb1e83-d350-4e93-8622-739cc1e06ec5"
   }
 }
