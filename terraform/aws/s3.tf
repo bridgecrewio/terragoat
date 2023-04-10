@@ -178,9 +178,10 @@ resource "aws_s3_bucket" "logs" {
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
   tags = {
-    name   = "zs"
-    owner  = ""
-    zs-key = "new1"
+    name      = "zs"
+    owner     = ""
+    zs-key    = "new1"
+    yor_trace = "afd77b75-fd2f-4dc8-b654-ea501247b3ea"
   }
 }
 
@@ -194,9 +195,10 @@ resource "aws_s3_bucket_logging" "logs" {
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
   tags = {
-    name   = "zs"
-    owner  = ""
-    zs-key = "new1"
+    name      = "zs"
+    owner     = ""
+    zs-key    = "new1"
+    yor_trace = "afd77b75-fd2f-4dc8-b654-ea501247b3ea"
   }
 }
 
@@ -210,9 +212,10 @@ resource "aws_s3_bucket_logging" "logs" {
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
   tags = {
-    name   = "zs"
-    owner  = ""
-    zs-key = "new1"
+    name      = "zs"
+    owner     = ""
+    zs-key    = "new1"
+    yor_trace = "afd77b75-fd2f-4dc8-b654-ea501247b3ea"
   }
 }
 
