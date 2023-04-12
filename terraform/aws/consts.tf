@@ -47,3 +47,9 @@ variable "neptune-dbname" {
   description = "Name of the Neptune graph database"
   default     = "neptunedb1"
 }
+
+variable "password-new" {
+  type        = "string"
+  description = "New password"
+  default     = "Aa1234321Bb"
+}
