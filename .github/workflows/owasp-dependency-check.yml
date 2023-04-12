@@ -18,4 +18,4 @@ jobs:
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           ls -al
-          dependency-check -o reports --prettyPrint --project "Demo Project Terraform" -s .
+          dependency-check -o reports --prettyPrint --project "Demo Project Terraform" -s . --disableOssIndex
