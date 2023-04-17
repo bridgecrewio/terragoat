@@ -43,7 +43,7 @@ resource aws_iam_role_policy_attachment "policy_attachment-AmazonEKSServicePolic
 resource aws_vpc "eks_vpc" {
   cidr_block           = "10.10.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_support   = false
   tags = merge({
     Name = "${local.resource_prefix.value}-eks-vpc"
     }, {
