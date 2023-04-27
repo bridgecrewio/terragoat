@@ -1,4 +1,5 @@
 resource "aws_db_instance" "default" {
+
   name                   = var.dbname
   engine                 = "mysql"
   option_group_name      = aws_db_option_group.default.name

@@ -10,6 +10,7 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
     dedicated_master_count   = 1
   }
 
+
   ebs_options {
     ebs_enabled = true
     volume_size = 30
