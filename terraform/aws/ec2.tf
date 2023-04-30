@@ -1,3 +1,4 @@
+#
 resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
   ami           = "${var.ami}"
@@ -29,7 +30,9 @@ EOF
     git_repo             = "terragoat"
     yor_trace            = "347af3cd-4f70-4632-aca3-4d5e30ffc0b6"
   })
+  monitoring = true
 }
+
 
 resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
