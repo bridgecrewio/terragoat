@@ -1,6 +1,6 @@
 resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
-  # test change
+  # test change2
   ami           = var.ami
   instance_type = "t2.nano"
 
