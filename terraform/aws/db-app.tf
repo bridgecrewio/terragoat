@@ -1,4 +1,5 @@
 resource "aws_db_instance" "default" {
+
   name                   = var.dbname
   engine                 = "mysql"
   option_group_name      = aws_db_option_group.default.name
@@ -24,11 +25,11 @@ resource "aws_db_instance" "default" {
     Name        = "${local.resource_prefix.value}-rds"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "e6d83b21346fe85d4fe28b16c0b2f1e0662eb1d7"
     git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
+    git_last_modified_at = "2023-04-27 12:47:51"
+    git_last_modified_by = "nadler@paloaltonetworks.com"
+    git_modifiers        = "nadler/nimrodkor"
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "47c13290-c2ce-48a7-b666-1b0085effb92"

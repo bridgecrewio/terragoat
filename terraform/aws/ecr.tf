@@ -2,14 +2,15 @@ resource aws_ecr_repository "repository" {
   name                 = "${local.resource_prefix.value}-repository"
   image_tag_mutability = "MUTABLE"
 
+
   tags = merge({
     Name = "${local.resource_prefix.value}-repository"
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+    git_commit           = "e6d83b21346fe85d4fe28b16c0b2f1e0662eb1d7"
     git_file             = "terraform/aws/ecr.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
+    git_last_modified_at = "2023-04-27 12:47:51"
+    git_last_modified_by = "nadler@paloaltonetworks.com"
+    git_modifiers        = "nadler/nimrodkor"
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "7a3ec657-fa54-4aa2-8467-5d08d6c90bc2"
