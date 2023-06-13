@@ -6,13 +6,13 @@ resource "aws_iam_user" "user" {
     Name        = "${local.resource_prefix.value}-user"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/iam.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_commit           = "9f9ca61e9f76cad3f74c91dce8ad34ecfa248b35"
+    git_file             = "terraform/aws/ec2/iam.tf"
+    git_last_modified_at = "2023-06-11 04:14:04"
+    git_last_modified_by = "itgeek@email.com"
+    git_modifiers        = "itgeek"
+    git_org              = "smakineni-panw"
+    git_repo             = "terragoat-vuln"
     yor_trace            = "9b45b298-c1ea-426a-9644-610780021eaa"
     }, {
     yor_name = "user"

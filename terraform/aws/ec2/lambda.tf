@@ -17,13 +17,13 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 EOF
   tags = {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/lambda.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_commit           = "9f9ca61e9f76cad3f74c91dce8ad34ecfa248b35"
+    git_file             = "terraform/aws/ec2/lambda.tf"
+    git_last_modified_at = "2023-06-11 04:14:04"
+    git_last_modified_by = "itgeek@email.com"
+    git_modifiers        = "itgeek"
+    git_org              = "smakineni-panw"
+    git_repo             = "terragoat-vuln"
     yor_trace            = "93cfa6f9-a257-40c3-b7dc-3c3686929734"
     yor_name             = "iam_for_lambda"
   }
@@ -47,13 +47,13 @@ resource "aws_lambda_function" "analysis_lambda" {
     }
   }
   tags = {
-    git_commit           = "5c6b5d60a8aa63a5d37e60f15185d13a967f0542"
-    git_file             = "terraform/aws/lambda.tf"
-    git_last_modified_at = "2021-05-02 10:06:10"
-    git_last_modified_by = "nimrodkor@users.noreply.github.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_commit           = "9f9ca61e9f76cad3f74c91dce8ad34ecfa248b35"
+    git_file             = "terraform/aws/ec2/lambda.tf"
+    git_last_modified_at = "2023-06-11 04:14:04"
+    git_last_modified_by = "itgeek@email.com"
+    git_modifiers        = "itgeek"
+    git_org              = "smakineni-panw"
+    git_repo             = "terragoat-vuln"
     yor_trace            = "f7d8bc47-e5d9-4b09-9d8f-e7b9724d826e"
     yor_name             = "analysis_lambda"
   }
