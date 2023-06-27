@@ -13,9 +13,9 @@ resource "aws_s3_bucket" "dockingbay" {
     git_last_modified_at = "2023-06-27 22:03:17"
     git_last_modified_by = "60461497+josh-dev-l@users.noreply.github.com"
     git_modifiers        = "60461497+josh-dev-l"
-    git_org              = "josh-dev-l"
     git_repo             = "terragoat"
     yor_name             = "dockingbay"
     yor_trace            = "b519d337-5b3b-498a-9232-b13572f3ff87"
+    git_org              = "josh-dev-l"
   }
 }
