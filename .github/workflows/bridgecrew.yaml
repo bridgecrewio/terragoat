@@ -20,7 +20,7 @@ jobs:
       with:
         api-key: ${{ secrets.BC_API_KEY }}
         directory: terraform/
-        #soft_fail: true
+        soft_fail: true
         
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v2
@@ -31,4 +31,3 @@ jobs:
       if: success() || failure()
       with:
         sarif_file: results.sarif
-        soft_fail: true
