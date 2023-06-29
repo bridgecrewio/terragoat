@@ -12,14 +12,14 @@ jobs:
   checkov-job:
     permissions: write-all
     runs-on: ubuntu-latest
-    name: Prisma Cloud
+    name: PrismaCloud
     env:
       PRISMA_API_URL: https://api4.prismacloud.io/
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: Run Prisma Cloud 
-        id: Prisma Cloud
+      - name: Run PrismaCloud 
+        id: PrismaCloud
         uses: bridgecrewio/checkov-action@master
         with:
           directory: '.'
