@@ -8,19 +8,18 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-
 jobs:
   checkov-job:
     permissions: write-all
     runs-on: ubuntu-latest
-    name: checkov-action
+    name: Prisma Cloud
     env:
       PRISMA_API_URL: https://api4.prismacloud.io/
     steps:
       - name: Checkout repo
-        uses: actions/checkout@master
-      - name: Run Checkov action
-        id: checkov
+        uses: actions/checkout@v2
+      - name: Run Prisma Cloud 
+        id: Prisma Cloud
         uses: bridgecrewio/checkov-action@master
         with:
           directory: '.'
