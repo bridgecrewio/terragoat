@@ -1,0 +1,34 @@
+name: iac scan 
+on:
+  workflow_dispatch:
+  
+jobs:
+  Checkov:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so follow-up steps can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkov GitHub Action
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          # This will add both a CLI output to the console and create a results.sarif file
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+  KICS:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3  
+
+      - name: run kics Scan
+        uses: checkmarx/kics-github-action@v1.7.0
+        with:
+          # scanning two directories: ./terraform/ ./cfn-templates/ plus a single file
+          path: 'terraform,cfn-templates,infrastructure'
+          output_path: myResults/
+      # Display the results in json format
+      - name: display kics results
+        run: |
+          cat myResults/results.json
