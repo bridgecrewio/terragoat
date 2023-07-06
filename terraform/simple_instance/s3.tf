@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "dockingbay" {
   bucket_prefix = "docking-bay-storage-"
 
   tags = {
-    Name                 = "Docking Bay"
+    Name                 = "Docking Day"
     Environment          = "Dev"
     git_commit           = "db9f3f7953d0bad5fa6e5ac7012d8eb8957a5286"
     git_file             = "terraform/simple_instance/s3.tf"
