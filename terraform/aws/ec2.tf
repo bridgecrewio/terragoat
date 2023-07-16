@@ -18,7 +18,7 @@ export AWS_DEFAULT_REGION=us-west-2
 echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
 EOF
   tags = merge({
-    Name = "${local.resource_prefix.value}-ec2"
+    Name = "${local.resource_prefix.value}-ec2-1"
     }, {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/ec2.tf"
@@ -37,7 +37,7 @@ resource "aws_ebs_volume" "web_host_storage" {
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
   size = 1
   tags = merge({
-    Name = "${local.resource_prefix.value}-ebs"
+    Name = "${local.resource_prefix.value}-ebs-1"
     }, {
     git_commit           = "d3439f0f2af62f6fa3521e14d6c27819ef8f12e1"
     git_file             = "terraform/aws/ec2.tf"
