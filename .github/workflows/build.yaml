@@ -1,8 +1,6 @@
 name: build
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 jobs:
   build:
     runs-on: [self-hosted, public, linux, x64]
