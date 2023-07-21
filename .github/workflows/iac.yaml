@@ -15,8 +15,8 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with:
           # This will add both a CLI output to the console and create a results.sarif file
-          output_format: cli,json # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
-          output_file_path: console,results.json # folder and name of results file
+          output_format: cli,json,csv # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
+          output_file_path: console,checkov.json,checkov.csv # folder and name of results file
           quiet: true # optional: display only failed checks
           soft_fail: true # optional: do not return an error code if there are failed checks
           framework: terraform
@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: checkov-report
-          path: results.json
+          path: checkov.*
   KICS:
     runs-on: ubuntu-latest
     steps:
@@ -42,6 +42,7 @@ jobs:
         with:
           # scanning two directories: ./terraform/ ./cfn-templates/ plus a single file
           path: './'
+          output_formats: json,csv
           output_path: myResults/
           ignore_on_exit: results
           token: ${{ secrets.IAC_TOKEN }}
@@ -57,4 +58,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: kics-report
-          path: myResults/results.json
+          path: myResults/results.*
