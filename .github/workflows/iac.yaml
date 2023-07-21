@@ -14,8 +14,14 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with:
           # This will add both a CLI output to the console and create a results.sarif file
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
+          output_format: cli,sarif # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
+          output_file_path: console,results.sarif # folder and name of results file
+          quiet: true # optional: display only failed checks
+          soft_fail: true # optional: do not return an error code if there are failed checks
+          framework: terraform
+          download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
+          #github_pat: ${{ secrets.APPROVERBOT_SECRET }}
+          log_level: DEBUG 
   KICS:
     runs-on: ubuntu-latest
     steps:
