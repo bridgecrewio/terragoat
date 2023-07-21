@@ -25,6 +25,9 @@ jobs:
   KICS:
     runs-on: ubuntu-latest
     steps:
+      - name: Mkdir myResults
+        # make sure results dir is created
+        run: mkdir -p myResults
       - name: Checkout
         uses: actions/checkout@v3  
 
@@ -32,8 +35,13 @@ jobs:
         uses: checkmarx/kics-github-action@v1.7.0
         with:
           # scanning two directories: ./terraform/ ./cfn-templates/ plus a single file
-          path: 'terraform,cfn-templates,infrastructure'
+          path: './'
           output_path: myResults/
+          ignore_on_exit: results
+          token: ${{ secrets.IAC_TOKEN }}
+          enable_comments: true
+
+
       # Display the results in json format
       - name: display kics results
         run: |
