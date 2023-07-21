@@ -21,7 +21,7 @@ jobs:
           framework: terraform
           download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
           #github_pat: ${{ secrets.APPROVERBOT_SECRET }}
-          log_level: DEBUG 
+          #log_level: DEBUG 
   KICS:
     runs-on: ubuntu-latest
     steps:
