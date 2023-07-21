@@ -1,6 +1,7 @@
 name: iac scan 
 on:
   workflow_dispatch:
+  push:
   
 jobs:
   Checkov:
