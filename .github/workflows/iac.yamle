@@ -15,8 +15,8 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with:
           # This will add both a CLI output to the console and create a results.sarif file
-          output_format: cli,json,csv # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
-          output_file_path: console,checkov.json,checkov.csv # folder and name of results file
+          output_format: cli,json # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
+          output_file_path: console,checkov.json # folder and name of results file
           quiet: true # optional: display only failed checks
           soft_fail: true # optional: do not return an error code if there are failed checks
           framework: terraform
