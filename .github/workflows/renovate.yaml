@@ -13,6 +13,4 @@ jobs:
         with:
           configurationFile: renovate.json
           token: ${{ secrets.RENOVATE_TOKEN }}
-        env:
-          RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           
