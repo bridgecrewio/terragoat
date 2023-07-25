@@ -12,5 +12,7 @@ jobs:
         uses: renovatebot/github-action@v39.0.0
         with:
           configurationFile: renovate.json
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
           
