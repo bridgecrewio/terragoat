@@ -18,7 +18,7 @@ export AWS_DEFAULT_REGION=us-west-2
 echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
 EOF
   tags = merge({
-    Name = "${local.resource_prefix.value}-ec2-2"
+    Name = "${local.resource_prefix.value}-ec2"
     }, {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/ec2.tf"
@@ -53,7 +53,7 @@ resource "aws_ebs_volume" "web_host_storage" {
 resource "aws_ebs_snapshot" "example_snapshot" {
   # ebs snapshot without encryption
   volume_id   = "${aws_ebs_volume.web_host_storage.id}"
-  description = "${local.resource_prefix.value}-ebs-snapshot"
+  description = "${local.resource_prefix.value}-ebs-snapshot-1"
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs-snapshot"
     }, {
@@ -76,7 +76,7 @@ resource "aws_volume_attachment" "ebs_att" {
 
 resource "aws_security_group" "web-node" {
   # security group is open to the world in SSH port
-  name        = "${local.resource_prefix.value}-sg"
+  name        = "${local.resource_prefix.value}-sg-1"
   description = "${local.resource_prefix.value} Security Group"
   vpc_id      = aws_vpc.web_vpc.id
 
@@ -119,7 +119,7 @@ resource "aws_vpc" "web_vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
   tags = merge({
-    Name = "${local.resource_prefix.value}-vpc"
+    Name = "${local.resource_prefix.value}-vpc-1"
     }, {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/ec2.tf"
