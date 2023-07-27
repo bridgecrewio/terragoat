@@ -2,6 +2,7 @@ name: iac scan
 on:
   workflow_dispatch:
   push:
+  pull_request:
   
 jobs:
   Checkov:
@@ -47,6 +48,7 @@ jobs:
           ignore_on_exit: results
           token: ${{ secrets.IAC_TOKEN }}
           enable_comments: true
+          enable_jobs_summary: true
 
 
       # Display the results in json format
