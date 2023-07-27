@@ -24,7 +24,7 @@ jobs:
           download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
           #github_pat: ${{ secrets.APPROVERBOT_SECRET }}
           log_level: DEBUG
-          create_baseline: true
+          baseline: true
       - name: Upload report
         uses: actions/upload-artifact@v3
         with:
