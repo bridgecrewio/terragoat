@@ -21,6 +21,7 @@ jobs:
           quiet: true # optional: display only failed checks
           soft_fail: true # optional: do not return an error code if there are failed checks
           framework: terraform
+          directory: './terraform/aws/'
           download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
           #github_pat: ${{ secrets.APPROVERBOT_SECRET }}
           log_level: DEBUG
@@ -43,7 +44,7 @@ jobs:
         uses: checkmarx/kics-github-action@v1.7.0
         with:
           # scanning two directories: ./terraform/ ./cfn-templates/ plus a single file
-          path: './'
+          path: './terraform/aws/'
           output_formats: json,csv
           output_path: myResults/
           ignore_on_exit: results
