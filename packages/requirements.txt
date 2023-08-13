@@ -1,2 +1,5 @@
 django==1.2 
-
+agate==1.6.0
+agate-dbf==0.2.0
+agate-excel==0.2.1
+agate-sql==0.5.2
