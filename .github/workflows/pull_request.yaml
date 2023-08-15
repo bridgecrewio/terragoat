@@ -9,8 +9,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Run Checkov action
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
+      - name: Run Prisma Cloud 
+        id: Prisma Cloud
+        uses: bridgecrewio/checkov-action@master 
+        env:
+          PRISMA_API_URL: https://api-stage.prismacloud.io
         with:
-          directory: terraform/
+          api-key: ${{ secrets.BC_API_KEY }}
