@@ -14,6 +14,7 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
     ebs_enabled = true
     volume_size = 30
   }
+
   tags = {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/es.tf"
