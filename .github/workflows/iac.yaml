@@ -11,6 +11,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so follow-up steps can access it
       - name: Checkout
         uses: actions/checkout@v3
+      - name: tfsec
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          github_token: ${{ secrets.APPROVERBOT_SECRET }}
 
       - name: Checkov GitHub Action
         uses: bridgecrewio/checkov-action@v12
