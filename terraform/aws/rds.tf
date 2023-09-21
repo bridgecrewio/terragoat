@@ -141,4 +141,5 @@ resource "aws_rds_cluster" "app9-rds-cluster" {
     git_repo             = "terragoat"
     yor_trace            = "a0c98536-c751-4743-92f1-a106ce750249"
   }
+  storage_encrypted = true
 }
