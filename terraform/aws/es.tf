@@ -21,9 +21,10 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
     git_last_modified_at = "2023-04-27 12:47:51"
     git_last_modified_by = "nadler@paloaltonetworks.com"
     git_modifiers        = "nadler/nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
+    git_org              = "itgeeksroom"
+    git_repo             = "terragoat-bridgecrew"
     yor_trace            = "95131dec-d7c9-49bb-9aff-eb0e2736603b"
+    yor_name             = "monitoring-framework"
   }
 }
 
