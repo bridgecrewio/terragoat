@@ -19,3 +19,38 @@ resource "google_storage_bucket_iam_binding" "allow_public_read" {
   members = ["allUsers"]
   role    = "roles/storage.objectViewer"
 }
+
+resource "google_compute_instance" "third-instance" {
+  name         = "third-instance"
+  project      = local.project_id
+  machine_type = "e2-small"
+  zone         = "us-west1-a"
+  tags         = ["valtix-ingress"]
+  boot_disk {
+    initialize_params {
+
+      image = "debian-cloud/debian-11"
+      size  = 30
+      type  = "pd-ssd"
+    }
+  }
+  network_interface {
+    subnetwork = "default"
+  }
+  lifecycle {
+    ignore_changes = [attached_disk]
+  }
+  # Required to specify service_account
+  allow_stopping_for_update = true
+  service_account {
+    email  = "cloud-functions-sa@affable-hall-368820.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
+  provisioner "local-exec" {
+    command = "bash run-script.sh"
+  }
+  metadata = {
+    enable-oslogin = true
+  }
+  can_ip_forward = false
+}
