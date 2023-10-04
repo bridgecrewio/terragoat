@@ -1,11 +1,30 @@
-steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
 
-      - name: Run Prisma Cloud 
-        id: prisma-cloud
-        uses: bridgecrewio/checkov-action@master 
-        env:
-          PRISMA_API_URL: https://api.prismacloud.io
+on: [push]
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  IMAGE_PATH: /path/
+  PRISMA_API_URL: https://api.prismacloud.io
+  
+jobs:
+  checkov-image-scan:
+    runs-on: ubuntu-latest
+    name: checkov-image-scan
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+
+      - name: Build the image
+        run: docker build -t ${{ env.IMAGE_NAME }} ${{ env.IMAGE_PATH }}
+
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
         with:
-          api-key: ${{ secrets.BC_API_KEY }}
+          quiet: true # optional: display only failed checks
+          soft_fail: true # optional: do not return an error code if there are failed checks
+          log_level: DEBUG # optional: set log level. Default WARNING
+          docker_image: ${{ env.IMAGE_NAME }} # define the name of the image to scan
+          dockerfile_path: ${{ format('{0}/Dockerfile', env.IMAGE_PATH) }} # path to the Dockerfile
+          container_user: 1000 # optional: Define what UID and / or what GID to run the container under to prevent permission issues
+          api-key: ${{ secrets.BC_API_KEY }} # Bridgecrew API key stored as a GitHub secret
