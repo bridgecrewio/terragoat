@@ -1,18 +1,23 @@
-name: Docker Image CI
-
+---
+name: Checkov
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    branches:
+      - master
 jobs:
-
   build:
 
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Test with Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        env:
+          PRISMA_API_URL: https://api.prismacloud.io        
+        with:
+          api-key: ${{ secrets.BC_API_KEY }
