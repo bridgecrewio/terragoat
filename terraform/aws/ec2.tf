@@ -7,6 +7,7 @@ resource "aws_instance" "web_host" {
   "${aws_security_group.web-node.id}"]
   subnet_id = "${aws_subnet.web_subnet.id}"
   user_data = <<EOF
+
 #! /bin/bash
 sudo apt-get update
 sudo apt-get install -y apache2
@@ -31,6 +32,7 @@ EOF
   })
 }
 
+#thi is a fake change
 resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
   availability_zone = "${var.region}a"
