@@ -1,0 +1,18 @@
+name: IaC tag and trace
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  yor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Yor
+      uses: bridgecrewio/yor-action@main
