@@ -26,6 +26,19 @@ resource "aws_s3_bucket" "data_log_bucket" {
 }
 
 
+resource "aws_s3_bucket_versioning" "data_log_bucket" {
+  bucket = aws_s3_bucket.data_log_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+
+
+
+
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "data_log_bucket" {
   bucket = aws_s3_bucket.data_log_bucket.bucket
 
