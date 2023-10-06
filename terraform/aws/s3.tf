@@ -25,6 +25,20 @@ resource "aws_s3_bucket" "data_log_bucket" {
   bucket = "data-log-bucket"
 }
 
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "data_log_bucket" {
+  bucket = aws_s3_bucket.data_log_bucket.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+
+
+
 resource "aws_s3_bucket_logging" "data" {
   bucket = aws_s3_bucket.data.id
 
