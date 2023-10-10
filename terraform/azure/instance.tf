@@ -3,7 +3,7 @@ resource random_string "password" {
   special     = false
   min_lower   = 1
   min_numeric = 1
-  min_upper   = 1
+  min_upper   = 2
 }
 
 resource azurerm_linux_virtual_machine "linux_machine" {
