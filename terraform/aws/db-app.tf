@@ -156,16 +156,16 @@ resource "aws_security_group_rule" "egress" {
 resource "aws_iam_instance_profile" "ec2profile" {
   name = "${local.resource_prefix.value}-profile"
   role = "${aws_iam_role.ec2role.name}"
-  tags = {
-    git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
-    git_file             = "terraform/aws/db-app.tf"
-    git_last_modified_at = "2020-06-16 14:46:24"
-    git_last_modified_by = "nimrodkor@gmail.com"
-    git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
-    git_repo             = "terragoat"
-    yor_trace            = "6d33b2b9-2dd3-4915-b5d4-283152c928f1"
-  }
+  # tags = {
+  #   git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
+  #   git_file             = "terraform/aws/db-app.tf"
+  #   git_last_modified_at = "2020-06-16 14:46:24"
+  #   git_last_modified_by = "nimrodkor@gmail.com"
+  #   git_modifiers        = "nimrodkor"
+  #   git_org              = "bridgecrewio"
+  #   git_repo             = "terragoat"
+  #   yor_trace            = "6d33b2b9-2dd3-4915-b5d4-283152c928f1"
+  # }
 }
 
 resource "aws_iam_role" "ec2role" {
