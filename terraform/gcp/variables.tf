@@ -9,7 +9,7 @@ variable "project" {
 }
 
 variable "region" {
-  default = "us-central1"
+  default = "europe-west2"
   type    = string
 }
 
@@ -19,6 +19,6 @@ variable "environment" {
 }
 
 variable "location" {
-  default = "us-central1c"
+  default = "europe-west2"
   type    = string
 }
