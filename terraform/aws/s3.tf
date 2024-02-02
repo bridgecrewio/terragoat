@@ -9,14 +9,16 @@ resource "aws_s3_bucket" "data" {
     Name        = "${local.resource_prefix.value}-data"
     Environment = local.resource_prefix.value
     }, {
-    git_commit           = "4d57f83ca4d3a78a44fb36d1dcf0d23983fa44f5"
+    git_commit           = "3f5b66d407a8fab9148c7ae9edc5a600d42f00b4"
     git_file             = "terraform/aws/s3.tf"
-    git_last_modified_at = "2022-05-18 07:08:06"
-    git_last_modified_by = "nimrod@bridgecrew.io"
-    git_modifiers        = "34870196+LironElbaz/nimrod/nimrodkor"
-    git_org              = "bridgecrewio"
+    git_last_modified_at = "2021-12-13 06:34:51"
+    git_last_modified_by = "34870196+LironElbaz@users.noreply.github.com"
+    git_modifiers        = "34870196+LironElbaz/nimrodkor"
+    git_org              = "kowsi-panw"
     git_repo             = "terragoat"
     yor_trace            = "0874007d-903a-4b4c-945f-c9c233e13243"
+    }, {
+    yor_name = "data"
   })
 }
 
@@ -36,6 +38,8 @@ resource "aws_s3_bucket_object" "data_object" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "a7f01cc7-63c2-41a8-8555-6665e5e39a64"
+    }, {
+    yor_name = "data_object"
   })
 }
 
@@ -58,6 +62,8 @@ resource "aws_s3_bucket" "financials" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "0e012640-b597-4e5d-9378-d4b584aea913"
+    }, {
+    yor_name = "financials"
   })
 
 }
@@ -83,6 +89,8 @@ resource "aws_s3_bucket" "operations" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "29efcf7b-22a8-4bd6-8e14-1f55b3a2d743"
+    }, {
+    yor_name = "operations"
   })
 }
 
@@ -107,6 +115,7 @@ resource "aws_s3_bucket" "data_science" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "9a7c8788-5655-4708-bbc3-64ead9847f64"
+    yor_name             = "data_science"
   }
 }
 
@@ -137,5 +146,7 @@ resource "aws_s3_bucket" "logs" {
     git_org              = "bridgecrewio"
     git_repo             = "terragoat"
     yor_trace            = "01946fe9-aae2-4c99-a975-e9b0d3a4696c"
+    }, {
+    yor_name = "logs"
   })
 }

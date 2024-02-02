@@ -16,9 +16,10 @@ resource "alicloud_oss_bucket" "trail" {
     git_last_modified_at = "2022-04-05 15:14:28"
     git_last_modified_by = "james.woolfenden@gmail.com"
     git_modifiers        = "james.woolfenden"
-    git_org              = "bridgecrewio"
+    git_org              = "kowsi-panw"
     git_repo             = "terragoat"
     yor_trace            = "9ce7077b-8195-4e71-aec6-ed1f769555dc"
+    yor_name             = "trail"
   }
 }
 

@@ -11,8 +11,9 @@ resource "alicloud_oss_bucket" "bad_bucket" {
     git_last_modified_at = "2022-04-05 15:17:55"
     git_last_modified_by = "james.woolfenden@gmail.com"
     git_modifiers        = "james.woolfenden"
-    git_org              = "bridgecrewio"
+    git_org              = "kowsi-panw"
     git_repo             = "terragoat"
     yor_trace            = "80373049-248d-4f5e-9d25-740c3e80f2b9"
+    yor_name             = "bad_bucket"
   }
 }
