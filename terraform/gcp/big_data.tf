@@ -30,8 +30,9 @@ resource "google_bigquery_dataset" "dataset" {
     git_last_modified_at = "2022-01-19-17-02-27"
     git_last_modified_by = "jameswoolfenden"
     git_modifiers        = "jameswoolfenden__nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "kowsi-panw"
     git_repo             = "terragoat"
     yor_trace            = "2560d883-bc3a-4cb6-b9fc-fb666edf626e"
+    yor_name             = "dataset"
   }
 }

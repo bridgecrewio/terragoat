@@ -9,8 +9,9 @@ resource "oci_identity_compartment" "tf-compartment" {
     git_last_modified_at = "2022-04-06 15:27:36"
     git_last_modified_by = "james.woolfenden@gmail.com"
     git_modifiers        = "james.woolfenden"
-    git_org              = "bridgecrewio"
+    git_org              = "kowsi-panw"
     git_repo             = "terragoat"
     yor_trace            = "20f6ad13-d679-4c7a-8d1b-befdd7f16b97"
+    yor_name             = "tf-compartment"
   }
 }
