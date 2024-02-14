@@ -1,11 +1,12 @@
 resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
-  ami           = "${var.ami}"
+  # test change
+  ami           = var.ami
   instance_type = "t2.nano"
 
   vpc_security_group_ids = [
   "${aws_security_group.web-node.id}"]
-  subnet_id = "${aws_subnet.web_subnet.id}"
+  subnet_id = aws_subnet.web_subnet.id
   user_data = <<EOF
 #! /bin/bash
 sudo apt-get update
@@ -31,8 +32,11 @@ EOF
   })
 }
 
+
 resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
+  # delete this
+  #checkov:skip=CKV_AWS_3:The volume needs to be unencrypted
   availability_zone = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
   size = 1
@@ -48,11 +52,15 @@ resource "aws_ebs_volume" "web_host_storage" {
     git_repo             = "terragoat"
     yor_trace            = "c5509daf-10f0-46af-9e03-41989212521d"
   })
+
+
 }
+
+
 
 resource "aws_ebs_snapshot" "example_snapshot" {
   # ebs snapshot without encryption
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
+  volume_id   = aws_ebs_volume.web_host_storage.id
   description = "${local.resource_prefix.value}-ebs-snapshot"
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs-snapshot"
@@ -70,8 +78,8 @@ resource "aws_ebs_snapshot" "example_snapshot" {
 
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/sdh"
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
-  instance_id = "${aws_instance.web_host.id}"
+  volume_id   = aws_ebs_volume.web_host_storage.id
+  instance_id = aws_instance.web_host.id
 }
 
 resource "aws_security_group" "web-node" {
