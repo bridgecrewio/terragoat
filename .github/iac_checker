@@ -1,0 +1,71 @@
+name: lacework-iac-example-ga
+
+# Controls when the workflow will run
+
+on:
+
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+
+  push:
+
+    branches: [ "main" ]
+
+  pull_request:
+
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
+jobs:
+
+  # This workflow contains a single job called "build"
+
+  build:
+
+    # The type of runner that the job will run on
+
+    runs-on: ubuntu-20.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      - name: Checkout Code
+
+        uses: actions/checkout@v3
+
+      - name: Scan the repo for vulnerabilities in IaC
+
+        run: |
+
+             # Required to pass the GITHUB and Lacework (LW) environment secrets to use
+
+             env | grep "GITHUB_\|LW_\|CI_" > env.list
+
+             # Required command based on what you want to scan in the repository
+
+             echo "SCAN_COMMAND=tf-scan" >> env.list
+
+             # WORKSPACE is required and must match, or be a subdirectory of, the directory you bind with -v in the subsequent docker command
+
+             echo "WORKSPACE=src" >> env.list
+
+             # if we want to fail the step for any critical failed findings (violations) in the assessment scan
+
+             echo "EXIT_FLAG=critical=1" >> env.list 
+
+             docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec-iac:latest
+
+        env:
+
+          LW_ACCOUNT: ${{ secrets.LW_ACCOUNT }}
+
+          LW_API_KEY: ${{ secrets.LW_API_KEY }}
+
+          LW_API_SECRET: ${{ secrets.LW_API_SECRET }}
