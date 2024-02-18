@@ -1,5 +1,5 @@
 resource random_string "password" {
-  length      = 16
+  length      = 90
   special     = false
   min_lower   = 1
   min_numeric = 1
