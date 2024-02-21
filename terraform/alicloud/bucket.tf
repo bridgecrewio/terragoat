@@ -4,7 +4,7 @@ resource "alicloud_oss_bucket" "bad_bucket" {
   # Not Encrypted with a Customer Master Key and no Server side encryption
   # Doesn't have access logging enabled" 
   bucket = "wildwestfreeforall"
-  acl    = "public-read-write"
+  acl       = "public-read-write"
   tags = {
     git_commit           = "9c114f23d311f787c137723e1f71b27a52f0adec"
     git_file             = "terraform/alicloud/bucket.tf"
