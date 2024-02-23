@@ -1,5 +1,5 @@
 resource "aws_instance" "web_host" {
-  # ec2 have plain text secrets in user data
+  # ec2 have plain text secrets in user data -upload
   ami           = "${var.ami}"
   instance_type = "t2.nano"
 
