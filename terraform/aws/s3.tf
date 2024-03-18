@@ -1,3 +1,4 @@
+## edit 003
 resource "aws_s3_bucket" "data" {
   # bucket is public
   # bucket is not encrypted
