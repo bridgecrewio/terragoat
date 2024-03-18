@@ -1,4 +1,5 @@
 ## edited 005
+## testing 002
 resource "aws_s3_bucket" "data" {
   # bucket is public
   # bucket is not encrypted
