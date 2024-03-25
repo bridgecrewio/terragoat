@@ -6,7 +6,7 @@ variable "company_name" {
 }
 
 variable "environment" {
-  default = "dev"
+  default = "test"
 }
 
 locals {
