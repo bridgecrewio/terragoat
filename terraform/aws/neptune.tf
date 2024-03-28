@@ -17,6 +17,7 @@ resource "aws_neptune_cluster" "default" {
     git_repo             = "terragoat"
     yor_trace            = "0d4cbb85-73ed-4ca0-b1da-296e4185f34e"
   }
+  kms_key_arn = "CKV_ANY"
 }
 
 resource "aws_neptune_cluster_instance" "default" {
@@ -41,5 +42,6 @@ resource "aws_neptune_cluster_instance" "default" {
 resource "aws_neptune_cluster_snapshot" "default" {
   db_cluster_identifier          = aws_neptune_cluster.default.id
   db_cluster_snapshot_identifier = "resourcetestsnapshot1"
+  storage_encrypted = true
 }
 
