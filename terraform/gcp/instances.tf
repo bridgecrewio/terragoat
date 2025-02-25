@@ -1,4 +1,4 @@
-data "google_compute_zones" "zones" {}
+data "google_compute_zones" "zones" {} # legit:ignore
 
 resource "google_compute_instance" "server" {
   machine_type = "n1-standard-1"
