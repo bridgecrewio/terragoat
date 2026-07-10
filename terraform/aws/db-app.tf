@@ -1,30 +1,38 @@
 resource "aws_db_instance" "default" {
 
-  name                   = var.dbname
+  db_name                = var.dbname
   engine                 = "mysql"
   option_group_name      = aws_db_option_group.default.name
   parameter_group_name   = aws_db_parameter_group.default.name
   db_subnet_group_name   = aws_db_subnet_group.default.name
   vpc_security_group_ids = ["${aws_security_group.default.id}"]
 
-  identifier              = "rds-${local.resource_prefix.value}"
-  engine_version          = "8.0" # Latest major version 
-  instance_class          = "db.t3.micro"
-  allocated_storage       = "20"
-  username                = "admin"
-  password                = var.password
-  apply_immediately       = true
-  multi_az                = false
-  backup_retention_period = 0
-  storage_encrypted       = false
-  skip_final_snapshot     = true
-  monitoring_interval     = 0
-  publicly_accessible     = true
+  identifier                          = "rds-${local.resource_prefix.value}"
+  engine_version                      = "8.0" # Latest major version 
+  instance_class                      = "db.t3.micro"
+  allocated_storage                   = "20"
+  username                            = "admin"
+  password                            = var.password
+  apply_immediately                   = true
+  multi_az                            = true
+  backup_retention_period             = 7
+  storage_encrypted                   = true
+  kms_key_id                          = aws_kms_key.security_key.arn
+  skip_final_snapshot                 = false
+  final_snapshot_identifier           = "${local.resource_prefix.value}-final-snapshot"
+  monitoring_interval                 = 60
+  publicly_accessible                 = false
+  deletion_protection                 = true
+  iam_database_authentication_enabled = true
+  performance_insights_enabled        = true
+  performance_insights_kms_key_id     = aws_kms_key.security_key.arn
+  enabled_cloudwatch_logs_exports     = ["error", "general", "slowquery", "audit"]
 
   tags = merge({
     Name        = "${local.resource_prefix.value}-rds"
     Environment = local.resource_prefix.value
     }, {
+    Backup               = "true"
     git_commit           = "e6d83b21346fe85d4fe28b16c0b2f1e0662eb1d7"
     git_file             = "terraform/aws/db-app.tf"
     git_last_modified_at = "2023-04-27 12:47:51"
@@ -115,8 +123,12 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_security_group" "default" {
-  name   = "${local.resource_prefix.value}-rds-sg"
-  vpc_id = aws_vpc.web_vpc.id
+  name        = "${local.resource_prefix.value}-rds-sg"
+  description = "${local.resource_prefix.value} RDS Security Group"
+  vpc_id      = aws_vpc.web_vpc.id
+
+  ingress = []
+  egress  = []
 
   tags = merge({
     Name        = "${local.resource_prefix.value}-rds-sg"
@@ -140,6 +152,7 @@ resource "aws_security_group_rule" "ingress" {
   protocol          = "tcp"
   cidr_blocks       = ["${aws_vpc.web_vpc.cidr_block}"]
   security_group_id = aws_security_group.default.id
+  description       = "Allow MySQL access from the VPC"
 }
 
 resource "aws_security_group_rule" "egress" {
@@ -147,15 +160,16 @@ resource "aws_security_group_rule" "egress" {
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "${aws_security_group.default.id}"
+  cidr_blocks       = ["${aws_vpc.web_vpc.cidr_block}"]
+  security_group_id = aws_security_group.default.id
+  description       = "Allow outbound traffic within the VPC"
 }
 
 
 ### EC2 instance 
 resource "aws_iam_instance_profile" "ec2profile" {
   name = "${local.resource_prefix.value}-profile"
-  role = "${aws_iam_role.ec2role.name}"
+  role = aws_iam_role.ec2role.name
   tags = {
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/db-app.tf"
@@ -192,6 +206,7 @@ EOF
     Name        = "${local.resource_prefix.value}-role"
     Environment = local.resource_prefix.value
     }, {
+    Backup               = "true"
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/db-app.tf"
     git_last_modified_at = "2020-06-16 14:46:24"
@@ -201,28 +216,6 @@ EOF
     git_repo             = "terragoat"
     yor_trace            = "d4b631c1-c1d0-4986-affb-fb8b94a6a7a5"
   })
-}
-
-resource "aws_iam_role_policy" "ec2policy" {
-  name = "${local.resource_prefix.value}-policy"
-  role = aws_iam_role.ec2role.id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:*",
-        "ec2:*",
-        "rds:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
 }
 
 data "aws_ami" "amazon-linux-2" {
@@ -242,13 +235,25 @@ data "aws_ami" "amazon-linux-2" {
 
 resource "aws_instance" "db_app" {
   # ec2 have plain text secrets in user data
-  ami                  = data.aws_ami.amazon-linux-2.id
-  instance_type        = "t2.nano"
-  iam_instance_profile = aws_iam_instance_profile.ec2profile.name
+  ami                         = data.aws_ami.amazon-linux-2.id
+  instance_type               = "t2.nano"
+  iam_instance_profile        = aws_iam_instance_profile.ec2profile.name
+  ebs_optimized               = true
+  monitoring                  = true
+  associate_public_ip_address = false
+
+  metadata_options {
+    http_tokens = "required"
+  }
+
+  root_block_device {
+    encrypted  = true
+    kms_key_id = aws_kms_key.security_key.arn
+  }
 
   vpc_security_group_ids = [
   "${aws_security_group.web-node.id}"]
-  subnet_id = "${aws_subnet.web_subnet.id}"
+  subnet_id = aws_subnet.web_subnet.id
   user_data = <<EOF
 #! /bin/bash
 ### Config from https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html
@@ -263,7 +268,7 @@ cat << EnD > /tmp/dbinfo.inc
 define('DB_SERVER', '${aws_db_instance.default.endpoint}');
 define('DB_USERNAME', '${aws_db_instance.default.username}');
 define('DB_PASSWORD', '${var.password}');
-define('DB_DATABASE', '${aws_db_instance.default.name}');
+define('DB_DATABASE', '${aws_db_instance.default.db_name}');
 ?>
 EnD
 sudo mv /tmp/dbinfo.inc /var/www/inc 

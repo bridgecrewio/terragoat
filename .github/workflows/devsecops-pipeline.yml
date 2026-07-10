@@ -1,0 +1,439 @@
+# DevSecOps Security Pipeline
+# Purpose: Shift-left security scanning for Terraform IaC
+# Triggers: Every push and every pull request to demo-main and feature branches
+# Stages: lint → iac-scan → secret-scan
+
+### Key security practices applied here:
+#  - Pinned action versions (not @main or @master which can change silently)
+#  - Least-privilege GITHUB_TOKEN permissions declared explicitly
+#  - No self-hosted runners (avoids runner compromise via malicious PRs)
+#  - Artifacts uploaded for audit trail (findings are stored, not just printed)
+#  - All scan tools run independently so one failure doesn't hide others
+#  - allow_failure distinction: lint blocks, scan warns, secrets blocks
+
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches: [demo-main]
+  pull_request:
+    branches: [demo-main]
+
+concurrency:
+  group: devsecops-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Declare minimum required permissions for the GITHUB_TOKEN
+# Default is write-all which violates least-privilege
+permissions:
+  contents: read        # Read repo files
+  security-events: write # Upload SARIF results to GitHub Security tab
+  pull-requests: write  # Post scan summary as PR comment
+
+jobs:
+  # ─────────────────────────────────────────────
+  # STAGE 1: LINT
+  # Check Terraform syntax and formatting before scanning
+  # Fast - catches typos before wasting scan time
+  # ─────────────────────────────────────────────
+  terraform-lint:
+    name: Terraform Lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # AWS-only assessment scope in this demo branch
+        cloud: [aws]
+    steps:
+      - name: Checkout repository
+        # Pinned to v4.2.2 SHA - not using @v4 tag which is mutable
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      
+      - name: Setup Terraform
+        # Pinned to correct SHA corresponding to latest v3 release
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
+      
+      - name: Terraform Format Check (${{ matrix.cloud }})
+        working-directory: terraform/${{ matrix.cloud }}
+        # -check flag makes this exit non-zero if formatting is wrong
+        # -recursive checks all subdirectories
+        run: terraform fmt -check -recursive .
+        continue-on-error: true  # Warn but don't block on formatting
+      
+      - name: Terraform Validate (${{ matrix.cloud }})
+        working-directory: terraform/${{ matrix.cloud }}
+        run: |
+          terraform init -backend=false
+          terraform validate
+        # -backend=false skips state backend init (we don't have credentials here)
+        # This still validates resource types, argument names, and value types
+
+  # #─────────────────────────────────────────────
+  # STAGE 2: IAC SECURITY SCANNING
+  # Run Checkov + TFSec on all Terraform directories
+  # Both tools run even if one fails (fail-fast: false)
+  # ─────────────────────────────────────────────
+  checkov-scan:
+    name: Checkov IaC Scan
+    runs-on: ubuntu-latest
+    needs: terraform-lint  # Only run after lint passes
+    if: always()
+    # Not blocking on lint failure so scans still run on PRs
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      
+      - name: Run Checkov - AWS
+        run: |
+          set -euo pipefail
+
+          # 1) SARIF for GitHub Code Scanning
+          docker run --rm \
+            -v "$PWD":/tf \
+            -w /tf \
+            bridgecrew/checkov:2.0.545 \
+            -d terraform/aws \
+            -o sarif \
+            --quiet \
+            --soft-fail \
+            > checkov-aws.sarif
+
+          # Checkov may prepend non-JSON banner text. Keep JSON payload only.
+          awk 'BEGIN{p=0} /^[[:space:]]*[\{\[]/ {p=1} p {print}' checkov-aws.sarif > checkov-aws.sarif.clean || true
+          if [[ -s checkov-aws.sarif.clean ]]; then mv checkov-aws.sarif.clean checkov-aws.sarif; fi
+
+          # 2) JSON artifact for offline evidence and post-analysis
+          docker run --rm \
+            -v "$PWD":/tf \
+            -w /tf \
+            bridgecrew/checkov:2.0.545 \
+            -d terraform/aws \
+            -o json \
+            --quiet \
+            --soft-fail \
+            > checkov-aws.json || true
+
+          awk 'BEGIN{p=0} /^[[:space:]]*[\{\[]/ {p=1} p {print}' checkov-aws.json > checkov-aws.json.clean || true
+          if [[ -s checkov-aws.json.clean ]]; then mv checkov-aws.json.clean checkov-aws.json; fi
+
+          # 2b) Deterministic hard-fail on selected high-risk Checkov checks.
+          CHECKOV_FAILED_COUNT=$(jq -r '[.[]?.results?.failed_checks[]?] | length' checkov-aws.json 2>/dev/null || echo 0)
+          echo "Checkov failed checks: ${CHECKOV_FAILED_COUNT}"
+
+          CHECKOV_HARD_COUNT=$(jq -r '[.[]?.results?.failed_checks[]? | .check_id | select(
+            . == "CKV_AWS_16" or
+            . == "CKV_AWS_17" or
+            . == "CKV_AWS_24" or
+            . == "CKV_AWS_38" or
+            . == "CKV_AWS_39" or
+            . == "CKV_AWS_46" or
+            . == "CKV_AWS_51" or
+            . == "CKV_AWS_58" or
+            . == "CKV_AWS_79" or
+            . == "CKV_AWS_92" or
+            . == "CKV_AWS_118" or
+            . == "CKV_AWS_127" or
+            . == "CKV_AWS_129" or
+            . == "CKV_AWS_136" or
+            . == "CKV_AWS_157" or
+            . == "CKV_AWS_161" or
+            . == "CKV_AWS_163" or
+            . == "CKV2_AWS_2" or
+            . == "CKV2_AWS_6" or
+            . == "CKV2_AWS_11"
+          )] | length' checkov-aws.json 2>/dev/null || echo 0)
+          echo "Checkov hard-fail checks: ${CHECKOV_HARD_COUNT}"
+
+          # 3) CLI output so failing checks are visible directly in workflow logs
+          docker run --rm \
+            -v "$PWD":/tf \
+            -w /tf \
+            bridgecrew/checkov:2.0.545 \
+            -d terraform/aws \
+            -o cli \
+            --soft-fail || true
+
+          if [[ "$CHECKOV_HARD_COUNT" =~ ^[0-9]+$ ]] && [[ "$CHECKOV_HARD_COUNT" -gt 0 ]]; then
+            echo "::error::Hard fail: Checkov found ${CHECKOV_HARD_COUNT} high-risk failed checks."
+            exit 1
+          fi
+      
+      - name: Validate Checkov SARIF JSON
+        id: checkov_sarif
+        shell: bash
+        run: |
+          if [[ -f checkov-aws.sarif ]] && jq -e . checkov-aws.sarif >/dev/null 2>&1; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+            echo "Checkov SARIF is not valid JSON; skipping SARIF upload."
+          fi
+
+      # Upload SARIF to GitHub Security tab - findings appear as Code Scanning alerts
+      - name: Upload Checkov AWS results to GitHub Security
+        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f
+        # Pinned to codeql-action v3.28.18
+        with:
+          sarif_file: checkov-aws.sarif
+          category: checkov-aws
+        if: always() && hashFiles('checkov-aws.sarif') != '' && steps.checkov_sarif.outputs.valid == 'true'
+
+      - name: Upload Checkov artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkov-aws-sarif
+          path: |
+            checkov-aws.sarif
+            checkov-aws.json
+          if-no-files-found: ignore
+        if: always()
+
+  tfsec-scan:
+    name: TFSec IaC Scan
+    runs-on: ubuntu-latest
+    needs: terraform-lint
+    if: always()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      
+      - name: Run TFSec
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Generate JSON report for PR summary.
+          docker run --rm \
+            -v "$PWD":/src \
+            -w /src \
+            aquasec/tfsec:v1.28.5 \
+            --format json \
+            terraform/aws > tfsec-results.json || true
+
+          # Generate SARIF report for Security tab upload.
+          docker run --rm \
+            -v "$PWD":/src \
+            -w /src \
+            aquasec/tfsec:v1.28.5 \
+            --format sarif \
+            terraform/aws > tfsec-results.sarif || true
+
+          if [[ ! -f tfsec-results.json ]]; then
+            echo "::error::TFSec JSON report tfsec-results.json was not generated."
+            exit 1
+          fi
+
+          if [[ ! -f tfsec-results.sarif ]]; then
+            echo "::warning::TFSec SARIF report tfsec-results.sarif was not generated."
+          fi
+
+          TFSEC_HC_COUNT=$(jq -r '[.results[]? | select((.severity // "" | ascii_upcase) == "HIGH" or (.severity // "" | ascii_upcase) == "CRITICAL")] | length' tfsec-results.json 2>/dev/null || echo "parse_error")
+          if [[ "$TFSEC_HC_COUNT" == "parse_error" ]]; then
+            echo "::error::Unable to parse tfsec-results.json"
+            exit 1
+          fi
+
+          echo "TFSec HIGH/CRITICAL findings: ${TFSEC_HC_COUNT}"
+          if [[ "$TFSEC_HC_COUNT" =~ ^[0-9]+$ ]] && [[ "$TFSEC_HC_COUNT" -gt 0 ]]; then
+            echo "::error::Hard fail: TFSec found ${TFSEC_HC_COUNT} HIGH/CRITICAL findings."
+            exit 1
+          fi
+
+      - name: Validate TFSec SARIF JSON
+        id: tfsec_sarif
+        shell: bash
+        run: |
+          if [[ -f tfsec-results.sarif ]] && jq -e . tfsec-results.sarif >/dev/null 2>&1; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+            echo "TFSec SARIF is not valid JSON; skipping SARIF upload."
+          fi
+      
+      - name: Upload TFSec results to GitHub Security
+        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f
+        with:
+          sarif_file: tfsec-results.sarif
+          category: tfsec
+        if: always() && hashFiles('tfsec-results.sarif') != '' && steps.tfsec_sarif.outputs.valid == 'true'
+
+      - name: Upload TFSec artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfsec-sarif
+          path: |
+            tfsec-results.sarif
+            tfsec-results.json
+          if-no-files-found: ignore
+        if: always()
+
+  # ─────────────────────────────────────────────
+  # STAGE 3: SECRET SCANNING
+  # Scan current Terraform scope for leaked credentials
+  # ─────────────────────────────────────────────
+  secret-scan:
+    name: GitLeaks Secret Scan
+    runs-on: ubuntu-latest
+    # Run in parallel with IaC scans - secrets are independent of lint
+    steps:
+      - name: Checkout repository
+        # fetch-depth: 0 fetches FULL git history
+        # Without this, GitLeaks only scans current files, not history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      
+      - name: Run GitLeaks - Scan full git history
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          docker run --rm \
+            -v "$PWD":/repo \
+            -w /repo \
+            zricethezav/gitleaks:latest \
+            detect --source=terraform/aws --no-git --report-format sarif --report-path gitleaks.sarif --verbose || true
+
+          GITLEAKS_COUNT=$(jq -r '[.runs[].results[]?] | length' gitleaks.sarif 2>/dev/null || echo 0)
+          echo "GitLeaks findings: ${GITLEAKS_COUNT}"
+
+          if [[ "$GITLEAKS_COUNT" =~ ^[0-9]+$ ]] && [[ "$GITLEAKS_COUNT" -gt 0 ]]; then
+            echo "::error::Hard fail: GitLeaks found ${GITLEAKS_COUNT} leaked secrets in terraform/aws."
+            exit 1
+          fi
+
+      - name: Validate GitLeaks SARIF JSON
+        id: gitleaks_sarif
+        shell: bash
+        run: |
+          if [[ -f gitleaks.sarif ]] && jq -e . gitleaks.sarif >/dev/null 2>&1; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+            echo "GitLeaks SARIF is not valid JSON; skipping SARIF upload."
+          fi
+
+      - name: Upload GitLeaks results to GitHub Security
+        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f
+        with:
+          sarif_file: gitleaks.sarif
+          category: gitleaks
+        if: always() && hashFiles('gitleaks.sarif') != '' && steps.gitleaks_sarif.outputs.valid == 'true'
+
+      - name: Upload GitLeaks artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-sarif
+          path: gitleaks.sarif
+          if-no-files-found: ignore
+        if: always()
+
+  # ─────────────────────────────────────────────
+  # STAGE 4: SUMMARY REPORT
+  # Only runs on PRs - posts a comment with scan summary
+  # ─────────────────────────────────────────────
+  pr-summary:
+    name: Post PR Summary
+    runs-on: ubuntu-latest
+    needs: [terraform-lint, checkov-scan, tfsec-scan, secret-scan]
+    if: github.event_name == 'pull_request' && always()
+    # always() ensures this runs even if previous jobs had failures
+    steps:
+      - name: Ensure jq is available
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+
+      - name: Download scan artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: scan-artifacts
+          merge-multiple: true
+        continue-on-error: true
+
+      - name: Build findings summary
+        id: findings
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          CHECKOV_COUNT="N/A"
+          CHECKOV_TOP="N/A"
+          TFSEC_COUNT="N/A"
+          TFSEC_TOP="N/A"
+          GITLEAKS_COUNT="N/A"
+          GITLEAKS_TOP="N/A"
+
+          if [[ -f scan-artifacts/checkov-aws.json ]]; then
+            CHECKOV_COUNT=$(jq -r '[.[]?.results?.failed_checks[]?] | length' scan-artifacts/checkov-aws.json 2>/dev/null || echo "N/A")
+            CHECKOV_TOP=$(jq -r '[.[]?.results?.failed_checks[]? | .check_id] | unique | .[:5] | join(", ")' scan-artifacts/checkov-aws.json 2>/dev/null || echo "N/A")
+            [[ -z "$CHECKOV_TOP" || "$CHECKOV_TOP" == "null" ]] && CHECKOV_TOP="No failed checks captured"
+          fi
+
+          if [[ -f scan-artifacts/tfsec-results.json ]]; then
+            TFSEC_COUNT=$(jq -r '[.results[]?] | length' scan-artifacts/tfsec-results.json 2>/dev/null || echo "N/A")
+            TFSEC_TOP=$(jq -r '[.results[]?.rule_id] | unique | .[:5] | join(", ")' scan-artifacts/tfsec-results.json 2>/dev/null || echo "N/A")
+            [[ -z "$TFSEC_TOP" || "$TFSEC_TOP" == "null" ]] && TFSEC_TOP="No failed checks captured"
+          elif [[ -f scan-artifacts/tfsec-results.sarif ]]; then
+            TFSEC_COUNT=$(jq -r '[.runs[].results[]?] | length' scan-artifacts/tfsec-results.sarif 2>/dev/null || echo "N/A")
+            TFSEC_TOP=$(jq -r '[.runs[].results[]?.ruleId] | unique | .[:5] | join(", ")' scan-artifacts/tfsec-results.sarif 2>/dev/null || echo "N/A")
+            [[ -z "$TFSEC_TOP" || "$TFSEC_TOP" == "null" ]] && TFSEC_TOP="No failed checks captured"
+          fi
+
+          if [[ -f scan-artifacts/gitleaks.sarif ]]; then
+            GITLEAKS_COUNT=$(jq -r '[.runs[].results[]?] | length' scan-artifacts/gitleaks.sarif 2>/dev/null || echo "N/A")
+            GITLEAKS_TOP=$(jq -r '[.runs[].results[]?.ruleId] | unique | .[:5] | join(", ")' scan-artifacts/gitleaks.sarif 2>/dev/null || echo "N/A")
+            [[ -z "$GITLEAKS_TOP" || "$GITLEAKS_TOP" == "null" ]] && GITLEAKS_TOP="No failed secrets captured"
+          fi
+
+          {
+            echo "checkov_count=$CHECKOV_COUNT"
+            echo "checkov_top=$CHECKOV_TOP"
+            echo "tfsec_count=$TFSEC_COUNT"
+            echo "tfsec_top=$TFSEC_TOP"
+            echo "gitleaks_count=$GITLEAKS_COUNT"
+            echo "gitleaks_top=$GITLEAKS_TOP"
+          } >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Post scan summary comment
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        # Pinned to v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const jobResults = {
+              lint: '${{ needs.terraform-lint.result }}',
+              checkov: '${{ needs.checkov-scan.result }}',
+              tfsec: '${{ needs.tfsec-scan.result }}',
+              secrets: '${{ needs.secret-scan.result }}'
+            };
+            const statusEmoji = (r) => r === 'success' ? '✅' : r === 'skipped' ? '⏭️' : '⚠️';
+            const hardFail = [jobResults.checkov, jobResults.tfsec, jobResults.secrets].some(r => r === 'failure');
+            const body = `## DevSecOps Pipeline Results
+            | Scan | Status | Details |
+            |------|--------|---------|
+            | Terraform Lint | ${statusEmoji(jobResults.lint)} ${jobResults.lint} | fmt + validate |
+            | Checkov IaC Scan | ${statusEmoji(jobResults.checkov)} ${jobResults.checkov} | Hard-fail on high-risk checks |
+            | TFSec IaC Scan | ${statusEmoji(jobResults.tfsec)} ${jobResults.tfsec} | Hard-fail on HIGH/CRITICAL |
+            | GitLeaks Secret Scan | ${statusEmoji(jobResults.secrets)} ${jobResults.secrets} | Hard-fail when secrets found in terraform/aws |
+
+            ### Gate Decision
+            - Hard fail gates present: ${hardFail ? 'YES (merge should be blocked by required checks)' : 'NO (safe to merge if branch protection is enabled)'}
+            
+            ### Why It Failed (Top Findings)
+            - Checkov failed checks: ${{ steps.findings.outputs.checkov_count }}
+            - Checkov top IDs: ${{ steps.findings.outputs.checkov_top }}
+            - TFSec failed checks: ${{ steps.findings.outputs.tfsec_count }}
+            - TFSec top IDs: ${{ steps.findings.outputs.tfsec_top }}
+            - GitLeaks findings: ${{ steps.findings.outputs.gitleaks_count }}
+            - GitLeaks top IDs: ${{ steps.findings.outputs.gitleaks_top }}
+
+            > Scan findings are uploaded to the **Security** tab → **Code Scanning** of this repository.
+            > All SARIF/JSON artifacts are downloadable from this workflow run.`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

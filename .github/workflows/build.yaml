@@ -1,8 +1,10 @@
 name: build
+# DISABLED: This workflow has supply chain vulnerabilities documented in the assessment.
+# Trigger changed to manual-only so it does not auto-execute.
+# Issues: self-hosted public runner, unpinned @main actions, EOL Python 3.7
+# See: devsecops-assessment-track2/02-pipeline-supply-chain/pipeline-design.md
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 jobs:
   build:
     runs-on: [self-hosted, public, linux, x64]

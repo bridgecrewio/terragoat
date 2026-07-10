@@ -1,6 +1,8 @@
 name: build
+# DISABLED: This workflow uses unpinned third-party actions (checkov-action@master).
+# Trigger changed to manual-only. See assessment module 02 for full analysis.
 on:
-  pull_request
+  workflow_dispatch:
 jobs:
   checkov-job:
     runs-on: ubuntu-latest

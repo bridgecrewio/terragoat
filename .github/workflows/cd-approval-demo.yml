@@ -1,0 +1,79 @@
+name: CD Approval Gate Demo
+
+on:
+  push:
+    branches: [demo-main]
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: "Target environment label for approval gate"
+        required: true
+        default: "demo"
+        type: choice
+        options:
+          - demo
+          - staging
+          - production
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cd-demo-${{ github.ref }}-${{ github.event.inputs.target_environment || 'demo' }}
+  cancel-in-progress: true
+
+jobs:
+  approval:
+    name: Manual Approval Gate
+    runs-on: ubuntu-latest
+    environment:
+      name: cd-${{ github.event.inputs.target_environment || 'demo' }}
+    steps:
+      - name: Approval acknowledged
+        run: |
+          echo "Manual approval completed for environment: ${{ github.event.inputs.target_environment || 'demo' }}"
+          echo "Terraform apply stage is now unlocked."
+
+  deploy-apply:
+    name: Post-Approval Terraform Apply
+    runs-on: ubuntu-latest
+    needs: approval
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
+
+      - name: Validate AWS credentials for deployment
+        run: |
+          set -euo pipefail
+          if [[ -z "${AWS_ACCESS_KEY_ID:-}" || -z "${AWS_SECRET_ACCESS_KEY:-}" || -z "${AWS_DEFAULT_REGION:-}" ]]; then
+            echo "::error::Missing AWS deployment credentials in repository secrets. Set AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION."
+            exit 1
+          fi
+
+      - name: Terraform Init
+        run: |
+          set -euo pipefail
+          terraform -chdir=terraform/aws init -backend=false
+
+      - name: Terraform Plan
+        run: |
+          set -euo pipefail
+          terraform -chdir=terraform/aws plan -lock=false -out=tfplan
+
+      - name: Terraform Apply
+        run: |
+          set -euo pipefail
+          terraform -chdir=terraform/aws apply -auto-approve tfplan
+
+      - name: Deployment completion note
+        run: |
+          echo "Terraform apply completed after manual environment approval gate."
+          echo "Run destroy manually after demo to avoid ongoing AWS charges."

@@ -1,20 +1,29 @@
 resource "aws_instance" "web_host" {
   # ec2 have plain text secrets in user data
-  ami           = "${var.ami}"
-  instance_type = "t2.nano"
+  ami                         = var.ami
+  instance_type               = "t2.nano"
+  ebs_optimized               = true
+  monitoring                  = true
+  associate_public_ip_address = false
+
+  metadata_options {
+    http_tokens = "required"
+  }
+
+  root_block_device {
+    encrypted  = true
+    kms_key_id = aws_kms_key.security_key.arn
+  }
 
   vpc_security_group_ids = [
   "${aws_security_group.web-node.id}"]
-  subnet_id = "${aws_subnet.web_subnet.id}"
+  subnet_id = aws_subnet.web_subnet.id
   user_data = <<EOF
 #! /bin/bash
 sudo apt-get update
 sudo apt-get install -y apache2
 sudo systemctl start apache2
 sudo systemctl enable apache2
-export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA
-export AWS_SECRET_ACCESS_KEY=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
-export AWS_DEFAULT_REGION=us-west-2
 echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
 EOF
   tags = merge({
@@ -35,10 +44,13 @@ resource "aws_ebs_volume" "web_host_storage" {
   # unencrypted volume
   availability_zone = "${var.region}a"
   #encrypted         = false  # Setting this causes the volume to be recreated on apply 
-  size = 1
+  size       = 1
+  encrypted  = true
+  kms_key_id = aws_kms_key.security_key.arn
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs"
     }, {
+    Backup               = "true"
     git_commit           = "d3439f0f2af62f6fa3521e14d6c27819ef8f12e1"
     git_file             = "terraform/aws/ec2.tf"
     git_last_modified_at = "2021-05-02 11:17:26"
@@ -52,7 +64,7 @@ resource "aws_ebs_volume" "web_host_storage" {
 
 resource "aws_ebs_snapshot" "example_snapshot" {
   # ebs snapshot without encryption
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
+  volume_id   = aws_ebs_volume.web_host_storage.id
   description = "${local.resource_prefix.value}-ebs-snapshot"
   tags = merge({
     Name = "${local.resource_prefix.value}-ebs-snapshot"
@@ -70,8 +82,8 @@ resource "aws_ebs_snapshot" "example_snapshot" {
 
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/sdh"
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
-  instance_id = "${aws_instance.web_host.id}"
+  volume_id   = aws_ebs_volume.web_host_storage.id
+  instance_id = aws_instance.web_host.id
 }
 
 resource "aws_security_group" "web-node" {
@@ -85,21 +97,16 @@ resource "aws_security_group" "web-node" {
     to_port   = 80
     protocol  = "tcp"
     cidr_blocks = [
-    "0.0.0.0/0"]
-  }
-  ingress {
-    from_port = 22
-    to_port   = 22
-    protocol  = "tcp"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    aws_vpc.web_vpc.cidr_block]
+    description = "Allow HTTP from VPC only"
   }
   egress {
     from_port = 0
     to_port   = 0
     protocol  = "-1"
     cidr_blocks = [
-    "0.0.0.0/0"]
+    aws_vpc.web_vpc.cidr_block]
+    description = "Allow outbound traffic within VPC only"
   }
   depends_on = [aws_vpc.web_vpc]
   tags = {
@@ -136,7 +143,7 @@ resource "aws_subnet" "web_subnet" {
   vpc_id                  = aws_vpc.web_vpc.id
   cidr_block              = "172.16.10.0/24"
   availability_zone       = "${var.region}a"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = merge({
     Name = "${local.resource_prefix.value}-subnet"
@@ -156,7 +163,7 @@ resource "aws_subnet" "web_subnet2" {
   vpc_id                  = aws_vpc.web_vpc.id
   cidr_block              = "172.16.11.0/24"
   availability_zone       = "${var.region}b"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = merge({
     Name = "${local.resource_prefix.value}-subnet2"
@@ -257,6 +264,7 @@ resource "aws_flow_log" "vpcflowlogs" {
     Name        = "${local.resource_prefix.value}-flowlogs"
     Environment = local.resource_prefix.value
     }, {
+    Backup               = "true"
     git_commit           = "d68d2897add9bc2203a5ed0632a5cdd8ff8cefb0"
     git_file             = "terraform/aws/ec2.tf"
     git_last_modified_at = "2020-06-16 14:46:24"
@@ -269,7 +277,23 @@ resource "aws_flow_log" "vpcflowlogs" {
 }
 
 resource "aws_s3_bucket" "flowbucket" {
-  bucket        = "${local.resource_prefix.value}-flowlogs"
+  bucket = "${local.resource_prefix.value}-flowlogs"
+  acl    = "private"
+  versioning {
+    enabled = true
+  }
+  logging {
+    target_bucket = aws_s3_bucket.logs.id
+    target_prefix = "flowlogs/"
+  }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm     = "aws:kms"
+        kms_master_key_id = aws_kms_key.security_key.arn
+      }
+    }
+  }
   force_destroy = true
 
   tags = merge({
@@ -285,6 +309,14 @@ resource "aws_s3_bucket" "flowbucket" {
     git_repo             = "terragoat"
     yor_trace            = "f058838a-b1e0-4383-b965-7e06e987ffb1"
   })
+}
+
+resource "aws_s3_bucket_public_access_block" "flowbucket" {
+  bucket                  = aws_s3_bucket.flowbucket.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 output "ec2_public_dns" {
