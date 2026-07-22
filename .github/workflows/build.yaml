@@ -11,6 +11,16 @@ jobs:
         name: Checkout repo
         with:
           fetch-depth: 0
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=terraform-demo
+            -Dsonar.projectName="Terraform Demo"
+            -Dsonar.sources=.
       - name: Run yor action
         uses: bridgecrewio/yor-action@main
       - name: Set up Python ${{ matrix.python-version }}
