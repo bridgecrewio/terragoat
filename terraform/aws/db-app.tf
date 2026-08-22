@@ -241,6 +241,11 @@ data "aws_ami" "amazon-linux-2" {
 }
 
 resource "aws_instance" "db_app" {
+
+  metadata_options {
+    http_tokens = "required"
+  }
+
   # ec2 have plain text secrets in user data
   ami                  = data.aws_ami.amazon-linux-2.id
   instance_type        = "t2.nano"
