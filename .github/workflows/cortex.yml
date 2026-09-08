@@ -1,0 +1,62 @@
+name: Cortex CLI Code Scan
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  CORTEX_API_KEY: ${{ secrets.CORTEX_API_KEY }}
+  CORTEX_API_KEY_ID: ${{ secrets.CORTEX_API_KEY_ID }}
+  CORTEX_API_URL: https://<CORTEX_URL>
+  CORTEX_CLI_VERSION: 0.8.11
+
+jobs:
+  download-and-execute:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl
+
+      - name: Get Temporary Token
+        run: |
+          TOKEN_RESPONSE=$(curl --location "${CORTEX_API_URL}/public_api/cas/v1/cortex-cli/create-token" \
+            --header "Authorization: ${CORTEX_API_KEY}" \
+            --header "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
+            --header "Content-Type: application/json" \
+            --data '{}')
+
+          TEMP_TOKEN=$(echo "$TOKEN_RESPONSE" | jq -r '.token')
+          echo "TEMP_TOKEN=$TEMP_TOKEN" >> "$GITHUB_ENV"
+
+      - name: Pull Docker Image
+        run: |
+          docker pull distributions-dev.traps.paloaltonetworks.com/cli-docker/${{ env.TEMP_TOKEN }}/method:arm64-${{ env.CORTEX_CLI_VERSION }}-dev
+
+          docker tag \
+            distributions-dev.traps.paloaltonetworks.com/cli-docker/${{ env.TEMP_TOKEN }}/method:arm64-${{ env.CORTEX_CLI_VERSION }}-dev \
+            cortexcli:${{ env.CORTEX_CLI_VERSION }}
+
+      - name: Run Docker Container
+        run: |
+          docker run --rm --platform linux/arm64 \
+            cortexcli:${{ env.CORTEX_CLI_VERSION }} \
+            --api-base-url "${CORTEX_API_URL}" \
+            --api-key "${CORTEX_API_KEY}" \
+            --api-key-id "${CORTEX_API_KEY_ID}" \
+            code scan \
+            --directory . \
+            --repo-id "${{ github.repository }}" \
+            --log-level DEBUG
